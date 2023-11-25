@@ -1,1 +1,5 @@
-export {}
+import Input from './input';
+
+export { 
+  Input
+}

@@ -33,7 +33,8 @@
       "@/Presentation/Hook": ["./src/Presentation/Hook"],
       "@/Presentation/Type": ["./src/Presentation/Type"],
       "@/Presentation/Model": ["./src/Presentation/Model"],
-      "@/Presentation/Redux": ["./src/Presentation/Redux"]
+      "@/Presentation/Redux": ["./src/Presentation/Redux"],
+      "@/Presentation/Style/*": ["./src/Presentation/Style/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
