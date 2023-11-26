@@ -1,0 +1,11 @@
+.TodoProgress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.TodoCheck {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}

@@ -1,7 +1,7 @@
 import { useState, ChangeEventHandler, MouseEventHandler, ButtonHTMLAttributes } from 'react';
 import { Input } from '@/Presentation/Component';
 import { Button } from '@/Presentation/Component';
-
+import { Todo } from '@/Presentation/Component'
 import style from '@/Presentation/Style/Login.module.css';
 
 const Login = () => {
@@ -37,7 +37,6 @@ const Login = () => {
           onClick={loginClick}
         />
         <h3>회원가입</h3>
-
         <Button
           width="100%"
           height="60px"
@@ -48,7 +47,6 @@ const Login = () => {
           imgsrc='#'
           onClick={loginClick}
         />
-
         <Button
           width="100%"
           height="60px"
@@ -58,6 +56,15 @@ const Login = () => {
           children="네이버 로그인"
           imgsrc='#'
           onClick={loginClick}
+        />
+        <Todo
+          todoName='캡스톤디자인 UI ~12/14'
+          isTodoCheck={false}
+        />
+
+        <Todo
+          todoName='도서 반납'
+          isTodoCheck={true}
         />
       </div>
     </div>
