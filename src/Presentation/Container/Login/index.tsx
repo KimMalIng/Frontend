@@ -1,59 +1,64 @@
-import { useState, ChangeEventHandler } from 'react';
+import { useState, ChangeEventHandler, MouseEventHandler, ButtonHTMLAttributes } from 'react';
 import { Input } from '@/Presentation/Component';
+import { Button } from '@/Presentation/Component';
 
 import style from '@/Presentation/Style/Login.module.css';
 
 const Login = () => {
   const [id, SetId] = useState("");
-
-  const idOnChange: ChangeEventHandler<HTMLInputElement>= (e) => {
+  const idOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     SetId(e.target.value);
   }
-  return(
+
+  const loginClick: MouseEventHandler<HTMLButtonElement> = () => {
+    console.log("login clicked!");
+  }
+
+  return (
     <div className={style.Login}>
       <div className={style.ContentBox}>
         <h2>로그인</h2>
-        <Input 
-          width="400px"
-          height="44px"
+        <Input
+          width="100%"
+          height="60px"
           text={id}
-          fontSize="14px"
-          placeHolder="이메일을 입력해주세요"
+          fontSize="20px"
+          placeHolder="example@email.com"
           onChange={idOnChange}
         />
-        <Input 
-          width="400px"
-          height="44px"
-          text={id}
-          fontSize="14px"
-          placeHolder="이메일을 입력해주세요"
-          onChange={idOnChange}
+        <Button
+          width="100%"
+          height="60px"
+          fontSize="24px"
+          backgroundColor="#49A078"
+          color="#FFF"
+          children="계속하기"
+          imgsrc='#'
+          onClick={loginClick}
         />
-        <Input 
-          width="400px"
-          height="44px"
-          text={id}
-          fontSize="14px"
-          placeHolder="이메일을 입력해주세요"
-          onChange={idOnChange}
-        />
-        <Input 
-          width="400px"
-          height="44px"
-          text={id}
-          fontSize="14px"
-          placeHolder="이메일을 입력해주세요"
-          onChange={idOnChange}
-        />
-        <Input 
-          width="400px"
-          height="44px"
-          text={id}
-          fontSize="14px"
-          placeHolder="이메일을 입력해주세요"
-          onChange={idOnChange}
+        <h3>회원가입</h3>
+
+        <Button
+          width="100%"
+          height="60px"
+          fontSize="24px"
+          backgroundColor="#FFFF00"
+          color="#252525"
+          children="카카오 로그인"
+          imgsrc='#'
+          onClick={loginClick}
         />
 
+        <Button
+          width="100%"
+          height="60px"
+          fontSize="24px"
+          backgroundColor="#29a135"
+          color="#FFF"
+          children="네이버 로그인"
+          imgsrc='#'
+          onClick={loginClick}
+        />
       </div>
     </div>
   );
