@@ -9,3 +9,50 @@
     flex-direction: row;
     justify-content: left;
 }
+
+
+.CheckboxLabel {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.CheckboxCustom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    /* Adjust the size as needed */
+    height: 20px;
+    /* Adjust the size as needed */
+    background-color: #fff;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    margin-right: 8px;
+    /* Adjust spacing between checkbox and label */
+}
+
+.CheckboxLabel input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.CheckboxLabel input:checked+.CheckboxCustom::before {
+    content: '\2713';
+    /* Checkmark symbol */
+    font-size: 14px;
+    /* Adjust the size of the checkmark */
+    color: #3498db;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Optional: Hover effect */
+.CheckboxLabel:hover .CheckboxCustom {
+    border-color: #2980b9;
+    /* Adjust color on hover */
+}
