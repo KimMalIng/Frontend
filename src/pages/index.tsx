@@ -1,7 +1,7 @@
-import { Login } from '@/Presentation/Container';
+import { Login , Main } from '@/Presentation/Container';
 
 export default function Index(){
   return(
-    <Login />
+    <Main/>
   );
 }
