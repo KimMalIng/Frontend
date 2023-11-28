@@ -422,7 +422,7 @@ body {
   height: 100vh;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'H-Light';
   src: url('./font/HakgyoansimSantteutdotumL.woff2') format('woff2');
   font-weight: 300;
@@ -448,4 +448,4 @@ body {
   src: url('./font/HakgyoansimBareondotumB.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-}
+} */
