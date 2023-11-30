@@ -4,37 +4,58 @@ import { Button } from '@/Presentation/Component';
 import style from '@/Presentation/Style/Login.module.css';
 
 const Login = () => {
-
-  const [id, SetId] = useState("");
-  const idOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    SetId(e.target.value);
+  const [ loginButtonText, setLoginButtonText ] = useState("계속하기");
+  const [ id, setId ] = useState("");
+  const [ pwd, setPwd ] = useState("");
+  const [ isIdVaild, setIdValid ] = useState(false);
+  const idOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {setId(e.target.value);}
+  const pwdOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {setPwd(e.target.value);}
+  const idSetClick: MouseEventHandler<HTMLButtonElement> = () => {
+    if(id!== ""){
+      setIdValid(true);
+      setLoginButtonText("로그인하기");
+    } else {
+      alert("Please input valid ID");
+    }
   }
-
-  const loginClick: MouseEventHandler<HTMLButtonElement> = () => {
-    console.log("login clicked!");
+  const pwdVaildCheck: MouseEventHandler<HTMLButtonElement> = () => {
+    if(pwd!==""){
+      console.log(`id : ${id}, pwd : ${pwd}`);
+      alert("Welcome!");
+    } else {
+      alert("Please input valid Password");
+    }
   }
-
   return (
     <div className={style.Login}>
       <div className={style.ContentBox}>
-        <h2>로그인</h2>
-        <Input
+        <h2>{isIdVaild ? "비밀번호 입력" : "로그인" }</h2>
+        {isIdVaild? <Input
+          width="100%"
+          height="60px"
+          text={pwd}
+          type="password"
+          fontSize="20px"
+          placeHolder={"your password"}
+          onChange={pwdOnChange}
+        /> : <Input
+          type='id'
           width="100%"
           height="60px"
           text={id}
           fontSize="20px"
-          placeHolder="example@email.com"
+          placeHolder={"example@email.com"}
           onChange={idOnChange}
-        />
+        />}
         <Button
           width="100%"
           height="60px"
           fontSize="24px"
           backgroundColor="#49A078"
           color="#FFF"
-          children="계속하기"
+          children={loginButtonText}
           imgsrc='#'
-          onClick={loginClick}
+          onClick={ isIdVaild ? pwdVaildCheck : idSetClick }
         />
         <h3>회원가입</h3>
       </div>

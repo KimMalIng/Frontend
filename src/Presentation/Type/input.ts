@@ -6,6 +6,7 @@ type InputProps = {
   text: string;
   placeHolder: string;
   fontSize: string;
+  type: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 

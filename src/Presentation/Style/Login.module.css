@@ -23,6 +23,7 @@
   font-size: 28px;
   line-height: 40px;
   font-weight: 600;
+  transition: 0.2s;
 }
 
 .ContentBox > h3{
