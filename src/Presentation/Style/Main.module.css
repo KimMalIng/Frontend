@@ -17,13 +17,3 @@
     display: flex;
     flex-direction: row;
   }  
-
-.DayTimeLine {
-    width: 50%;
-    border: 1px solid black;
-}
-
-.DayTodoBox {
-    width: 50%;
-    border: 1px solid black;
-}
