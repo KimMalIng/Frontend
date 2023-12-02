@@ -1,4 +1,4 @@
-const authToken = localStorage.getItem("key") ? localStorage.getItem("key") : null;
+const authToken = ""
 const baseUrl = "https://localhost:8080";
 export default function getAPIData(method : string | "GET", path : string | null, body : string | null) {
     if(method === "GET") {
