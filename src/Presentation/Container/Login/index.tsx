@@ -1,15 +1,17 @@
 import { useState, ChangeEventHandler, MouseEventHandler } from 'react';
 import { Input } from '@/Presentation/Component';
 import { Button } from '@/Presentation/Component';
+import { useRouter } from 'next/router';
 import style from '@/Presentation/Style/Login.module.css';
 
 const Login = () => {
+  const router = useRouter();
   const [ loginButtonText, setLoginButtonText ] = useState("계속하기");
   const [ id, setId ] = useState("");
   const [ pwd, setPwd ] = useState("");
   const [ isIdVaild, setIdValid ] = useState(false);
+  
   const idOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {setId(e.target.value);}
-  const pwdOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {setPwd(e.target.value);}
   const idSetClick: MouseEventHandler<HTMLButtonElement> = () => {
     if(id!== ""){
       setIdValid(true);
@@ -18,10 +20,12 @@ const Login = () => {
       alert("Please input valid ID");
     }
   }
+
+  const pwdOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {setPwd(e.target.value);}
   const pwdVaildCheck: MouseEventHandler<HTMLButtonElement> = () => {
     if(pwd!==""){
       console.log(`id : ${id}, pwd : ${pwd}`);
-      alert("Welcome!");
+      router.push('/main');
     } else {
       alert("Please input valid Password");
     }
