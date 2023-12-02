@@ -1,20 +1,16 @@
-import { useState, ChangeEventHandler, MouseEventHandler, ButtonHTMLAttributes } from 'react';
+import { useState, ChangeEventHandler } from 'react';
 import { Todo } from "@/Presentation/Component";
 import style from "@/Presentation/Style/Main.module.css";
 
 const Main = () => {
     // isTodoCheck === false, make progress bar
     const [sliderValue, setSliderValue] = useState(0);
-    const handleSliderChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-        const newValue = parseInt(e.target.value, 10);
-        setSliderValue(newValue);
-    };
+    const handleSliderChange: ChangeEventHandler<HTMLInputElement> = (e) => { const newValue = parseInt(e.target.value, 10); setSliderValue(newValue); };
 
     // isTodoCheck ===true, make toggle button 
     const [isDone, setIsDone] = useState(true);
-    const handleDone: ChangeEventHandler<HTMLInputElement> = () => {
-        setIsDone((prev) => !prev);
-    }
+    const handleDone: ChangeEventHandler<HTMLInputElement> = () => { setIsDone((prev) => !prev); }
+
     return (
         <div className={style.Main}>
             <div className={style.ContentBox}>

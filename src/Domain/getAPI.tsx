@@ -1,22 +1,20 @@
 const authToken = localStorage.getItem("key") ? localStorage.getItem("key") : null;
-
-class BackEndDataSource {
-    static getBackend(path: string, method: string): Promise<string | null> {
-        return new Promise((resolve) => {
-            if (method === "GET") {
-                const a = getData(path);
-                resolve(a)
-            } else if (method === "POST") {
-                const a = postData(path);
-                resolve(a)
-            }
-        });
+const baseUrl = "https://localhost:8080";
+export default function getAPIData(method : string | "GET", path : string | null, body : string | null) {
+    if(method === "GET") {
+        return getData(path);
+    } else if (method === "POST ") {
+        return postData(path);
+    } else if (body !== null) {
+        return postBodyData(path, body);
+    } else {
+        return null
     }
-};
+}
 
-async function getData(path: string) {
+async function getData(path: string | null) {
         try {
-            const response = await fetch(`https://localhosy:8080/${path}`, {
+            const response = await fetch(`${baseUrl}/${path}`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${authToken}`,
@@ -32,13 +30,13 @@ async function getData(path: string) {
         }
 }
 
-async function postData(path: string) {
+async function postData(path: string | null) {
     try {
-        const response = await fetch(`https://localhosy:8080/${path}`, {
-            method: "GET",
+        const response = await fetch(`${baseUrl}/${path}`, {
+            method: "POST",
             headers: {
                 'Authorization': `Bearer ${authToken}`,
-            },
+            }
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -50,4 +48,23 @@ async function postData(path: string) {
     }
 }
 
-export default BackEndDataSource;
+
+async function postBodyData(path: string | null, body: string | null) {
+    try {
+        const response = await fetch(`${baseUrl}/${path}`, {
+            method: "POST",
+            headers: {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}

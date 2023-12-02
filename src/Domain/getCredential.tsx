@@ -1,20 +1,12 @@
-class Credential {
-    static getCredentials(path:string, id: string, pwd: string): Promise<string | null> {
-        return new Promise(() => {
-            getCredential(id,pwd,path);
-        });
-    }
-}
+const baseUrl = "https://localhost:8080";
 
-export default Credential;
-
-async function getCredential(path:string, id:string, pwd:string) {
+export default async function getCredential(path:string, id:string, pwd:string) {
     const requestbody = {
         userId: id,
-        userPassword: pwd,
+        userPw: pwd,
     };
     try {
-        const res = await fetch(`https://localhosy:8080/${path}`, {
+        const res = await fetch(`${baseUrl}/${path}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
