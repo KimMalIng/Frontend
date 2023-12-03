@@ -4,7 +4,7 @@ import { UserDataType } from '@/Data/Model';
 class AuthDataSource {  
   static async login(id: string, password: string): Promise<UserDataType>{
     try {
-      const res = await fetch(`${SERVER_URL}/login`,{
+      const res = await fetch(`${SERVER_URL}/users/login`,{
         method: "POST",
         headers:{
           "Content-Type": "application/x-www-form-urlencoded"
@@ -33,7 +33,7 @@ class AuthDataSource {
       formData.append("university", data.university);
       formData.append("major", data.major);
       // file 추가 해야함
-      const res = await fetch(`${SERVER_URL}/join`,{
+      const res = await fetch(`${SERVER_URL}/users/join`,{
         method: "POST",
         headers:{
           "Content-Type": "multipart/form-data"
