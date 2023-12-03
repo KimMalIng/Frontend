@@ -1,4 +1,5 @@
 import { UserEntity } from "@/Domain/Entity";
+import { UserDataType } from '@/Data/Model';
 import { AuthRepository } from "@/Domain/Repository";
 
 class AuthRepositoryImpl implements AuthRepository{
