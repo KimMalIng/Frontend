@@ -3,7 +3,7 @@ import style from '@/Presentation/Style/Todo.module.css'
 import React, { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import Button from "./button";
 
-const Todo = ({ label, name, isTodoCheck, value, checked, onChange }: TodoProps) => {
+const Todo = ({ label, name, isTodoCheck, value, checked, onChange, startTime, endTime }: TodoProps) => {
 
     const calculateFillPercentage = () => { return (value / 100) * 100; };
 
@@ -12,7 +12,9 @@ const Todo = ({ label, name, isTodoCheck, value, checked, onChange }: TodoProps)
             <h2>{name}</h2>
 
             {label === 0 ? (<div>
-            
+                <label>
+                    <p>{startTime} ~ {endTime}</p>
+                </label>
             </div>) : isTodoCheck ? (
                 <label className={style.CheckboxLabel}>
                     <input

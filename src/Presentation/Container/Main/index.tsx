@@ -12,8 +12,8 @@ const Main = () => {
     const [today, setToday] = useState("");
     useState(() => { setToday("231202"); }) // 이걸로 바꾸기 setToday(getToday());
 
-    const todos = todoData.filter((todo) => todo.day == today).map((subject) => subject.subject);
-
+    const todos = todoData.filter((todo) => todo.day == today);
+    console.log(todos);
     const handleSliderChange: ChangeEventHandler<HTMLInputElement> = (e) => { const newValue = parseInt(e.target.value, 10); setSliderValue(newValue); };
     // isTodoCheck ===true, make toggle button 
     const [isDone, setIsDone] = useState(true);
@@ -26,6 +26,7 @@ const Main = () => {
     }
 
     // const todayTodo = getAPIData("POST", "timetable/period", JSON.stringify(postBody));
+    
     return (
         <div className={style.Main}>
             <div className={style.ContentBox}>
@@ -33,18 +34,20 @@ const Main = () => {
                 </div>
                 <div className={style.DayTimeLine}>
                     {
-                        todos.map((todo, index) => (
-                            <Todo
-                                key={index}
-                                label={todo[index].label}
-                                name={todo[index].name}
-                                startTime={todo[index].startTime}
-                                endTime={todo[index].endTime}
-                                isTodoCheck={false}
-                                value={sliderValue}
-                                onChange={handleSliderChange}
-                                checked={undefined}
-                            ></Todo>
+                        todos.map((todoSubject, index) => (
+                            todoSubject.subject.map((todo, todoIndex) => (
+                                <Todo
+                                    key={index * 10 + todoIndex} // Adjust the key to ensure uniqueness
+                                    label={todo.label}
+                                    name={todo.name}
+                                    startTime={todo.startTime}
+                                    endTime={todo.endTime}
+                                    isTodoCheck={false}
+                                    value={sliderValue}
+                                    onChange={handleSliderChange}
+                                    checked={undefined}
+                                ></Todo>
+                            ))
                         ))
                     }
                 </div>
