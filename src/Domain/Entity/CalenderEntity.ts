@@ -9,8 +9,8 @@ type SubjectType = {
 }
 
 class CalenderEntity {
-  private day: string;
-  private subject: SubjectType[];
+  day: string;
+  subject: SubjectType[];
 
   constructor(
     day: string,
