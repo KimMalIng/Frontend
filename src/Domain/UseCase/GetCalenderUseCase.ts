@@ -8,8 +8,18 @@ class GetCalenderUseCase {
     this.calenderReposiotry = cr;
   }
 
-  async execute(id: number, startDate: string, endDate: string): Promise<CalenderEntity>{
+  async execute(id: number | null | undefined, startDate: string | null | undefined, endDate: string | null | undefined): Promise<CalenderEntity>{
     // 조건
+    if(
+      typeof id === "undefined" ||
+      typeof startDate === "undefined" ||
+      typeof endDate === "undefined" ||
+      id === null ||
+      startDate === null ||
+      endDate === null
+    ){
+      return Promise.reject(400);
+    }
     if(startDate.length !== 8 || endDate.length !== 8){
       return Promise.reject(400);
     }
