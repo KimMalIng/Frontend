@@ -1,7 +1,11 @@
 import { ChangeEventHandler, MouseEventHandler } from "react";
 
 type TodoProps = {
-    todoName: string;
+    key : number;
+    label : number;
+    startTime : string;
+    endTime : string;
+    name: string;
     isTodoCheck: boolean;
     value : number;
     checked : boolean | undefined;

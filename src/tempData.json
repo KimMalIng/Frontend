@@ -1,9 +1,9 @@
 [
     {
-        "day": "20231202",
+        "day": "231202",
         "subject": [
             {
-                "date": "20231202",
+                "date": "231202",
                 "startTime": "12:00",
                 "endTime": "14:50",
                 "label": 0,
@@ -12,7 +12,7 @@
                 "estimated_time": null
             },
             {
-                "date": "20231202",
+                "date": "231202",
                 "startTime": "15:00",
                 "endTime": "17:45",
                 "label": 0,
@@ -21,7 +21,7 @@
                 "estimated_time": null
             },
             {
-                "date": "20231202",
+                "date": "231202",
                 "startTime": "18:00",
                 "endTime": "20:40",
                 "label": 0,
