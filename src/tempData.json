@@ -52,7 +52,7 @@
                 "name": "알고리즘 스터디",
                 "deadline": null,
                 "todo_type" : "check",
-                "isDone" : false,
+                "isDone" : true,
                 "progress" : null,
                 "estimated_time": null
             }

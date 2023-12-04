@@ -3,27 +3,26 @@ import style from '@/Presentation/Style/Todo.module.css'
 import React, { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import Button from "./button";
 
-const Todo = ({ label, name, todoType, value, checked, startTime, endTime }: TodoProps) => {
+const Todo = ({ label, name, todoType, prevValue, checked, startTime, endTime }: TodoProps) => {
 
-    const calculateFillPercentage = () => { if(value !== undefined) {return (value / 100) * 100; }};
-    const [sliderValue, setSliderValue] = useState(value);
+    const calculateFillPercentage = () => { if(sliderValue !== undefined) {return (sliderValue/ 100) * 100; }};
+    const [sliderValue, setSliderValue] = useState(prevValue);
     const handleSliderChange: ChangeEventHandler<HTMLInputElement> = (e) => {
         const newValue = parseInt(e.target.value, 10); 
         setSliderValue(newValue); 
     };
     // isTodoCheck ===true, make toggle button 
-    const [isDone, setIsDone] = useState(false);
+    const [isDone, setIsDone] = useState(checked);
     const setDone = (boo:boolean) => {
         setIsDone(boo => !boo);
     }
     const handleDone: ChangeEventHandler<HTMLInputElement> = (e) => {setDone(e.target.checked)}
-
     
     return (
         <div className={style.TodoBox}>
             <h2>{name}</h2>
 
-            {todoType=== "fixed" ? (<div>
+            {todoType === "fixed" ? (<div>
                 <label>
                     <p>{startTime} ~ {endTime}</p>
                 </label>
@@ -33,7 +32,6 @@ const Todo = ({ label, name, todoType, value, checked, startTime, endTime }: Tod
                         <input
                             id="checkbox"
                             type="checkbox"
-                            checked={isDone}
                             onChange={handleDone}
                         />
                         <span className={style.CheckboxCustom}></span>
@@ -49,7 +47,7 @@ const Todo = ({ label, name, todoType, value, checked, startTime, endTime }: Tod
                         onChange={handleSliderChange}
                         style={{ background: `linear-gradient(to right, #3498db 0%, #3498db ${calculateFillPercentage()}%, #ecf0f1 ${calculateFillPercentage()}%, #ecf0f1 100%)` }}
                     />
-                    <div>Progress: {value}/{100}</div>
+                    <div>Progress: {sliderValue}/{100}</div>
                 </div>)}
         </div>
     )

@@ -21,7 +21,7 @@ const Main = () => {
     }
 
     // const todayTodo = getAPIData("POST", "timetable/period", JSON.stringify(postBody));
-    
+
     return (
         <div className={style.Main}>
             <div className={style.ContentBox}>
@@ -38,8 +38,8 @@ const Main = () => {
                                     startTime={todo.startTime}
                                     endTime={todo.endTime}
                                     todoType={todo.todo_type}
-                                    value={todo.progress ? todo.progress : undefined}
-                                    checked={undefined}
+                                    prevValue={todo.progress ? todo.progress : undefined}
+                                    checked={todo.isDone ? todo.isDone : undefined}
                                 ></Todo>
                             ))
                         ))

@@ -7,8 +7,8 @@ type TodoProps = {
     endTime : string;
     name: string;
     todoType: string;
-    value : number | undefined;
     checked : boolean | undefined;
+    prevValue : number | undefined;
 }
 
 export type {
