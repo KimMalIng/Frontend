@@ -5,10 +5,58 @@
 }
 
 .TodoBox {
-    width: 460px;
+    width: 100%;
     height: 100px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+}
+
+.TodoContainer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 75%;
+    border-top: 2px dashed #cbcbcb;
+    margin-left: 30px;
+}
+
+.TodoBody {
+    width: 85%;
+    height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.TodoBody, .DoneTodoBody > div > p {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.DoneTodoBody {
+    width: 85%;
+    height: 75%;
+    display: flex;
+    background-color: #bbbbbb;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.TimeTable {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.TimeTable:first-child {
+    margin-top: 20px;
+}
+.TimeTable:nth-child(1){
+    margin-bottom: 10px;
 }
 
 .TodoCheck {
@@ -17,49 +65,36 @@
     justify-content: left;
 }
 
-
 .CheckboxLabel {
-    position: relative;
-    cursor: pointer;
     display: flex;
     align-items: center;
+    
+    position: relative;
 }
 
 .CheckboxCustom {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 20px;
-    /* Adjust the size as needed */
-    height: 20px;
-    /* Adjust the size as needed */
+    margin-left: 20px;
+    width: 30px;
+    height: 30px;
     background-color: #fff;
-    border: 2px solid #3498db;
+    border: 1px solid #5d5d5d;
     border-radius: 4px;
     margin-right: 8px;
-    /* Adjust spacing between checkbox and label */
-}
-
-.CheckboxLabel input {
-    opacity: 0;
-    width: 0;
-    height: 0;
 }
 
 .CheckboxLabel input:checked+.CheckboxCustom::before {
     content: '\2713';
-    /* Checkmark symbol */
-    font-size: 14px;
-    /* Adjust the size of the checkmark */
-    color: #3498db;
+    padding-top: 5px;
+    font-size: 30px;
+    color: #FFF;
+    background-color: #49A078;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
 }
 
-/* Optional: Hover effect */
-.CheckboxLabel:hover .CheckboxCustom {
-    border-color: #2980b9;
-    /* Adjust color on hover */
+.ProgressBar {
+    border-radius: 10px;
 }

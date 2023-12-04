@@ -23,30 +23,24 @@ const Main = () => {
 
     return (
         <div className={style.Main}>
+            <div className={style.todayDate}>
+                <p>{upperBarDate}</p>
+            </div>
             <div className={style.ContentBox}>
-                <div>
-                    <p>{upperBarDate}</p>
-                </div>
-                <div className={style.DayTodoBox}>
-                </div>
-                <div className={style.DayTimeLine}>
-                    {
-                        todos.map((todoSubject, index) => (
-                            todoSubject.subject.map((todo, todoIndex) => (
-                                <Todo
-                                    key={index * 10 + todoIndex} // Adjust the key to ensure uniqueness
-                                    label={todo.label}
-                                    name={todo.name}
-                                    startTime={todo.startTime}
-                                    endTime={todo.endTime}
-                                    todoType={todo.todo_type}
-                                    prevValue={todo.progress ? todo.progress : undefined}
-                                    checked={todo.isDone ? todo.isDone : undefined}
-                                ></Todo>
-                            ))
-                        ))
-                    }
-                </div>
+                {todos.map((todoSubject, index) => (
+                    todoSubject.subject.map((todo, todoIndex) => (
+                        <Todo
+                            key={index * 10 + todoIndex} // Adjust the key to ensure uniqueness
+                            label={todo.label}
+                            name={todo.name}
+                            startTime={todo.startTime}
+                            endTime={todo.endTime}
+                            todoType={todo.todo_type}
+                            prevValue={todo.progress ? todo.progress : undefined}
+                            checked={todo.isDone ? todo.isDone : undefined}
+                        ></Todo>
+                    ))
+                ))}
             </div>
         </div>
     );
