@@ -8,16 +8,11 @@ import style from "@/Presentation/Style/Main.module.css";
 const Main = () => {
 
     // isTodoCheck === false, make progress bar
-    const [sliderValue, setSliderValue] = useState(0);
     const [today, setToday] = useState("");
     useState(() => { setToday("231202"); }) // 이걸로 바꾸기 setToday(getToday());
 
     const todos = todoData.filter((todo) => todo.day == today);
     console.log(todos);
-    const handleSliderChange: ChangeEventHandler<HTMLInputElement> = (e) => { const newValue = parseInt(e.target.value, 10); setSliderValue(newValue); };
-    // isTodoCheck ===true, make toggle button 
-    const [isDone, setIsDone] = useState(true);
-    const handleDone: ChangeEventHandler<HTMLInputElement> = () => { setIsDone((prev) => !prev); }
 
     const postBody = {
         "user_id": 1,
@@ -42,9 +37,8 @@ const Main = () => {
                                     name={todo.name}
                                     startTime={todo.startTime}
                                     endTime={todo.endTime}
-                                    isTodoCheck={false}
-                                    value={sliderValue}
-                                    onChange={handleSliderChange}
+                                    todoType={todo.todo_type}
+                                    value={todo.progress ? todo.progress : undefined}
                                     checked={undefined}
                                 ></Todo>
                             ))

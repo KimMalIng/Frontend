@@ -6,10 +6,9 @@ type TodoProps = {
     startTime : string;
     endTime : string;
     name: string;
-    isTodoCheck: boolean;
-    value : number;
+    todoType: string;
+    value : number | undefined;
     checked : boolean | undefined;
-    onChange : ChangeEventHandler<HTMLInputElement>;
 }
 
 export type {

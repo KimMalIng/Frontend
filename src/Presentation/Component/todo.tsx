@@ -3,36 +3,50 @@ import style from '@/Presentation/Style/Todo.module.css'
 import React, { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import Button from "./button";
 
-const Todo = ({ label, name, isTodoCheck, value, checked, onChange, startTime, endTime }: TodoProps) => {
+const Todo = ({ label, name, todoType, value, checked, startTime, endTime }: TodoProps) => {
 
-    const calculateFillPercentage = () => { return (value / 100) * 100; };
+    const calculateFillPercentage = () => { if(value !== undefined) {return (value / 100) * 100; }};
+    const [sliderValue, setSliderValue] = useState(value);
+    const handleSliderChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+        const newValue = parseInt(e.target.value, 10); 
+        setSliderValue(newValue); 
+    };
+    // isTodoCheck ===true, make toggle button 
+    const [isDone, setIsDone] = useState(false);
+    const setDone = (boo:boolean) => {
+        setIsDone(boo => !boo);
+    }
+    const handleDone: ChangeEventHandler<HTMLInputElement> = (e) => {setDone(e.target.checked)}
 
+    
     return (
-        <div className={isTodoCheck ? style.TodoCheck : style.TodoProgress}>
+        <div className={style.TodoBox}>
             <h2>{name}</h2>
 
-            {label === 0 ? (<div>
+            {todoType=== "fixed" ? (<div>
                 <label>
                     <p>{startTime} ~ {endTime}</p>
                 </label>
-            </div>) : isTodoCheck ? (
-                <label className={style.CheckboxLabel}>
-                    <input
-                        id="checkbox"
-                        type="checkbox"
-                        checked={checked}
-                        onChange={onChange}
-                    />
-                    <span className={style.CheckboxCustom}></span>
-                </label>) : (
-                <div>
+            </div>) : todoType==="check" ? (
+                <div className={style.TodoCheck}>
+                    <label className={style.CheckboxLabel}>
+                        <input
+                            id="checkbox"
+                            type="checkbox"
+                            checked={isDone}
+                            onChange={handleDone}
+                        />
+                        <span className={style.CheckboxCustom}></span>
+                    </label>
+                </div>) : (
+                <div className={style.TodoProgress}>
                     <input
                         type="range"
                         min={0}
                         max={100}
                         step={10}
-                        value={value}
-                        onChange={onChange}
+                        value={sliderValue}
+                        onChange={handleSliderChange}
                         style={{ background: `linear-gradient(to right, #3498db 0%, #3498db ${calculateFillPercentage()}%, #ecf0f1 ${calculateFillPercentage()}%, #ecf0f1 100%)` }}
                     />
                     <div>Progress: {value}/{100}</div>

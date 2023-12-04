@@ -9,6 +9,7 @@
                 "label": 0,
                 "name": "스타트업소셜벤처",
                 "deadline": null,
+                "todo_type" : "fixed",
                 "estimated_time": null
             },
             {
@@ -18,6 +19,7 @@
                 "label": 0,
                 "name": "컴퓨터네트워크",
                 "deadline": null,
+                "todo_type" : "fixed",
                 "estimated_time": null
             },
             {
@@ -27,6 +29,31 @@
                 "label": 0,
                 "name": "엔터테인먼트소프트웨어",
                 "deadline": null,
+                "todo_type" : "fixed",
+                "estimated_time": null
+            },
+            {
+                "date": "231202",
+                "startTime": "21:00",
+                "endTime": "22:30",
+                "label": 2,
+                "name": "캡스톤디자인 UI",
+                "deadline": null,
+                "todo_type" : "slide",
+                "isDone" : null,
+                "progress" : 20,
+                "estimated_time": null
+            },
+            {
+                "date": "231202",
+                "startTime": "23:00",
+                "endTime": "00:00",
+                "label": 2,
+                "name": "알고리즘 스터디",
+                "deadline": null,
+                "todo_type" : "check",
+                "isDone" : false,
+                "progress" : null,
                 "estimated_time": null
             }
         ]
