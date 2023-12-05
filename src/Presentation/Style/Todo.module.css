@@ -14,11 +14,38 @@
 
 .TodoContainer {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     width: 75%;
     border-top: 2px dashed #cbcbcb;
     margin-left: 30px;
+}
+
+.ColorLabel {
+    width: 45px;
+    height: 22.5px;
+    background-color: black;
+    z-index: 10;
+    margin-right: -25px;
+    margin-top: -10px;
+}
+
+.TodoFixed, .TodoCheck {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.TodoFixed > img, .CheckboxLabel {
+    position: absolute;
+    right: 0%;
+    margin-right: -20px;
+}
+
+.CheckboxLabel {
+    display: flex;
+    top: -20%;
+    margin-right: -50px;
 }
 
 .TodoBody {
@@ -59,22 +86,7 @@
     margin-bottom: 10px;
 }
 
-.TodoCheck {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-}
-
-.CheckboxLabel {
-    display: flex;
-    align-items: center;
-    
-    position: relative;
-}
-
 .CheckboxCustom {
-    position: absolute;
-    margin-left: 20px;
     width: 30px;
     height: 30px;
     background-color: #fff;

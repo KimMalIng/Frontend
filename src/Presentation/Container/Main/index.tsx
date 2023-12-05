@@ -18,7 +18,6 @@ const Main = () => {
         "startDate": today,
         "endDate": today
     }
-
     // const todayTodo = getAPIData("POST", "timetable/period", JSON.stringify(postBody));
 
     return (
