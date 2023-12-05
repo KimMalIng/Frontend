@@ -1,5 +1,6 @@
 import { Button, Input } from "@/Presentation/Component";
 import React, { MouseEventHandler } from "react";
+import { useRouter } from 'next/router';
 import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ChangeEventHandler, useState } from "react";
@@ -20,7 +21,10 @@ const NewTask = () => {
         setSelectedOption(e.target.value)
     };
 
+    const router = useRouter();
     const handleButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
+        alert("일정이 등록되었습니다!");
+        router.push('./main');
     }
 
     return (
