@@ -37,6 +37,6 @@
       "@/Presentation/Style/*": ["./src/Presentation/Style/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts","src/**/*.ts", "src/**/*.tsx", "src/**/*.svg"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
