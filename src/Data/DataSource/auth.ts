@@ -23,7 +23,7 @@ class AuthDataSource {
       return Promise.reject(500);
     }
   }
-  static async signin(data: UserDataType): Promise<UserDataType>{
+  static async signup(data: UserDataType): Promise<UserDataType>{
     try {
       const formData = new FormData();
       formData.append("userId", data.id);
@@ -36,7 +36,7 @@ class AuthDataSource {
       const res = await fetch(`${SERVER_URL}/users/join`,{
         method: "POST",
         headers:{
-          "Content-Type": "multipart/form-data"
+          // "Content-Type": "multipart/form-data"
         },
         body: formData
       });

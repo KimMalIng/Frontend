@@ -3,10 +3,10 @@ import { CalenderData } from '@/Data/Model';
 class CalenderDataSource {
   static async getCalender(id: number, startDate: string, endDate: string): Promise<CalenderData>{
     try {
-      const res = await fetch(`${SERVER_URL}/timeline/${startDate}&${endDate}`,{
+      const res = await fetch(`${SERVER_URL}/timetable/period`,{
         method: "POST",
         headers:{
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           user_id: id,
@@ -16,6 +16,7 @@ class CalenderDataSource {
       });
       if(res.status === 200){
         const data: CalenderData = await res.json();
+        console.log(data);
         return data;
       }
       return Promise.reject(res.status);
@@ -28,7 +29,7 @@ class CalenderDataSource {
       const res = await fetch(`${SERVER_URL}/job/save`,{
         method: "POST",
         headers:{
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           user_id: id,

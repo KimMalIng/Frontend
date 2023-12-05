@@ -20,9 +20,9 @@ class GetCalenderUseCase {
     ){
       return Promise.reject(400);
     }
-    if(startDate.length !== 8 || endDate.length !== 8){
-      return Promise.reject(400);
-    }
+    // if(startDate.length !== 8 || endDate.length !== 8){
+    //   return Promise.reject(400);
+    // }
     try {
       const data = await this.calenderReposiotry.getCalender(id, startDate, endDate);
       return data;

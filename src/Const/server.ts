@@ -1,4 +1,4 @@
-const SERVER_URL = "localhost:3000";
+const SERVER_URL = "http://localhost:8080";
 
 export {
   SERVER_URL

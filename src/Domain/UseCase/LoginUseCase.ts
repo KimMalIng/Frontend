@@ -24,3 +24,5 @@ class LoginUseCase {
     }
   }
 }
+
+export default LoginUseCase;
