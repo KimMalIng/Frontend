@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { AuthModel, CalenderModel } from '@/Presentation/Model';
 
 const Test = () => {
@@ -9,17 +9,14 @@ const Test = () => {
   //   await authModel.signUp();
   // }
 
-  const getC = async () =>{
+  const getC = async () => {
     await calenderModel.getCalender();
-  }
-
+  };
 
   useEffect(() => {
     getC();
   }, []);
-  return(
-    <></>
-  );
-}
+  return <></>;
+};
 
 export default Test;

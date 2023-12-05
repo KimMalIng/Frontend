@@ -6,19 +6,23 @@ class CalenderModel {
   private calenderRepository: CalenderRepository;
   private getCalenderUseCase: GetCalenderUseCase;
 
-  constructor(){
+  constructor() {
     this.calenderRepository = new CalenderRepositoryImpl();
     this.getCalenderUseCase = new GetCalenderUseCase(this.calenderRepository);
   }
 
-  async getCalender(){
+  async getCalender() {
     try {
-      const res = await this.getCalenderUseCase.execute(102, "2023.12.04", "2023.12.10");
-      console.log(res);
+      const res = await this.getCalenderUseCase.execute(
+        102,
+        '2023.12.04',
+        '2023.12.10'
+      );
+      return res;
     } catch (error) {
       return Promise.reject(error);
     }
   }
-};
+}
 
 export default CalenderModel;

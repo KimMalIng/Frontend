@@ -1,4 +1,4 @@
-.Login {
+.Register {
   width: 100vw;
   height: 100vh;
   background-color: #9cc5a1;
@@ -17,17 +17,4 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.ContentBox > h2 {
-  font-size: 28px;
-  line-height: 40px;
-  font-weight: 600;
-  transition: 0.2s;
-}
-
-.ContentBox > h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #216869;
 }

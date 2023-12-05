@@ -1,0 +1,8 @@
+.Header{
+  width: 100vw;
+  height: 60px;
+  background-color: #9CC5A1;
+  position: fixed;
+  box-shadow: 1px 1px 1px 1px #DCE1DE;
+  top: 0;
+}

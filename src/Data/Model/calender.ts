@@ -10,10 +10,7 @@ type SubjectType = {
 
 type CalenderData = {
   day: string;
-  subject: SubjectType[]
+  subject: SubjectType[];
 };
 
-export type {
-  CalenderData,
-  SubjectType
-};
+export type { CalenderData, SubjectType };

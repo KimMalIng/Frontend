@@ -1,112 +1,121 @@
 .TodoProgress {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .TodoBox {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .TodoContainer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 75%;
-    border-top: 2px dashed #cbcbcb;
-    margin-left: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 75%;
+  border-top: 2px dashed #cbcbcb;
+  margin-left: 30px;
 }
 
 .ColorLabel {
-    width: 45px;
-    height: 22.5px;
-    background-color: black;
-    z-index: 10;
-    margin-right: -25px;
-    margin-top: -10px;
+  width: 45px;
+  height: 22.5px;
+  background-color: black;
+  z-index: 10;
+  margin-right: -25px;
+  margin-top: -10px;
+  border-radius: 1px;
+  box-shadow: 0.2px 0.2px 0.2px 0.2px rgba(0, 0, 0, 0.2);
 }
 
-.TodoFixed, .TodoCheck {
-    display: flex;
-    flex-direction: row;
-    position: relative;
+.TodoFixed,
+.TodoCheck {
+  display: flex;
+  flex-direction: row;
+  position: relative;
 }
 
-.TodoFixed > img, .CheckboxLabel {
-    position: absolute;
-    right: 0%;
-    margin-right: -20px;
+.TodoFixed > img {
+  position: absolute;
+  right: 0%;
+  margin-right: -20px;
 }
 
 .CheckboxLabel {
-    display: flex;
-    top: -20%;
-    margin-right: -50px;
+  display: flex;
+  top: -20%;
+  margin-right: -50px;
 }
 
 .TodoBody {
-    width: 85%;
-    height: 75%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  width: calc(85%);
+  height: 75%;
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
+  border-radius: 1px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
-.TodoBody, .DoneTodoBody > div > p {
-    font-size: 20px;
-    font-weight: bolder;
+.TodoBody,
+.DoneTodoBody > div > p {
+  font-size: 16px;
+  font-weight: bolder;
 }
 
 .DoneTodoBody {
-    width: 85%;
-    height: 75%;
-    display: flex;
-    background-color: #bbbbbb;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  width: 85%;
+  height: 75%;
+  display: flex;
+  background-color: #9CC5A1;
+  align-items: center;
+  padding-left: 60px;
+  border-radius: 1px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .TimeTable {
-    font-size: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .TimeTable:first-child {
-    margin-top: 20px;
+  margin-top: 20px;
 }
-.TimeTable:nth-child(1){
-    margin-bottom: 10px;
+.TimeTable:nth-child(1) {
+  margin-bottom: 10px;
+}
+
+.TimeTable > p{
+  font-size: 14px;
 }
 
 .CheckboxCustom {
-    width: 30px;
-    height: 30px;
-    background-color: #fff;
-    border: 1px solid #5d5d5d;
-    border-radius: 4px;
-    margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border: 1px solid #49a078;
+  border-radius: 4px;
+  margin-left: 4px;
 }
 
-.CheckboxLabel input:checked+.CheckboxCustom::before {
-    content: '\2713';
-    padding-top: 5px;
-    font-size: 30px;
-    color: #FFF;
-    background-color: #49A078;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.CheckboxLabel input:checked + .CheckboxCustom::before {
+  content: '\2713';
+  padding-top: 5px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #49a078;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border-radius: 2px;
 }
 
 .ProgressBar {
-    border-radius: 10px;
+  border-radius: 10px;
 }

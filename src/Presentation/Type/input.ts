@@ -8,8 +8,6 @@ type InputProps = {
   fontSize: string;
   type: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
-}
+};
 
-export type {
-  InputProps
-}
+export type { InputProps };
