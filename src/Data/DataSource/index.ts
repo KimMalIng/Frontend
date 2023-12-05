@@ -1,6 +1,13 @@
+
 import getAPIData from "./getAPI";
-import getCredential from "./getCredential";
+import AuthDataSource from "./auth";
+import CalenderDataSource from "./calender";
+import LocalStorageDataSource from "./LocalStorage";
 
 export {
-    getAPIData, getCredential
-};
+  AuthDataSource,
+  CalenderDataSource,
+  LocalStorageDataSource,
+  getAPIData
+}
+
