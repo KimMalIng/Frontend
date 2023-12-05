@@ -8,6 +8,7 @@ const Input = ({
   text,
   placeHolder,
   fontSize,
+  type,
   onChange
 }: InputProps) => {
   return(
@@ -15,6 +16,7 @@ const Input = ({
       className={style.Input}
       placeholder={placeHolder}
       value={text}
+      type={type}
       style={{
         width,
         height,
