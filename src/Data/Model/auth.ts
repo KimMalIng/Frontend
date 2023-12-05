@@ -6,8 +6,6 @@ type UserDataType = {
   nickname: string;
   password: string;
   university: string;
-}
-
-export type {
-  UserDataType
 };
+
+export type { UserDataType };

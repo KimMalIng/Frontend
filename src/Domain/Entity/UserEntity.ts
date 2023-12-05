@@ -15,7 +15,7 @@ class UserEntity {
     nickname: string,
     password: string,
     university: string
-  ){
+  ) {
     this.id = id;
     this.imageUrl = imageUrl;
     this.major = major;
@@ -24,6 +24,6 @@ class UserEntity {
     this.password = password;
     this.university = university;
   }
-};
+}
 
 export default UserEntity;

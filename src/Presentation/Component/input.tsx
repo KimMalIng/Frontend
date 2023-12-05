@@ -9,9 +9,9 @@ const Input = ({
   placeHolder,
   fontSize,
   type,
-  onChange
+  onChange,
 }: InputProps) => {
-  return(
+  return (
     <input
       className={style.Input}
       placeholder={placeHolder}
@@ -25,6 +25,6 @@ const Input = ({
       onChange={onChange}
     />
   );
-}
+};
 
 export default Input;

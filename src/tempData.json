@@ -1,73 +1,73 @@
 [
-    {
-        "day": "231202",
-        "subject": [
-            {
-                "date": "231202",
-                "startTime": "12:00",
-                "endTime": "14:50",
-                "label": 1,
-                "name": "스타트업소셜벤처",
-                "deadline": null,
-                "todo_type": "fixed",
-                "estimated_time": null
-            },
-            {
-                "date": "231202",
-                "startTime": "15:00",
-                "endTime": "17:45",
-                "label": 3,
-                "name": "컴퓨터네트워크",
-                "deadline": null,
-                "todo_type": "fixed",
-                "estimated_time": null
-            },
-            {
-                "date": "231202",
-                "startTime": "18:00",
-                "endTime": "20:40",
-                "label": 4,
-                "name": "엔터 소프트웨어",
-                "deadline": null,
-                "todo_type": "fixed",
-                "estimated_time": null
-            },
-            {
-                "date": "231202",
-                "startTime": "21:00",
-                "endTime": "22:00",
-                "label": 2,
-                "name": "캡스톤디자인 UI",
-                "deadline": null,
-                "todo_type": "slide",
-                "isDone": null,
-                "progress": 20,
-                "estimated_time": null
-            },
-            {
-                "date": "231202",
-                "startTime": "22:10",
-                "endTime": "22:50",
-                "label": 0,
-                "name": "빨래 돌리기",
-                "deadline": null,
-                "todo_type": "check",
-                "isDone": false,
-                "progress": null,
-                "estimated_time": null
-            },
-            {
-                "date": "231202",
-                "startTime": "23:00",
-                "endTime": "00:00",
-                "label": 3,
-                "name": "알고리즘 스터디 준비",
-                "deadline": null,
-                "todo_type": "check",
-                "isDone": false,
-                "progress": null,
-                "estimated_time": null
-            }
-        ]
-    }
+  {
+    "day": "231202",
+    "subject": [
+      {
+        "date": "231202",
+        "startTime": "12:00",
+        "endTime": "14:50",
+        "label": 1,
+        "name": "스타트업소셜벤처",
+        "deadline": null,
+        "todo_type": "fixed",
+        "estimated_time": null
+      },
+      {
+        "date": "231202",
+        "startTime": "15:00",
+        "endTime": "17:45",
+        "label": 3,
+        "name": "컴퓨터네트워크",
+        "deadline": null,
+        "todo_type": "fixed",
+        "estimated_time": null
+      },
+      {
+        "date": "231202",
+        "startTime": "18:00",
+        "endTime": "20:40",
+        "label": 4,
+        "name": "엔터 소프트웨어",
+        "deadline": null,
+        "todo_type": "fixed",
+        "estimated_time": null
+      },
+      {
+        "date": "231202",
+        "startTime": "21:00",
+        "endTime": "22:00",
+        "label": 2,
+        "name": "캡스톤디자인 UI",
+        "deadline": null,
+        "todo_type": "slide",
+        "isDone": null,
+        "progress": 20,
+        "estimated_time": null
+      },
+      {
+        "date": "231202",
+        "startTime": "22:10",
+        "endTime": "22:50",
+        "label": 0,
+        "name": "빨래 돌리기",
+        "deadline": null,
+        "todo_type": "check",
+        "isDone": false,
+        "progress": null,
+        "estimated_time": null
+      },
+      {
+        "date": "231202",
+        "startTime": "23:00",
+        "endTime": "00:00",
+        "label": 3,
+        "name": "알고리즘 스터디 준비",
+        "deadline": null,
+        "todo_type": "check",
+        "isDone": false,
+        "progress": null,
+        "estimated_time": null
+      }
+    ]
+  }
 ]

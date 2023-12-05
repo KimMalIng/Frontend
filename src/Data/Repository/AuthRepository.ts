@@ -1,10 +1,10 @@
-import { SERVER_URL } from "@/Const";
-import { UserEntity } from "@/Domain/Entity";
+import { SERVER_URL } from '@/Const';
+import { UserEntity } from '@/Domain/Entity';
 import { UserDataType } from '@/Data/Model';
-import { AuthRepository } from "@/Domain/Repository";
+import { AuthRepository } from '@/Domain/Repository';
 import { LocalStorageDataSource, AuthDataSource } from '@/Data/DataSource';
 
-class AuthRepositoryImpl implements AuthRepository{
+class AuthRepositoryImpl implements AuthRepository {
   async signUp(data: UserDataType): Promise<UserEntity> {
     try {
       const res = await AuthDataSource.signup(data);
@@ -22,7 +22,7 @@ class AuthRepositoryImpl implements AuthRepository{
     }
   }
   async logout(): Promise<void> {
-    await LocalStorageDataSource.saveLocalStorage("");
+    await LocalStorageDataSource.saveLocalStorage('');
   }
   async getCredential(): Promise<boolean> {
     try {
@@ -35,7 +35,6 @@ class AuthRepositoryImpl implements AuthRepository{
   async saveCredential(token: string): Promise<void> {
     await LocalStorageDataSource.saveLocalStorage(token);
   }
-  
-};
+}
 
 export default AuthRepositoryImpl;

@@ -1,7 +1,4 @@
-import AuthRepositoryImpl from "./AuthRepository";
-import CalenderRepositoryImpl from "./CalenderRepository";
+import AuthRepositoryImpl from './AuthRepository';
+import CalenderRepositoryImpl from './CalenderRepository';
 
-export {
-  AuthRepositoryImpl,
-  CalenderRepositoryImpl
-}
+export { AuthRepositoryImpl, CalenderRepositoryImpl };
