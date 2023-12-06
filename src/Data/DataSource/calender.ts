@@ -44,8 +44,8 @@ class CalenderDataSource {
           user_id: id,
           name,
           label,
-          deadline,
-          estimated_time: estimatedTime,
+          deadline: null,
+          estimated_time: "01:00",
         }),
       });
     } catch (error) {
@@ -69,8 +69,10 @@ class CalenderDataSource {
           endDate
         }),
       });
+      console.log(res);
       if(res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
+      console.log(error);
       return Promise.reject(500);
     }
   }

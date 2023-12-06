@@ -37,5 +37,18 @@
 }
 
 .TodoDate {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addBtn {
+  width: 100px;
+  height: 30px;
+}
+
+.TodoDate > p{
   font-weight: 900;
 }

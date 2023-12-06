@@ -1,30 +1,38 @@
+import React, { MouseEventHandler, useState, ChangeEventHandler } from 'react';
 import { Button, Input, Header } from '@/Presentation/Component';
-import React, { MouseEventHandler } from 'react';
 import { useRouter } from 'next/router';
 import Datepicker from 'react-datepicker';
+import { CalenderModel } from '@/Presentation/Model';
+
 import 'react-datepicker/dist/react-datepicker.css';
-import { ChangeEventHandler, useState } from 'react';
 import style from '@/Presentation/Style/NewTask.module.css';
 
 const NewTask = () => {
   const [taskName, setTaskName] = useState('');
+  const [time, setTime] = useState(0);
+  const [deadLine, setDeadLine] = useState<Date>(new Date());
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(1);
+  const router = useRouter();
+  const cModel = new CalenderModel();
+
   const onTaskNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setTaskName(e.target.value);
   };
 
-  const [deadLine, setDeadLine] = useState<Date>(new Date());
-  const [datePickerOpen, setDatePickerOpen] = useState(false);
-
-  const [selectedOption, setSelectedOption] = useState('');
   const handleOptionChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setSelectedOption(e.target.value);
+    if(!isNaN(Number(e.target.value))) setSelectedOption(Number(e.target.value));
   };
 
-  const router = useRouter();
-  const handleButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
-    alert('일정이 등록되었습니다!');
+  const handleButtonClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    await cModel.saveCalender(1, taskName, selectedOption, deadLine, time);
+    await cModel.adjustmentCalender();
     router.push('./main');
   };
+
+  const onTimeChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if(!isNaN(Number(e.target.value))) setTime(Number(e.target.value));
+  }
 
   return (
     <div className={style.body}>
@@ -40,6 +48,16 @@ const NewTask = () => {
             fontSize="14px"
             placeHolder={''}
             onChange={onTaskNameChange}
+        />
+        <h5>제한 시간을 입력하세요 :</h5>
+        <Input
+            type="id"
+            width="100%"
+            height="36px"
+            text={String(time)}
+            fontSize="14px"
+            placeHolder={''}
+            onChange={onTimeChange}
         />
         <h5>일정의 종류를 선택해주세요 :</h5>
         <select value={selectedOption} onChange={handleOptionChange}>

@@ -3,7 +3,7 @@ import randomstring from 'randomstring';
 import { CalenderProps, SetLabelColor } from '@/Presentation/Type';
 import style from '@/Presentation/Style/Calender.module.css';
 
-const Calender = ({ data }: CalenderProps) => {
+const Calender = ({ data, updateNowDate }: CalenderProps) => {
   const [list, setList] = useState<number[][]>([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -169,13 +169,48 @@ const Calender = ({ data }: CalenderProps) => {
         </div>
         <div className={style.calenderContent}>
           <div className={style.calenderTitle}>
-            <div className={style.calenderTitleSection}>월</div>
-            <div className={style.calenderTitleSection}>화</div>
-            <div className={style.calenderTitleSection}>수</div>
-            <div className={style.calenderTitleSection}>목</div>
-            <div className={style.calenderTitleSection}>금</div>
-            <div className={style.calenderTitleSection}>토</div>
-            <div className={style.calenderTitleSection}>일</div>
+            <div 
+              className={style.calenderTitleSection}
+              onClick={()=>updateNowDate(1)}
+            >
+              월
+            </div>
+            <div 
+              className={style.calenderTitleSection}
+              onClick={()=>updateNowDate(2)}
+            >
+              화
+            </div>
+            <div 
+              className={style.calenderTitleSection}
+              onClick={()=>updateNowDate(3)}
+            >
+              수
+            </div>
+            <div 
+              className={style.calenderTitleSection}
+              onClick={()=>updateNowDate(4)}
+            >
+              목
+            </div>
+            <div 
+              className={style.calenderTitleSection}
+              onClick={()=>updateNowDate(5)}
+            >
+              금
+            </div>
+            <div 
+              className={style.calenderTitleSection}
+              onClick={()=>updateNowDate(6)}
+            >
+              토
+            </div>
+            <div 
+              className={style.calenderTitleSection}
+              onClick={()=>updateNowDate(7)}
+            >
+              일
+            </div>
           </div>
           <div className={style.CalenderBox}>
             {isRender ? renderCalender() : <></>}
