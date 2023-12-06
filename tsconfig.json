@@ -34,7 +34,8 @@
       "@/Presentation/Type": ["./src/Presentation/Type"],
       "@/Presentation/Model": ["./src/Presentation/Model"],
       "@/Presentation/Redux": ["./src/Presentation/Redux"],
-      "@/Presentation/Style/*": ["./src/Presentation/Style/*"]
+      "@/Presentation/Style/*": ["./src/Presentation/Style/*"],
+      "@/Presentation/Resource": ["./src/Presentation/Resource"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

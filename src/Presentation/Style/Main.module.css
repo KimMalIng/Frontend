@@ -36,3 +36,7 @@
 .Todo {
   height: 100px;
 }
+
+.TodoDate {
+  font-weight: 900;
+}

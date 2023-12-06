@@ -5,4 +5,56 @@
   position: fixed;
   box-shadow: 1px 1px 1px 1px #DCE1DE;
   top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoBox {
+  width: 100px;
+  padding-left: 20px;
+  height: 40px;
+}
+
+.userBox {
+  width: 400px;
+  height: 50px;
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.userBox > img{
+  border-radius: 100%;
+}
+
+.userBox > p {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 16px;
+  color: #fff;
+}
+
+.logout{
+  width: 140px;
+  height: 32px;
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CC5A1;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  margin-left: 20px;
+  user-select: none;
+}
+
+.logoBox > img {
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
