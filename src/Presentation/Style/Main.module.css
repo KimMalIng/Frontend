@@ -8,7 +8,6 @@
   gap: 10px;
 }
 
-
 .ContentBox {
   overflow: auto;
   width: 650px;
@@ -18,7 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .CalenderBox {
@@ -30,7 +29,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .Todo {

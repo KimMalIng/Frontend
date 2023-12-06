@@ -9,7 +9,11 @@ class CalenderRepositoryImpl implements CalenderRepository {
     endDate: string
   ): Promise<CalenderEntity[]> {
     try {
-      const data: CalenderEntity[] = await CalenderDataSource.getCalender(id, startDate, endDate);
+      const data: CalenderEntity[] = await CalenderDataSource.getCalender(
+        id,
+        startDate,
+        endDate
+      );
       return data;
     } catch (error) {
       return Promise.reject(error);
