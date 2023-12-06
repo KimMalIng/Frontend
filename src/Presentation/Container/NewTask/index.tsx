@@ -26,8 +26,10 @@ const NewTask = () => {
 
   const handleButtonClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     await cModel.saveCalender(1, taskName, selectedOption, deadLine, time);
-    await cModel.adjustmentCalender();
-    router.push('./main');
+    setTimeout(async () => {
+        await cModel.adjustmentCalender();
+        router.push('./main');
+    }, 10);
   };
 
   const onTimeChange: ChangeEventHandler<HTMLInputElement> = (e) => {
