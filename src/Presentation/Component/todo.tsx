@@ -6,7 +6,6 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import fixedPinImg from './VectorPin.png';
 
 const Todo = ({
   label,
