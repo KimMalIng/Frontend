@@ -44,8 +44,8 @@ class CalenderDataSource {
           user_id: id,
           name,
           label,
-          deadline: null,
-          estimated_time: "01:00",
+          deadline: "2023.12.10 00:00",
+          estimated_time: "04:00",
         }),
       });
     } catch (error) {
