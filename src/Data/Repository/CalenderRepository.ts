@@ -3,6 +3,13 @@ import { CalenderRepository } from '@/Domain/Repository';
 import { CalenderDataSource } from '@/Data/DataSource';
 
 class CalenderRepositoryImpl implements CalenderRepository {
+  async adjustmentCalender(id: number, startDate: string, endDate: string): Promise<void> {
+    try {
+      await CalenderDataSource.adjustmentCalender(id, startDate, endDate);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
   async getCalender(
     id: number,
     startDate: string,

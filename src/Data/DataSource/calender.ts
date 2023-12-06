@@ -52,6 +52,28 @@ class CalenderDataSource {
       return Promise.reject(500);
     }
   }
+  static async adjustmentCalender(
+    id: number,
+    startDate: string,
+    endDate: string
+  ): Promise<void> {
+    try {
+      const res = await fetch(`${SERVER_URL}/timetable/adjustment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: id,
+          startDate,
+          endDate
+        }),
+      });
+      if(res.status !== 200) return Promise.reject(res.status);
+    } catch (error) {
+      return Promise.reject(500);
+    }
+  }
 }
 
 export default CalenderDataSource;

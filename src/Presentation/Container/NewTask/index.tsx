@@ -43,12 +43,12 @@ const NewTask = () => {
         />
         <h5>일정의 종류를 선택해주세요 :</h5>
         <select value={selectedOption} onChange={handleOptionChange}>
-            <option value="0" selected>학습(공부)</option>
-            <option value="2">과제</option>
-            <option value="3">근무(알바,근로)</option>
-            <option value="4">여가</option>
-            <option value="5">운동(헬스, 소모임)</option>
-            <option value="6">약속(술약속, 미팅)</option>
+            <option value="6" selected>학습(공부)</option>
+            <option value="1">과제</option>
+            <option value="5">근무(알바,근로)</option>
+            <option value="3">여가</option>
+            <option value="4">운동(헬스, 소모임)</option>
+            <option value="2">약속(술약속, 미팅)</option>
         </select>
         <h5>마감일을 선택해주세요 :</h5>
         <Datepicker
