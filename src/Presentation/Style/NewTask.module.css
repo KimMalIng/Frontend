@@ -1,0 +1,41 @@
+.body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ContentBox {
+    overflow: auto;
+    width: 650px;
+    height: 600px;
+    background-color: #fff;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.ContentBox > p {
+    font-size: 20px;
+}
+
+.SelectLabel {
+    width: 80%;
+}
+
+.SelectLabel > select, .NameLabel > input, .DatePicker{
+    margin-left: 5px;
+    width: 200px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 4px;
+}
+.SelectLabel > select {
+    width: 173px;
+}
+.DatePicker {
+    width: 205px;
+}
