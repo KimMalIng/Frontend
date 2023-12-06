@@ -1,10 +1,32 @@
 import { useState, useEffect } from 'react';
 import randomstring from 'randomstring';
-import { CalenderProps } from '@/Presentation/Type';
+import { CalenderProps, SetLabelColor } from '@/Presentation/Type';
 import style from '@/Presentation/Style/Calender.module.css';
 
 const Calender = ({data}: CalenderProps) => {
   const [list, setList] = useState<number[][]>(
+    [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
+    ]
+  );
+  const [startTime, setStartTime] = useState<number[][]>(
+    [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
+    ]
+  );
+  const [endTime, setEndTime] = useState<number[][]>(
     [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -20,7 +42,7 @@ const Calender = ({data}: CalenderProps) => {
     await Promise.all(
       data.map(async (d) => {
         const date = new Date(`${d.day.replaceAll(".", "-")}`);
-        const day = date.getDay();
+        const day = date.getDay() - 1;
         await Promise.all(
           d.subject.map((s) => {
             let start = Number(s.startTime.split(":")[0]);
@@ -32,14 +54,21 @@ const Calender = ({data}: CalenderProps) => {
             if(isNaN(end)) return;
             end = end - 8;
             const endPercentage = Number(s.endTime.split(":")[1]);
-            console.log(endPercentage)
             if(isNaN(endPercentage)) return;
             let changeList = list;
-            changeList[day][start] = s.label + 1 + (startPercentage / 60);
-            for(let i = start + 1; i< end - 1; i++){
+            changeList[day][start] = s.label + 1;
+            for(let i = start + 1; i< end; i++){
               changeList[day][i] = s.label + 1;
             }
-            changeList[day][end] = s.label + 1 + (endPercentage / 60);
+            changeList[day][end] = s.label + 1;
+
+            let changeEndList = endTime;
+            changeEndList[day][end] = endPercentage;
+            setEndTime([...changeEndList]);
+            let changeStartList = startTime;
+            changeStartList[day][start] = startPercentage;
+            setStartTime([...changeStartList]);
+
             setList([...changeList]);
           })
         );
@@ -49,24 +78,48 @@ const Calender = ({data}: CalenderProps) => {
     setIsRender(true);
   }
 
-  const calenderHasNext = (data: number[], index: number): boolean => {
-    if(typeof data[index + 1] === "undefined") return false;
-    if(data[index] === 0) return false;
-    if(data[index + 1] !== 0) return true;
-    if(data[index + 1] === 0 && data[index] > 1) return true; 
-    return false;
-  }
+  useEffect(() => {
+  }, [list]);
 
   const setLabelColor = (label: number): string => {
-    const translateLabel = label + 1;
-    if(translateLabel === 1){
-      return "rgb(255, 148, 167)";
-    }
+    if(label === 1) return "#BBF7BA";
+    if(label === 2) return "#A8D5FF";
+    if(label === 3) return "#FFD4C1";
+    if(label === 4) return "#FBE299";
+    if(label === 5) return "#FF94A7";
     return "#fff";
   }
 
+  const setLabelSize = (color: string, dayIndex: number, index: number): SetLabelColor => {
+
+    if(startTime[dayIndex][index] !== 0){
+      return ({
+        "background": `linear-gradient(#fff 
+          ${Math.floor((startTime[dayIndex][index] / 60) * 100)}%, 
+          ${color} ${Math.floor((1 - (startTime[dayIndex][index] / 60)) * 100)}%)`,
+          "borderBottom": `1px solid ${color}`,
+      });
+    }
+    if(endTime[dayIndex][index] !== 0){
+      return ({
+        "background": `linear-gradient(
+          ${color} ${Math.floor((endTime[dayIndex][index] / 60) * 100)}%, 
+          #fff ${Math.floor((1 - (endTime[dayIndex][index] / 60)) * 100)}%)`,
+        "borderBottom": `1px solid rgb(220, 220, 220)`,
+      });
+    }
+    if(color !== "#fff"){
+      return ({
+        "backgroundColor": color,
+        "borderBottom": `1px solid ${color}`,
+      });
+    }
+    return ({
+      "backgroundColor": color
+    });
+  }
   const renderCalender = () => {
-    return list.map((d)=>{
+    return list.map((d, dayIndex)=>{
       return (
         <div 
           className={style.CalenderContentList} 
@@ -78,12 +131,8 @@ const Calender = ({data}: CalenderProps) => {
                 <div 
                   key={randomstring.generate(16)}
                   style={{
-                    backgroundColor: setLabelColor(Math.floor(s + 1)),
-                    borderBottom: `1px solid ${(calenderHasNext(d, i)) ? (
-                        "none"
-                      ) : (
-                        " 1px solid rgba(31, 36, 33, 0.2)"
-                      )}`
+                    borderBottom: `1px solid rgb(220, 220, 220)`,
+                    ...setLabelSize(setLabelColor(Math.floor(s)), dayIndex, i),
                   }}
               ></div>
               );
@@ -97,15 +146,10 @@ const Calender = ({data}: CalenderProps) => {
     createCalender()
   }, [])
 
-  useEffect(() => {
-    console.log(isRender);
-    console.log(list);
-  }, [list]);
-
   return(
     <div className={style.Calender}>
       <div className={style.title}>
-        <h2>2023.12.15~2023.12.22</h2>
+        <h2>2023.12.04 ~ 2023.12.10</h2>
       </div>
       <div className={style.calenderBox}>
         <div className={style.calenderRow}>

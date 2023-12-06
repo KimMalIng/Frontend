@@ -33,38 +33,14 @@ const Todo = ({
     setIsDone(e.target.checked);
   };
 
-  const [labelColor, setLabelColor] = useState('#A8D5FF');
-
-  useEffect(() => {
-    colorByLabel(label);
-  }, []);
-
-  const colorByLabel = (label: number) => {
-    switch (label) {
-      // 색깔 걍 아무거나 해놓음
-      case 0:
-        setLabelColor('#A8D5FF');
-        break;
-      case 1:
-        setLabelColor('#DDDDDD');
-        break;
-      case 2:
-        setLabelColor('#FBE299');
-        break;
-      case 3:
-        setLabelColor('#FF94A7');
-        break;
-      case 4:
-        setLabelColor('#FFD4C1');
-        break;
-      case 5:
-        setLabelColor('#9CC5A1');
-        break;
-      default:
-        setLabelColor('#A8D5FF');
-        break;
-    }
-  };
+  const setLabelColor = (label: number): string => {
+    if(label === 1) return "#BBF7BA";
+    if(label === 2) return "#A8D5FF";
+    if(label === 3) return "#FFD4C1";
+    if(label === 4) return "#FBE299";
+    if(label === 5) return "#FF94A7";
+    return "#fff";
+  }
 
   return (
     <div className={style.TodoBox}>
@@ -75,7 +51,7 @@ const Todo = ({
       <div className={style.TodoContainer}>
         <div
           className={style.ColorLabel}
-          style={{ backgroundColor: labelColor }}
+          style={{ backgroundColor: setLabelColor(label + 1) }}
         ></div>
         <div
           className={
@@ -88,11 +64,16 @@ const Todo = ({
             </div>
           ) : todoType === 'check' ? (
             <div className={style.TodoCheck}>
-              <p>{name}</p>
               <label className={style.CheckboxLabel}>
                 <input id="checkbox" type="checkbox" onChange={handleDone} />
-                <span className={style.CheckboxCustom}></span>
+                <span 
+                  className={style.CheckboxCustom}
+                  style={{
+                    border: (isDone) ? "none" : "1px solid rgb(234, 234, 234)"
+                  }}
+                ></span>
               </label>
+              <p>{name}</p>
             </div>
           ) : (
             <div className={style.TodoProgress}>
