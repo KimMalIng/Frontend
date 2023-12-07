@@ -33,13 +33,13 @@ const Todo = ({
   };
 
   const setLabelColor = (label: number): string => {
-    if(label === 1) return "#BBF7BA";
-    if(label === 2) return "#A8D5FF";
-    if(label === 3) return "#FFD4C1";
-    if(label === 4) return "#FBE299";
-    if(label === 5) return "#FF94A7";
-    return "#fff";
-  }
+    if (label === 1) return '#BBF7BA';
+    if (label === 2) return '#A8D5FF';
+    if (label === 3) return '#FFD4C1';
+    if (label === 4) return '#FBE299';
+    if (label === 5) return '#FF94A7';
+    return '#fff';
+  };
 
   return (
     <div className={style.TodoBox}>
@@ -65,10 +65,10 @@ const Todo = ({
             <div className={style.TodoCheck}>
               <label className={style.CheckboxLabel}>
                 <input id="checkbox" type="checkbox" onChange={handleDone} />
-                <span 
+                <span
                   className={style.CheckboxCustom}
                   style={{
-                    border: (isDone) ? "none" : "1px solid rgb(234, 234, 234)"
+                    border: isDone ? 'none' : '1px solid rgb(234, 234, 234)',
                   }}
                 ></span>
               </label>

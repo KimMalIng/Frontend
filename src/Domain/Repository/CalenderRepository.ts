@@ -13,6 +13,11 @@ interface CalenderRepository {
     deadline: Date,
     estimatedTime: number
   ): Promise<void>;
+  adjustmentCalender(
+    id: number,
+    startDate: string,
+    endDate: string
+  ): Promise<void>
 }
 
 export default CalenderRepository;

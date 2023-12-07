@@ -45,7 +45,6 @@
   position: relative;
 }
 
-
 .TodoFixed > img {
   position: absolute;
   right: 0%;
@@ -68,7 +67,7 @@
 }
 
 .TodoBody > div > p,
-.DoneTodoBody > div > p{
+.DoneTodoBody > div > p {
   font-size: 16px;
   line-height: 24px;
   font-weight: 900;
@@ -79,7 +78,7 @@
   width: 85%;
   height: 75%;
   display: flex;
-  background-color: #9CC5A1;
+  background-color: #9cc5a1;
   align-items: center;
   padding-left: 40px;
   border-radius: 1px;
@@ -93,14 +92,13 @@
   justify-content: space-between;
 }
 
-.TimeTable > p{
+.TimeTable > p {
   font-size: 14px;
   line-height: 50px;
 }
 
 .TimeTable > p:first-child {
   border-bottom: 2px solid rgb(232, 232, 232);
-
 }
 
 .CheckboxCustom {
