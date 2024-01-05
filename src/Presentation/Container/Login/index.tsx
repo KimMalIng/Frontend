@@ -69,6 +69,13 @@ const Login = () => {
           imgsrc="#"
           onClick={isIdVaild ? pwdVaildCheck : idSetClick}
         />
+        <button>
+          <img
+              src="img/kakao_login_medium_narrow.png"
+              width="222"
+              alt="카카오 로그인 버튼"
+          />
+        </button>
         <h3>회원가입</h3>
       </div>
     </div>

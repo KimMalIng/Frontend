@@ -93,7 +93,7 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
         background: `linear-gradient(#fff 
           ${Math.floor((startTime[dayIndex][index] / 60) * 100)}%, 
           ${color} ${Math.floor(
-            (1 - startTime[dayIndex][index] / 60) * 100
+            (1 - (startTime[dayIndex][index]/ 60)) * 100
           )}%)`,
         borderBottom: `1px solid ${color}`,
       };
@@ -102,7 +102,7 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
       return {
         background: `linear-gradient(
           ${color} ${Math.floor((endTime[dayIndex][index] / 60) * 100)}%, 
-          #fff ${Math.floor((1 - endTime[dayIndex][index] / 60) * 100)}%)`,
+          #fff ${Math.floor((1 - (endTime[dayIndex][index] / 60)) * 100)}%)`,
         borderBottom: `1px solid rgb(220, 220, 220)`,
       };
     }
