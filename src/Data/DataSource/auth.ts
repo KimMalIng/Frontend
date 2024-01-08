@@ -36,7 +36,7 @@ class AuthDataSource {
       const res = await fetch(`${SERVER_URL}/users/join`, {
         method: 'POST',
         headers: {
-          // "Content-Type": "multipart/form-data"
+          "Content-Type": "multipart/form-data"
         },
         body: formData,
       });

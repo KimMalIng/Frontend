@@ -70,11 +70,13 @@ const Login = () => {
           onClick={isIdVaild ? pwdVaildCheck : idSetClick}
         />
         <button>
+          <a href="http://localhost:8080/oauth2/authorization/kakao">
           <img
               src="img/kakao_login_medium_narrow.png"
               width="222"
               alt="카카오 로그인 버튼"
           />
+          </a>
         </button>
         <h3>회원가입</h3>
       </div>
