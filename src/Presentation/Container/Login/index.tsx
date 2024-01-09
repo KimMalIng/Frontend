@@ -1,4 +1,4 @@
-import { useState, ChangeEventHandler, MouseEventHandler } from 'react';
+import { useState, useEffect, ChangeEventHandler, MouseEventHandler } from 'react';
 import { Input } from '@/Presentation/Component';
 import { Button } from '@/Presentation/Component';
 import { useRouter } from 'next/router';
