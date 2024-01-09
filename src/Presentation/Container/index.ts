@@ -3,5 +3,6 @@ import Main from './Main';
 import Register from './Register';
 import Test from './Test';
 import NewTask from './NewTask';
+import LoginCheck from "./LoginCheck";
 
-export { Login, Main, Register, Test, NewTask };
+export { Login, Main, Register, Test, NewTask, LoginCheck };

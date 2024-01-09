@@ -70,7 +70,7 @@ const Login = () => {
           onClick={isIdVaild ? pwdVaildCheck : idSetClick}
         />
         <button>
-          <a href="http://localhost:8080/oauth2/authorization/kakao">
+          <a href="http://localhost:8080/oauth2/authorization/kakao/?redirect_url=localhost:3000/checkout">
           <img
               src="img/kakao_login_medium_narrow.png"
               width="222"
