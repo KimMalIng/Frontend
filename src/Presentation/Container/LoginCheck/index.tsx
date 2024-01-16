@@ -6,10 +6,12 @@ const LoginCheck = () => {
   const router = useRouter();
   const param = useSearchParams();
   useEffect(()=>{
-    const token = param.get('accessToken');
+    const accessToken = param.get('accessToken');
+    const refreshToken = param.get('refreshToken');
 
-    if(token) {
-      localStorage.setItem('accessToken', token);
+    if(accessToken && refreshToken) {
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
       router.push('/main');
     }
   });
