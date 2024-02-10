@@ -23,7 +23,7 @@ const Button = ({
       }}
       onClick={onClick}
     >
-      <img src={imgsrc} alt=""></img>
+      <img src={imgsrc} alt="" />
       {children}
     </button>
   );

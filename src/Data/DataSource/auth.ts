@@ -17,7 +17,7 @@ class AuthDataSource {
       if (res.status === 200) {
         const data: UserDataType = await res.json();
         return data;
-      }
+      } 
       return Promise.reject(res.status);
     } catch (error) {
       return Promise.reject(500);

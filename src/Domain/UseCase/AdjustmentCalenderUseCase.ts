@@ -8,6 +8,7 @@ class AdjustmentCalenderUseCase {
   }
 
   async execute(
+    // 리턴값이 무조건 promise 처리가 됨, 그래서 await 쓸 수 있음
     id: number | null | undefined,
     startDate: string | null | undefined,
     endDate: string | null | undefined

@@ -1,4 +1,4 @@
-import { useState, ChangeEventHandler, MouseEventHandler } from 'react';
+import { useState, ChangeEventHandler, MouseEventHandler, useEffect } from 'react';
 import { Input } from '@/Presentation/Component';
 import { Button } from '@/Presentation/Component';
 import { useRouter } from 'next/router';
@@ -34,6 +34,10 @@ const Login = () => {
       alert('Please input valid Password');
     }
   };
+  const getSignUp = () => {
+    router.push("./register");
+  };
+
   return (
     <div className={style.Login}>
       <div className={style.ContentBox}>
@@ -69,7 +73,15 @@ const Login = () => {
           imgsrc="#"
           onClick={isIdVaild ? pwdVaildCheck : idSetClick}
         />
-        <h3>회원가입</h3>
+        <button>
+          <a href="http://3.34.48.41:8000/oauth2/authorization/kakao/?redirect_url=localhost:3000/logincheck">
+            <img
+              src='/Users/3qufq/vscode_works/kimmallangPR/Frontend/src/Presentation/Resource/kakao_login_large_wide.png'
+              alt="카카오 로그인 버튼"
+            />
+          </a>
+        </button>
+        <p onClick={getSignUp}>회원가입</p>
       </div>
     </div>
   );
