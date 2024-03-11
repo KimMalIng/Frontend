@@ -33,6 +33,7 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
   ]);
   const [isRender, setIsRender] = useState(false);
   const createCalender = async () => {
+    
     await Promise.all(
       data.map(async (d) => {
         const date = new Date(`${d.day.replaceAll('.', '-')}`);

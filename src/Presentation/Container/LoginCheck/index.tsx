@@ -1,23 +1,36 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+import { useSearchParams } from "next/navigation";
+
 const LoginCheck = () => {
   const router = useRouter();
-  useEffect(()=>{
-    const token = router.query.token as string | undefined;
-    const refreshToken = router.query.refreshToken as string | undefined;
-
-    if(token && refreshToken) {
-      localStorage.setItem('token', token);
+  const param = useSearchParams();
+  useEffect(() => {
+    const accessToken = param.get('accessToken');
+    const refreshToken = param.get('refreshToken');
+    const userData = localStorage.getItem("userId");
+    if (accessToken && refreshToken) {
+      localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      router.push('/main');
+      if (userData) {
+        router.push('/main');
+      } else {
+        router.push('./getuserdata');
+      }
+    } else {
+      //router.push('./');
+      //임시로 일단 토큰 있는 척 하겠습니다
+      router.push('./getuserdata');
     }
-  },[router.query.token, router.query.refreshToken]);
+  });
+
 
   return (
     <div>
     </div>
   );
 };
+
 
 export default LoginCheck;
