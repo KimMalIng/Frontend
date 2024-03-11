@@ -44,8 +44,8 @@
   justify-content: space-between;
 }
 
-.TodoDate > Button:hover{
-  background-color: #49A078;
+.TodoDate > Button:hover {
+  background-color: #49a078;
 }
 
 .addBtn {
@@ -53,6 +53,6 @@
   height: 30px;
 }
 
-.TodoDate > p{
+.TodoDate > p {
   font-weight: 900;
 }

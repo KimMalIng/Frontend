@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import randomstring from 'randomstring';
-import { CalenderProps, SetLabelColor } from '@/Presentation/Type';
-import style from '@/Presentation/Style/Calender.module.css';
+import { useState, useEffect } from "react";
+import randomstring from "randomstring";
+import { CalenderProps, SetLabelColor } from "@/Presentation/Type";
+import style from "@/Presentation/Style/Calender.module.css";
 
 const Calender = ({ data, updateNowDate }: CalenderProps) => {
   const [list, setList] = useState<number[][]>([
@@ -33,22 +33,21 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
   ]);
   const [isRender, setIsRender] = useState(false);
   const createCalender = async () => {
-    
     await Promise.all(
       data.map(async (d) => {
-        const date = new Date(`${d.day.replaceAll('.', '-')}`);
+        const date = new Date(`${d.day.replaceAll(".", "-")}`);
         const day = date.getDay() - 1;
         await Promise.all(
           d.subject.map((s) => {
-            let start = Number(s.startTime.split(':')[0]);
+            let start = Number(s.startTime.split(":")[0]);
             if (isNaN(start)) return;
             start = start - 8;
-            const startPercentage = Number(s.startTime.split(':')[1]);
+            const startPercentage = Number(s.startTime.split(":")[1]);
             if (isNaN(startPercentage)) return;
-            let end = Number(s.endTime.split(':')[0]);
+            let end = Number(s.endTime.split(":")[0]);
             if (isNaN(end)) return;
             end = end - 8;
-            const endPercentage = Number(s.endTime.split(':')[1]);
+            const endPercentage = Number(s.endTime.split(":")[1]);
             if (isNaN(endPercentage)) return;
             let changeList = list;
             changeList[day][start] = s.label + 1;
@@ -65,9 +64,9 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
             setStartTime([...changeStartList]);
 
             setList([...changeList]);
-          })
+          }),
         );
-      })
+      }),
     );
     setList([...list]);
     setIsRender(true);
@@ -76,18 +75,18 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
   useEffect(() => {}, [list]);
 
   const setLabelColor = (label: number): string => {
-    if (label === 1) return '#BBF7BA';
-    if (label === 2) return '#A8D5FF';
-    if (label === 3) return '#FFD4C1';
-    if (label === 4) return '#FBE299';
-    if (label === 5) return '#FF94A7';
-    return '#fff';
+    if (label === 1) return "#BBF7BA";
+    if (label === 2) return "#A8D5FF";
+    if (label === 3) return "#FFD4C1";
+    if (label === 4) return "#FBE299";
+    if (label === 5) return "#FF94A7";
+    return "#fff";
   };
 
   const setLabelSize = (
     color: string,
     dayIndex: number,
-    index: number
+    index: number,
   ): SetLabelColor => {
     if (startTime[dayIndex][index] !== 0) {
       return {
@@ -105,7 +104,7 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
         borderBottom: `1px solid rgb(220, 220, 220)`,
       };
     }
-    if (color !== '#fff') {
+    if (color !== "#fff") {
       return {
         backgroundColor: color,
         borderBottom: `1px solid ${color}`,
@@ -168,45 +167,45 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
         </div>
         <div className={style.calenderContent}>
           <div className={style.calenderTitle}>
-            <div 
+            <div
               className={style.calenderTitleSection}
-              onClick={()=>updateNowDate(1)}
+              onClick={() => updateNowDate(1)}
             >
               월
             </div>
-            <div 
+            <div
               className={style.calenderTitleSection}
-              onClick={()=>updateNowDate(2)}
+              onClick={() => updateNowDate(2)}
             >
               화
             </div>
-            <div 
+            <div
               className={style.calenderTitleSection}
-              onClick={()=>updateNowDate(3)}
+              onClick={() => updateNowDate(3)}
             >
               수
             </div>
-            <div 
+            <div
               className={style.calenderTitleSection}
-              onClick={()=>updateNowDate(4)}
+              onClick={() => updateNowDate(4)}
             >
               목
             </div>
-            <div 
+            <div
               className={style.calenderTitleSection}
-              onClick={()=>updateNowDate(5)}
+              onClick={() => updateNowDate(5)}
             >
               금
             </div>
-            <div 
+            <div
               className={style.calenderTitleSection}
-              onClick={()=>updateNowDate(6)}
+              onClick={() => updateNowDate(6)}
             >
               토
             </div>
-            <div 
+            <div
               className={style.calenderTitleSection}
-              onClick={()=>updateNowDate(7)}
+              onClick={() => updateNowDate(7)}
             >
               일
             </div>

@@ -1,6 +1,6 @@
-import { InputProps } from '@/Presentation/Type';
+import { InputProps } from "@/Presentation/Type";
 
-import style from '@/Presentation/Style/Input.module.css';
+import style from "@/Presentation/Style/Input.module.css";
 
 const Input = ({
   width,

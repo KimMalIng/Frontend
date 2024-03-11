@@ -1,5 +1,5 @@
-import path from 'path';
-import { MouseEventHandler, ReactNode } from 'react';
+import path from "path";
+import { MouseEventHandler, ReactNode } from "react";
 
 type ButtonProps = {
   height: string;

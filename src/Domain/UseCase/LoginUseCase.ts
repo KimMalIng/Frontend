@@ -1,5 +1,5 @@
-import { AuthRepository } from '@/Domain/Repository';
-import { UserEntity } from '@/Domain/Entity';
+import { AuthRepository } from "@/Domain/Repository";
+import { UserEntity } from "@/Domain/Entity";
 
 class LoginUseCase {
   private authRepository: AuthRepository;
@@ -9,11 +9,11 @@ class LoginUseCase {
 
   async execute(
     id: string | null | undefined,
-    password: string | null | undefined
+    password: string | null | undefined,
   ): Promise<UserEntity> {
     if (
-      typeof id === 'undefined' ||
-      typeof password === 'undefined' ||
+      typeof id === "undefined" ||
+      typeof password === "undefined" ||
       id === null ||
       password === null
     ) {

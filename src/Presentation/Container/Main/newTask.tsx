@@ -1,19 +1,18 @@
-import React, { MouseEventHandler, useState, ChangeEventHandler } from 'react';
-import { Button, Input, Header } from '@/Presentation/Component';
-import { useRouter } from 'next/router';
-import Datepicker from 'react-datepicker';
-import { CalenderModel } from '@/Presentation/Model';
+import React, { MouseEventHandler, useState, ChangeEventHandler } from "react";
+import { Button, Input, Header } from "@/Presentation/Component";
+import { useRouter } from "next/router";
+import Datepicker from "react-datepicker";
+import { CalenderModel } from "@/Presentation/Model";
 
-import 'react-datepicker/dist/react-datepicker.css';
-import style from '@/Presentation/Style/NewTask.module.css';
+import "react-datepicker/dist/react-datepicker.css";
+import style from "@/Presentation/Style/NewTask.module.css";
 
 interface NewTaskProps {
   closeModal: () => void;
 }
 
 const NewTask: React.FC<NewTaskProps> = ({ closeModal }) => {
-
-  const [taskName, setTaskName] = useState('');
+  const [taskName, setTaskName] = useState("");
   const [time, setTime] = useState(0);
   const [deadLine, setDeadLine] = useState<Date>(new Date());
   const [datePickerOpen, setDatePickerOpen] = useState(false);
@@ -26,20 +25,21 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal }) => {
   };
 
   const handleOptionChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    if (!isNaN(Number(e.target.value))) setSelectedOption(Number(e.target.value));
+    if (!isNaN(Number(e.target.value)))
+      setSelectedOption(Number(e.target.value));
   };
 
   const handleButtonClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     await cModel.saveCalender(1, taskName, selectedOption, deadLine, time);
     setTimeout(async () => {
       await cModel.adjustmentCalender();
-      router.push('./main');
+      router.push("./main");
     }, 10);
   };
 
   const onTimeChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!isNaN(Number(e.target.value))) setTime(Number(e.target.value));
-  }
+  };
 
   return (
     <div className={style.body}>
@@ -54,7 +54,7 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal }) => {
             height="42px"
             text={taskName}
             fontSize="16px"
-            placeHolder={'일정 이름을 입력하세요'}
+            placeHolder={"일정 이름을 입력하세요"}
             onChange={onTaskNameChange}
           />
         </div>
@@ -67,16 +67,22 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal }) => {
             height="42px"
             text={String(time)}
             fontSize="16px"
-            placeHolder={'분 단위'}
+            placeHolder={"분 단위"}
             onChange={onTimeChange}
           />
         </div>
 
         <div className={style.NewTaskInputs}>
           <p>일정 분류</p>
-          <select value={selectedOption} onChange={handleOptionChange} defaultValue={0}>
+          <select
+            value={selectedOption}
+            onChange={handleOptionChange}
+            defaultValue={0}
+          >
             `아니 여기 controlled or uncontrolled 속성 어디에 입력하라는거야`
-            <option value="0" className={style.SelectClassify} selected>분류를 선택하세요</option>
+            <option value="0" className={style.SelectClassify} selected>
+              분류를 선택하세요
+            </option>
             <option value="1">과제</option>
             <option value="2">약속(술약속, 미팅)</option>
             <option value="3">여가</option>
@@ -99,9 +105,7 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal }) => {
           />
         </div>
 
-        <div className={style.PlusBox}>
-
-        </div>
+        <div className={style.PlusBox}></div>
         <div className={style.ReOrCan}>
           <Button
             width="70%"

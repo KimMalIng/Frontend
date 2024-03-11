@@ -1,7 +1,7 @@
 class LocalStorageDataSource {
   static getLocalStorage(name: string): Promise<string | null> {
     return new Promise((resolve) => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       resolve(token);
     });
   }

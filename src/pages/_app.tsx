@@ -1,7 +1,7 @@
-import type { AppProps } from 'next/app';
-import './global.css';
-import { Provider } from 'react-redux';
-import { store } from '@/Presentation/Redux';
+import type { AppProps } from "next/app";
+import "./global.css";
+import { Provider } from "react-redux";
+import { store } from "@/Presentation/Redux";
 //import '@radix-ui/themes/styles.css';
 
 const App = ({ Component, pageProps }: AppProps) => {

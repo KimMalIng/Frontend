@@ -1,14 +1,14 @@
-import { ChangeEventHandler, MouseEventHandler, useState } from 'react';
-import { Input, Button } from '@/Presentation/Component';
+import { ChangeEventHandler, MouseEventHandler, useState } from "react";
+import { Input, Button } from "@/Presentation/Component";
 
-import style from '@/Presentation/Style/Register.module.css';
-import { useRouter } from 'next/router';
+import style from "@/Presentation/Style/Register.module.css";
+import { useRouter } from "next/router";
 
 const GetUserData = () => {
   const router = useRouter();
-  const [nickname, setNickname] = useState('');
-  const [major, setMajor] = useState('');
-  const [university, setUniversity] = useState('');
+  const [nickname, setNickname] = useState("");
+  const [major, setMajor] = useState("");
+  const [university, setUniversity] = useState("");
 
   const nicknameOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setNickname(e.target.value);
@@ -20,11 +20,11 @@ const GetUserData = () => {
     setUniversity(e.target.value);
   };
   const onSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
-    if(nickname && major && university){
-        router.push("./main");
+    if (nickname && major && university) {
+      router.push("./main");
     } else {
-        alert("입력하지 않은 데이터가 있습니다");
-    };
+      alert("입력하지 않은 데이터가 있습니다");
+    }
   };
 
   return (
@@ -37,7 +37,7 @@ const GetUserData = () => {
           height="60px"
           text={nickname}
           fontSize="16px"
-          placeHolder={'닉네임을 입력해주세요'}
+          placeHolder={"닉네임을 입력해주세요"}
           onChange={nicknameOnChange}
         />
         <Input
@@ -46,7 +46,7 @@ const GetUserData = () => {
           height="60px"
           text={university}
           fontSize="16px"
-          placeHolder={'소속을 입력해주세요'}
+          placeHolder={"소속을 입력해주세요"}
           onChange={universityOnChange}
         />
         <Input
@@ -55,7 +55,7 @@ const GetUserData = () => {
           height="60px"
           text={major}
           fontSize="16px"
-          placeHolder={'학과 또는 학부를 입력해주세요'}
+          placeHolder={"학과 또는 학부를 입력해주세요"}
           onChange={majorOnChange}
         />
         <Button

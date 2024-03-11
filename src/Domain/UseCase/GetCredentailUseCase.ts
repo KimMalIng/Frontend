@@ -1,4 +1,4 @@
-import { AuthRepository } from '@/Domain/Repository';
+import { AuthRepository } from "@/Domain/Repository";
 
 class GetCredentailUseCase {
   private authRepository: AuthRepository;

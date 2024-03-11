@@ -47,8 +47,8 @@
   font-size: 16px;
   font-weight: 600;
   border-radius: 20px;
-  border: 0.5px solid rgba(31, 36, 33, 0.50);
-  background: #F3F3F3;
+  border: 0.5px solid rgba(31, 36, 33, 0.5);
+  background: #f3f3f3;
   text-align: center;
 }
 
@@ -65,8 +65,8 @@
   font-weight: 600;
   line-height: 12px;
   border-radius: 20px;
-  border: 0.5px solid rgba(31, 36, 33, 0.50);
-  background: #F3F3F3;
+  border: 0.5px solid rgba(31, 36, 33, 0.5);
+  background: #f3f3f3;
 }
 
 .PlusBox {
@@ -74,6 +74,6 @@
   height: 40px;
 }
 
-.ReOrCan> :nth-child(2) {
-  border: 2px solid #49A078;
+.ReOrCan > :nth-child(2) {
+  border: 2px solid #49a078;
 }

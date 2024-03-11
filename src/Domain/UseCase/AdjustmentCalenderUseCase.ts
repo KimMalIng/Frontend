@@ -1,4 +1,4 @@
-import { CalenderRepository } from '@/Domain/Repository';
+import { CalenderRepository } from "@/Domain/Repository";
 
 class AdjustmentCalenderUseCase {
   private calenderReposiotry: CalenderRepository;
@@ -11,12 +11,12 @@ class AdjustmentCalenderUseCase {
     // 리턴값이 무조건 promise 처리가 됨, 그래서 await 쓸 수 있음
     id: number | null | undefined,
     startDate: string | null | undefined,
-    endDate: string | null | undefined
-  ): Promise<void>{
+    endDate: string | null | undefined,
+  ): Promise<void> {
     if (
-      typeof id === 'undefined' ||
-      typeof startDate === 'undefined' ||
-      typeof endDate === 'undefined' ||
+      typeof id === "undefined" ||
+      typeof startDate === "undefined" ||
+      typeof endDate === "undefined" ||
       id === null ||
       startDate === null ||
       endDate === null
@@ -29,6 +29,6 @@ class AdjustmentCalenderUseCase {
       return Promise.reject(error);
     }
   }
-};
+}
 
 export default AdjustmentCalenderUseCase;

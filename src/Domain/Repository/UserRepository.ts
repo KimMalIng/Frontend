@@ -1,4 +1,4 @@
-import { UserEntity } from '@/Domain/Entity';
+import { UserEntity } from "@/Domain/Entity";
 
 interface UserRepository {
   info(token: string): Promise<UserEntity>;

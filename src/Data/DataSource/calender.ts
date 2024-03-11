@@ -1,16 +1,16 @@
-import { SERVER_URL } from '@/Const';
-import { CalenderData } from '@/Data/Model';
+import { SERVER_URL } from "@/Const";
+import { CalenderData } from "@/Data/Model";
 class CalenderDataSource {
   static async getCalender(
     id: number,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<CalenderData[]> {
     try {
       const res = await fetch(`${SERVER_URL}/timetable/period`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           user_id: id,
@@ -32,13 +32,13 @@ class CalenderDataSource {
     name: string,
     label: number,
     deadline: Date,
-    estimatedTime: number
+    estimatedTime: number,
   ): Promise<void> {
     try {
       const res = await fetch(`${SERVER_URL}/job/save`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           user_id: id,
@@ -55,22 +55,22 @@ class CalenderDataSource {
   static async adjustmentCalender(
     id: number,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<void> {
     try {
       const res = await fetch(`${SERVER_URL}/timetable/adjustment`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           user_id: id,
           startDate,
-          endDate
+          endDate,
         }),
       });
       console.log(res);
-      if(res.status !== 200) return Promise.reject(res.status);
+      if (res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       console.log(error);
       return Promise.reject(500);
