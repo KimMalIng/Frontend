@@ -1,5 +1,5 @@
-import { Login } from "@/Presentation/Container";
+import { Splash } from "@/Presentation/Container";
 
 export default function Index() {
-  return <Login />;
+  return <Splash />;
 }

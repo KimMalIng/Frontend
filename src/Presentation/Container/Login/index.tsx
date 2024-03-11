@@ -89,7 +89,9 @@ const Login = () => {
             />
           </a>
         </button>
-        <p onClick={getSignUp}>회원가입</p>
+        <p className={style.sign} onClick={getSignUp}>
+          회원가입
+        </p>
       </div>
     </div>
   );

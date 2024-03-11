@@ -35,3 +35,9 @@
 .kakao {
   margin-top: 210px;
 }
+
+.sign {
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
