@@ -1,13 +1,13 @@
 class LocalStorageDataSource {
-  static getLocalStorage(): Promise<string | null> {
+  static getLocalStorage(name: string): Promise<string | null> {
     return new Promise((resolve) => {
       const token = localStorage.getItem('token');
       resolve(token);
     });
   }
-  static saveLocalStorage(token: string): Promise<void> {
+  static saveLocalStorage(name: string, token: string): Promise<void> {
     return new Promise((resolve) => {
-      localStorage.setItem('token', token);
+      localStorage.setItem(name, token);
       resolve();
     });
   }
