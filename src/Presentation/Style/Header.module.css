@@ -11,8 +11,8 @@
 }
 
 .logoBox {
-  width: 100px;
-  padding-left: 20px;
+  width: 40px;
+  margin-left: 20px;
   height: 40px;
 }
 
@@ -26,32 +26,22 @@
   gap: 10px;
 }
 
-.userBox > img {
+.myPage {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.myPage > img {
   border-radius: 100%;
 }
 
-.userBox > p {
+.myPage > p {
   font-size: 16px;
   font-weight: 900;
   line-height: 16px;
   color: #fff;
-}
-
-.logout {
-  width: 140px;
-  height: 32px;
-  background-color: #fff;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #9cc5a1;
-  font-size: 14px;
-  line-height: 14px;
-  font-weight: 900;
-  cursor: pointer;
-  margin-left: 20px;
-  user-select: none;
 }
 
 .logoBox > img {

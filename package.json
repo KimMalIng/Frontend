@@ -25,7 +25,8 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.1.2",
     "redux-logger": "^3.0.6",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@types/react-datepicker": "^4.19.3",

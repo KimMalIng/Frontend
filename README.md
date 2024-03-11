@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+** only test for connect to github from VS
+
 First, run the development server:
 
 ```bash
