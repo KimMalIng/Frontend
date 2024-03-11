@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+
 import { useSearchParams } from "next/navigation";
 
 const LoginCheck = () => {
@@ -24,10 +25,12 @@ const LoginCheck = () => {
     }
   });
 
+
   return (
     <div>
     </div>
   );
 };
+
 
 export default LoginCheck;
