@@ -41,7 +41,7 @@ const Register = () => {
         <Input
           type="id"
           width="100%"
-          height="60px"
+          height="36px"
           text={id}
           fontSize="16px"
           placeHolder={"아이디를 입력해주세요"}
@@ -49,25 +49,25 @@ const Register = () => {
         />
         <p onClick={isIdValid}>중복 확인</p>
         <Input
-          type="id"
+          type="password"
           width="100%"
-          height="60px"
+          height="36px"
           text={pw}
           fontSize="16px"
           placeHolder={"비밀번호를 입력해주세요"}
           onChange={pwOnChange}
         />
-        {pw.length > 4 && (
-          <Input
-            type="id"
-            width="100%"
-            height="60px"
-            text={checkPw}
-            fontSize="16px"
-            placeHolder={"비밀번호를 한번 더 입력해주세요"}
-            onChange={checkPwOnChange}
-          />
-        )}
+        <Input
+          type="password"
+          width="100%"
+          height="36px"
+          text={checkPw}
+          fontSize="16px"
+          placeHolder={"비밀번호를 한번 더 입력해주세요"}
+          onChange={checkPwOnChange}
+        />
+      
+
         <Button
           width="100%"
           height="60px"

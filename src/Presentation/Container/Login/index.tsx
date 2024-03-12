@@ -48,50 +48,34 @@ const Login = () => {
   return (
     <div className={style.Login}>
       <div className={style.ContentBox}>
-        <h2>{isIdVaild ? "비밀번호 입력" : "로그인"}</h2>
-        {isIdVaild ? (
-          <Input
-            width="100%"
-            height="60px"
-            text={pwd}
-            type="password"
-            fontSize="20px"
-            placeHolder={"your password"}
-            onChange={pwdOnChange}
-          />
-        ) : (
-          <Input
-            type="id"
-            width="100%"
-            height="60px"
-            text={id}
-            fontSize="20px"
-            placeHolder={"example@email.com"}
-            onChange={idOnChange}
-          />
-        )}
+        <Input
+          type="id"
+          width="100%"
+          height="36px"
+          text={id}
+          fontSize="14px"
+          placeHolder={"아이디를 입력해주세요"}
+          onChange={idOnChange}
+        />
+        <Input
+          width="100%"
+          height="36px"
+          text={pwd}
+          type="password"
+          fontSize="14px"
+          placeHolder={"비밀번호를 입력해주세요"}
+          onChange={pwdOnChange}
+        />
         <Button
           width="100%"
-          height="60px"
-          fontSize="24px"
+          height="44px"
+          fontSize="18px"
           backgroundColor="#49A078"
           color="#FFF"
           children={loginButtonText}
           imgsrc="#"
           onClick={isIdVaild ? pwdVaildCheck : idSetClick}
         />
-        <button className={style.kakao}>
-          <a href="http://3.34.48.41:8000/oauth2/authorization/kakao/?redirect_url=localhost:3000/logincheck">
-            <Image
-              src={KakaoLoginImage}
-              alt="카카오 로그인 이미지"
-              width={440}
-            />
-          </a>
-        </button>
-        <p className={style.sign} onClick={getSignUp}>
-          회원가입
-        </p>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/Presentation/Component";
 import Image from "next/image";
 import { Logo, Kakao, Naver } from "@/Presentation/Resource";
@@ -6,7 +7,14 @@ import { Logo, Kakao, Naver } from "@/Presentation/Resource";
 import style from "@/Presentation/Style/Splash.module.css";
 
 const Splash = () => {
-  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {};
+  const router = useRouter();
+
+  const onClickLogin: MouseEventHandler<HTMLButtonElement> = (e) => {
+    router.push("/login");
+  };
+  const onClickRegister: MouseEventHandler<HTMLButtonElement> = (e) => {
+    router.push("/register");
+  };
 
   return (
     <div className={style.Splash}>
@@ -24,7 +32,7 @@ const Splash = () => {
             color="#FFF"
             children={"로그인"}
             imgsrc="#"
-            onClick={onClick}
+            onClick={onClickLogin}
           />
           <Button
             width="440px"
@@ -34,7 +42,7 @@ const Splash = () => {
             color="#FFF"
             children={"가입하기"}
             imgsrc="#"
-            onClick={onClick}
+            onClick={onClickRegister}
           />
           <div className={style.CustomBtnBox}>
             <div className={style.CustomBtn}>
