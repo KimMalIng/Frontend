@@ -37,23 +37,30 @@ const Register = () => {
   return (
     <div className={style.Register}>
       <div className={style.ContentBox}>
-        <h1>사용할 아이디, 비밀번호를 입력해주세요!</h1>
-        <Input
-          type="id"
-          width="100%"
-          height="36px"
-          text={id}
-          fontSize="16px"
-          placeHolder={"아이디를 입력해주세요"}
-          onChange={idOnChange}
-        />
-        <p onClick={isIdValid}>중복 확인</p>
+        <h1>회원가입</h1>
+        <div className={style.idCheckBox}>
+          <Input
+            type="id"
+            width="76%"
+            height="36px"
+            text={id}
+            fontSize="14px"
+            placeHolder={"아이디를 입력해주세요"}
+            onChange={idOnChange}
+          />
+          <div 
+            className={style.idCheckBtn}
+            onClick={isIdValid}
+          >
+            중복확인
+          </div>
+        </div>
         <Input
           type="password"
           width="100%"
           height="36px"
           text={pw}
-          fontSize="16px"
+          fontSize="14px"
           placeHolder={"비밀번호를 입력해주세요"}
           onChange={pwOnChange}
         />
@@ -62,7 +69,7 @@ const Register = () => {
           width="100%"
           height="36px"
           text={checkPw}
-          fontSize="16px"
+          fontSize="14px"
           placeHolder={"비밀번호를 한번 더 입력해주세요"}
           onChange={checkPwOnChange}
         />
@@ -70,8 +77,8 @@ const Register = () => {
 
         <Button
           width="100%"
-          height="60px"
-          fontSize="24px"
+          height="42px"
+          fontSize="18px"
           backgroundColor="#49A078"
           color="#FFF"
           imgsrc="#"
