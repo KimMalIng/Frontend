@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
 
 function PeriodInput({toClear}) {
   // @dev stat_hour, start_minute
@@ -9,22 +9,88 @@ function PeriodInput({toClear}) {
   const [eHour, setEHour] = useState('00');
   const [eMinute, setEMinute] = useState('00');
 
+  // 시작시간 > 종료시간인 경우 다음 날까지로 인식
+  const [nextDay, setNextDay] = useState(false);
+
   const handleSHourChange = (e) => {
-    const newHour = e.target.value.padStart(2, '0');
-    setSHour(newHour);
-  };
-  const handleSMinuteChange = (e) => {
-    const newMinute = e.target.value.padStart(2, '0');
-    setSMinute(newMinute);
+    const value = e.target.value;
+    if(value < 0 || value > 23) {
+      alert("입력 가능 범위 : 0시 ~ 23시 (24시 == 0시)");
+      return;
+    } else {
+      setSHour(value);
+    }
   };
 
   const handleEHourChange = (e) => {
-    const newHour = e.target.value.padStart(2, '0');
-    setEHour(newHour);
+    const value = e.target.value;
+    if(value < 0 || value > 23) {
+      alert("입력 가능 범위 : 0시 ~ 23시 (24시 == 0시)");
+      return;
+    } else {
+      setEHour(value);
+    }
   };
-  const handleEMinuteChange = (e) => {
-    const newMinute = e.target.value.padStart(2, '0');
-    setEMinute(newMinute);
+
+  const handleSMinuteChange =  (e) => {
+    const value = e.target.value;
+    if(value < 0 || value > 59) {
+      alert("입력 가능 범위 : 0 ~ 50");
+      return;
+    }
+    if(value<10) {
+      setSMinute(value);
+      return;
+    }
+    if(value%10 < 5) {
+      setSMinute(Math.floor(value/10)*10);
+      return;
+    }
+    if(value > 54 && sHour < 50) {
+      setSHour((prev)=>(Number(prev)+1));
+      setSMinute(0);
+      return;
+    }
+    if(sHour >= 24) {
+      alert("최소 입력 가능 시간 : 00시간 10분 / 최대 입락 가능 시간 : 50시간 00분");
+      setSHour(0);
+      return;
+    }
+    if(value%10 > 5){
+      setSMinute(Math.ceil(value/10)*10);
+      return;
+    };
+  };
+
+  const handleEMinuteChange =  (e) => {
+    const value = e.target.value;
+    if(value < 0 || value > 59) {
+      alert("입력 가능 범위 : 0 ~ 50");
+      return;
+    }
+    if(value<10) {
+      setEMinute(value);
+      console.log(eMinute);
+      return;
+    }
+    if(value%10 < 5) {
+      setEMinute(Math.floor(value/10)*10);
+      return;
+    }
+    if(value > 54 && eHour < 50) {
+      setEHour((prev)=>(Number(prev)+1));
+      setEMinute(0);
+      return;
+    }
+    if(eHour >= 24) {
+      alert("다음 날까지 이어지는 일정입니다");
+      setEHour(0);
+      return;
+    }
+    if(value%10 > 5){
+      setEMinute(Math.ceil(value/10)*10);
+      return;
+    };
   };
 
   return (

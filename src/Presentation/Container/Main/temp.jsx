@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 function TimeInput() {
-  const [hour, setHour] = useState(0);
-  const [minute, setMinute] = useState(0);
+  const [hour, setHour] = useState('00');
+  const [minute, setMinute] = useState('00');
 
   const handleHourChange = (e) => {
     const value = e.target.value;
@@ -40,17 +40,16 @@ function TimeInput() {
       setMinute(0);
       return;
     }
-    if(value%10 > 5){
+    if(value%10 > 4){
       setMinute(Math.ceil(value/10)*10);
       return;
     };
-      
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "5px"}}>
       <p style={{ fontSize: "16px" }}>예상 소요 시간</p>
-      <div style={{ display: "flex", gap: "5px", marginTop:"6px" }}>
+      <div style={{ display: "flex", alignItems:"center", gap:"5px" }}>
         <input
           style={{ width: "55px", height: "45px", fontSize: "22px", backgroundColor: "#FFF", borderRadius: "5px", paddingInlineStart: "12px", color:"#064d2c"}}
           type="number"
