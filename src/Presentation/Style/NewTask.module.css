@@ -1,10 +1,35 @@
 .body {
-  height: 30;
+  width: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #addbb2;
+  background-color: #c5ecca;
   border-radius: 15px;
+  padding:3px
+}
+
+.TaskName {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.TaskName > button {
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #248e5d;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.TaskName > button:hover {
+  background-color: #248e5d;
+  color: #fff;
+  font-size: 22px;
+  transition: 0.2s;
 }
 
 .ContentBox {
@@ -28,13 +53,19 @@
 }
 
 .toggles > span{
-  font-size: 18px;
+  font-size: 16px;
+}
+
+.toggles > p {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #064d2c;
 }
 
 .ExpectTime {
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  margin: 15px 0px 0px 15px;
   gap:5px
 }
 .ExpectTime > p {
@@ -57,13 +88,13 @@
   gap: 10px;
 }
 
-.toggle_switch { display: inline-block; position: relative; width: 170px; height: 40px; font-size: 18px;} 
+.toggle_switch { display: inline-block; position: relative; width: 160px; height: 40px; font-size: 17px;} 
 .toggle_switch input[type="checkbox"] { overflow: hidden; position: absolute; width: 1px; height: 1px; margin: -1px; font-size: initial; clip: rect(0 0 0 0);} 
 .toggle_switch .slider { position: absolute; top: 0; right: 0; bottom: 0; left: 0; 
   background-color: #fff; border-radius: 34px; cursor: pointer; transition: 0.4s; box-shadow: inset 0px 0px 10px #abaaaa;
-  padding-inline-start: 40px; align-items: center; display: flex; color:#252525; font-weight: 500;} 
+  padding-inline-start: 43px; align-items: center; display: flex; color:#252525; font-weight: 500;} 
 .toggle_switch input[type="checkbox"]:checked + .slider { background-color: #49A078; color:#fff; box-shadow: inset 0px 0px 10px #248e5d; 
   padding-inline-start: 15px; align-items: center; display: flex; font-weight: 500;} 
 .toggle_switch .slider::before { content: ""; position: absolute; top: 5px; left: 5px; width: 30px; height: 30px; 
   background-color: #fff; border-radius: 50%; transition: 0.4s; box-shadow: -1px 1px 5px #4b7d65;}  
-.toggle_switch input[type="checkbox"]:checked + .slider::before { transform:translateX(130px); } 
+.toggle_switch input[type="checkbox"]:checked + .slider::before { transform:translateX(120px); } 

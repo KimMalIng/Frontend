@@ -29,10 +29,10 @@ function PeriodInput({toClear}) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-      <p style={{ fontSize: "18px" }}>시작</p>
+      <p style={{ fontSize: "16px" }}>시작</p>
       <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
         <input
-          style={{ width: "65px", height: "50px", fontSize: "26px", backgroundColor: "#FFF", borderRadius: "10px", paddingInlineStart: "16px" }}
+          style={{ width: "55px", height: "45px", fontSize: "22px", backgroundColor: "#FFF", borderRadius: "5px", paddingInlineStart: "12px" }}
           type="number"
           className="timeBox"
           value={sHour}
@@ -41,7 +41,7 @@ function PeriodInput({toClear}) {
         />
         <p style={{ fontSize: "50px" }}>: </p>
         <input
-          style={{ width: "65px", height: "50px", fontSize: "26px", backgroundColor: "#FFF", borderRadius: "10px", paddingInlineStart: "16px" }}
+          style={{ width: "55px", height: "45px", fontSize: "22px", backgroundColor: "#FFF", borderRadius: "5px", paddingInlineStart: "12px" }}
           type="number"
           className="timeBox"
           value={sMinute}
@@ -51,10 +51,10 @@ function PeriodInput({toClear}) {
       </div>
       {!toClear &&
         <>
-          <p style={{ fontSize: "18px" }}>종료</p>
+          <p style={{ fontSize: "16px" }}>종료</p>
           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <input
-              style={{ width: "65px", height: "50px", fontSize: "26px", backgroundColor: "#FFF", borderRadius: "10px", paddingInlineStart: "16px" }}
+              style={{ width: "55px", height: "45px", fontSize: "22px", backgroundColor: "#FFF", borderRadius: "5px", paddingInlineStart: "12px" }}
               type="number"
               className="timeBox"
               value={eHour}
@@ -63,7 +63,7 @@ function PeriodInput({toClear}) {
             />
             <p style={{ fontSize: "50px" }}>: </p>
             <input
-              style={{ width: "65px", height: "50px", fontSize: "26px", backgroundColor: "#FFF", borderRadius: "10px", paddingInlineStart: "16px" }}
+              style={{ width: "55px", height: "45px", fontSize: "22px", backgroundColor: "#FFF", borderRadius: "5px", paddingInlineStart: "12px" }}
               type="number"
               className="timeBox"
               value={eMinute}
