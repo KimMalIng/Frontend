@@ -19,10 +19,13 @@ import { CalenderEntity } from "@/Domain/Entity";
 import NewTask from "./newTask";
 import todoData from "../../../tempData.json";
 import style from "@/Presentation/Style/Main.module.css";
-import { createPortal } from "react-dom";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import moment from "moment";
+
 
 const Main = () => {
-  const upperBarDate = showToday();
+  // const upperBarDate = showToday();
   // isTodoCheck === false, make progress bar
   const [calender, setCalender] = useState<CalenderEntity[]>([]);
   const [timeline, setTimeline] = useState<CalenderEntity>();
@@ -30,7 +33,7 @@ const Main = () => {
   const [isTimelineLoading, setIsTimelineLoading] = useState(true);
   const [date, setDate] = useState<Date>(new Date());
   const cModel = new CalenderModel();
-  const router = useRouter();
+  // const router = useRouter();
   const [toggleOn, setModalOn] = useState(false);
 
   const onAddButtonClick: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -52,8 +55,7 @@ const Main = () => {
     await Promise.all(
       res.map((d) => {
         const calenderDate = new Date(
-          `${d.day.split(".")[0]}-${d.day.split(".")[1]}-${
-            d.day.split(".")[2]
+          `${d.day.split(".")[0]}-${d.day.split(".")[1]}-${d.day.split(".")[2]
           }`,
         );
         if (
@@ -95,9 +97,8 @@ const Main = () => {
       <Header />
       <div className={style.ContentBox}>
         <div className={style.TodoDate}>
-          <p>{`${date.getFullYear()}.${
-            date.getMonth() + 1
-          }.${date.getDate()}`}</p>
+          <p>{`${date.getFullYear()}.${date.getMonth() + 1
+            }.${date.getDate()}`}</p>
           <Button
             width="150px"
             height="34px"
@@ -130,7 +131,8 @@ const Main = () => {
             );
           })
         ) : (
-          <></>
+          <>
+          </>
         )}
 
         {/* {todos.map((todoSubject, index) =>
@@ -150,9 +152,11 @@ const Main = () => {
       </div>
       <div className={style.CalenderBox}>
         {isCalenderLoading ? (
-          <Calender data={calender} updateNowDate={updateNowDate} />
-        ) : (
           <></>
+        ) : (
+          <>
+            <Calendar locale="ko" />
+          </>
         )}
       </div>
     </div>

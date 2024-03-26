@@ -1,0 +1,17 @@
+
+.react-calendar__month {
+    background-color: skyblue;
+  }
+
+
+.react-calendar__navigation button {
+    color: #6f48eb;
+    min-width: 44px;
+    background: none;
+    font-size: 16px;
+    margin-top: 8px;
+   }
+  .react-calendar__navigation button:disabled {
+    background-color: #f0f0f0;
+  }
+  
