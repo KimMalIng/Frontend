@@ -1,0 +1,21 @@
+.MonthCalendar {
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+}
+
+
+.DayTile {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #f87171;
+    border-radius: 50%;
+    display: flex;
+    margin-left: 1px;
+  }

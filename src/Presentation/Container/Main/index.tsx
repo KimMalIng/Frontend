@@ -13,15 +13,13 @@ import {
   Button,
 } from "@/Presentation/Component";
 import { useRouter } from "next/router";
+import MontlyCalendar from './customCalendar.jsx';
 import { CalenderModel } from "@/Presentation/Model";
 import { SubjectType } from "@/Data/Model";
 import { CalenderEntity } from "@/Domain/Entity";
 import NewTask from "./newTask";
-import todoData from "../../../tempData.json";
 import style from "@/Presentation/Style/Main.module.css";
-import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import moment from "moment";
 
 
 const Main = () => {
@@ -36,7 +34,7 @@ const Main = () => {
   // const router = useRouter();
   const [toggleOn, setModalOn] = useState(false);
 
-  const onAddButtonClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const onAddButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
     setModalOn(true);
   };
   const closeModal = () => {
@@ -93,23 +91,12 @@ const Main = () => {
   }, [date]);
 
   return (
-    <div className={style.Main} id="portal-root">
+    <div className={style.Main}>
       <Header />
       <div className={style.ContentBox}>
         <div className={style.TodoDate}>
-          <p>{`${date.getFullYear()}.${date.getMonth() + 1
+          <p>Today : {`${date.getFullYear()}.${date.getMonth() + 1
             }.${date.getDate()}`}</p>
-          <Button
-            width="150px"
-            height="34px"
-            fontSize="14px"
-            backgroundColor="#49A078"
-            color="#FFF"
-            imgsrc="#"
-            onClick={onAddButtonClick}
-          >
-            일정 추가하기
-          </Button>
         </div>
         {toggleOn ? (
           <NewTask closeModal={closeModal} />
@@ -155,7 +142,7 @@ const Main = () => {
           <></>
         ) : (
           <>
-            <Calendar locale="ko" />
+            <MontlyCalendar />
           </>
         )}
       </div>

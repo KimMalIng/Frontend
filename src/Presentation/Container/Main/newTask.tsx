@@ -21,6 +21,13 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal }) => {
   const cModel = new CalenderModel();
   const [time, setTime] = useState(0);
 
+  const addNewTask: MouseEventHandler<HTMLButtonElement> = () => {
+    const data = {
+      "":"",
+      "":""
+    };
+  };
+
   const onTaskNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setTaskName(e.target.value);
   };
@@ -45,7 +52,7 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal }) => {
 
   return (
     <div className={style.body}>
-      <div className={style.ContentBox}>
+      <div className={style.ContentBox}> 
         <div className={style.TaskName}>
           <Input
             type="text"
