@@ -32,7 +32,7 @@ const Main = () => {
   const [date, setDate] = useState<Date>(new Date());
   const cModel = new CalenderModel();
   // const router = useRouter();
-  const [toggleOn, setModalOn] = useState(false);
+  const [toggleOn, setModalOn] = useState(true);
 
   const onAddButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
     setModalOn(true);

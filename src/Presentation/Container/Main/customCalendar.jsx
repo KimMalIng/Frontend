@@ -16,7 +16,7 @@ function MonthlyCalendar() {
     const [mark, setMark] = useState(["2024-03-12", "2024-03-25", "2024-03-26"]);
 
     return (
-        <div>
+        <>
             <Calendar
                 locale="en"
                 allowPartialRange={true}
@@ -49,7 +49,7 @@ function MonthlyCalendar() {
                   }}
                 onChange={handleDateRange}
             />
-        </div>
+        </>
     );
 };
 export default MonthlyCalendar;

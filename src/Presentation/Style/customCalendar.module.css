@@ -1,11 +1,14 @@
 .MonthCalendar {
     background-color: rgb(255, 255, 255);
     height: 100%;
+    width: 100%;
+    /* height: auto; */
 }
 
 
 .DayTile {
     height: 30px;
+    /* width: 50px; */
     display: flex;
     justify-content: center;
     align-items: center;
