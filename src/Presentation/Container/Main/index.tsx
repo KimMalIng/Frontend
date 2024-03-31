@@ -20,6 +20,7 @@ import { CalenderEntity } from "@/Domain/Entity";
 import NewTask from "./newTask";
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
+import dummyJson from "./dummyJson.json";
 
 
 const Main = () => {
