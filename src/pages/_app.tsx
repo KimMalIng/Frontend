@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "@/Presentation/Redux";
 //import '@radix-ui/themes/styles.css';
 import { initializeApp } from 'firebase/app';
-import { getToken, getMessaging } from 'firebase/messaging';
+import { getToken, getMessaging, onMessage } from 'firebase/messaging';
 
 const firebaseKey = {
   apiKey: "AIzaSyBXQM2A0LabkYjaSGLaJhi1W3whgcCXSE4",
@@ -21,15 +21,13 @@ import "./global.css";
 
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(()=>{
+    if (!("permission" in Notification)) {
+      Notification.requestPermission();
+    }
     if ('serviceWorker' in navigator) {
-      console.log("hi");
-      navigator.serviceWorker.register('/sw.js')
-      .then((registration)=>{
-        if (!("permission" in Notification)) {
-          Notification.requestPermission();
-        }
-    
+      navigator.serviceWorker.register('/firebase-messaging-sw.js').then(function(registration){
         const messaging = getMessaging();
+
         getToken(
           messaging, 
           { vapidKey: 'BHnZZSGA3NSOKwPYOQlD75Y7czLDJQoRrfR0l0JMS8e5L8sB-dhZXb7sUeojCDKyjYouru53H2GDR1ea0mnSIws' }
@@ -41,12 +39,21 @@ const App = ({ Component, pageProps }: AppProps) => {
           }
         }).catch((err) => {
           console.log(err);
-
         });
-      })
-      .catch((err)=>{
-        console.error(err);
-      });
+
+        onMessage(messaging, (payload) => {
+          console.log(payload);
+          let notificationOptions = {
+            body: 'Some Notification information',
+            icon: ''
+          }
+          let notif = new Notification('My New Notification', notificationOptions);
+
+          notif.onclick = () => {
+            console.log('Notification clicked');
+          }
+        });
+      }).catch(console.log);
     }
   }, []);
   return (
