@@ -20,7 +20,6 @@ import { CalenderEntity } from "@/Domain/Entity";
 import NewTask from "./newTask";
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
-import dummyJson from "./dummyJson.json";
 
 
 const Main = () => {
@@ -33,16 +32,17 @@ const Main = () => {
   const [date, setDate] = useState<Date>(new Date());
   const cModel = new CalenderModel();
   // const router = useRouter();
-  const [toggleOn, setModalOn] = useState(true);
+  const [toggleOn, setModalOn] = useState(false);
   const [deadLine, setDeadLine] = useState("");
+  const [dailyTodo, setDailyTodo] = useState([]);
 
-  const handleDeadLine = (val:any) => {
+  const handleDeadLine = (val: any) => {
     console.log(val);
     setDeadLine(val); // 시작, 종료 날짜 세팅 완료
-    if(deadLine[0] != null){
+    if (deadLine[0] != null) {
       setModalOn(true);
-    } 
-  }; 
+    }
+  };
 
   const closeModal = () => {
     setModalOn(false);
@@ -97,6 +97,9 @@ const Main = () => {
     updateTimeLineData();
   }, [date]);
 
+  useEffect(() => {
+  },[dailyTodo]);
+
   return (
     <div className={style.Main}>
       <Header />
@@ -142,14 +145,23 @@ const Main = () => {
               checked={todo.isDone ? todo.isDone : undefined}
             ></Todo>
           ))
-        )} */}
+        )} */
+
+        }
+        {
+          dailyTodo.length > 0 && <ul>
+            {dailyTodo.map((schedule:any, index)=>(
+              <li className={style.DailyList} key={index}>{schedule.name}</li>
+            ))}
+          </ul>
+        }
       </div>
       <div className={style.CalenderBox}>
         {isCalenderLoading ? (
           <></>
         ) : (
           <>
-            <MontlyCalendar setDeadLine = {handleDeadLine}/>
+            <MontlyCalendar setDeadLine={handleDeadLine} setDailyTodo={setDailyTodo} />
           </>
         )}
       </div>

@@ -18,6 +18,10 @@
   flex-direction: column;
 }
 
+.DailyList {
+  font-size: 30px;
+}
+
 .CalenderBox {
   overflow: auto;
   width: 800px;

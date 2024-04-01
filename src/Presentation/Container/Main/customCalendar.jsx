@@ -6,7 +6,8 @@ import moment from 'moment';
 import dummyJson from "./dummyJson.json";
 
 
-function MonthlyCalendar({setDeadLine}) {
+function MonthlyCalendar({setDeadLine, setDailyTodo}) {
+  const [selectedDate, setSelectedDate] = useState(null);
   const [scheduleData, setScheduleData] = useState({}); // New state variable
   
   const handleDateRange = (value) => {
@@ -28,10 +29,17 @@ function MonthlyCalendar({setDeadLine}) {
     setScheduleData(processedScheduleData); // Update state with processed data
   }, []);
 
-  const showDailyTodo = () => {
-    // 컴포넌트를 누르면 그날 일정 보여주기  
-  }
-  
+  const handleDateClick = (date) => {
+    const formattedDate = moment(date).format("YYYY-MM-DD"); // Format date
+    console.log("Selected Date : ", formattedDate);
+    setSelectedDate(formattedDate); // Update selected date state
+
+    // Extract daily todos for the selected date
+    const dailyTodos = scheduleData[formattedDate]?.schedules || [];
+    console.log(dailyTodos);
+    setDailyTodo(dailyTodos); // Pass daily todos to parent component
+  };
+
   return (
     <>
       <Calendar
@@ -49,7 +57,7 @@ function MonthlyCalendar({setDeadLine}) {
           let html = [];
           if (schedules && schedules.length > 0) {
             html.push(
-              <div className={style.ScheduleList} onClick={showDailyTodo}>
+              <div className={style.ScheduleList}>
                 {schedules.map((schedule) => (
                   <div key={schedule.name} className={style.ScheduleItem}>
                     {schedule.name}
@@ -60,7 +68,11 @@ function MonthlyCalendar({setDeadLine}) {
           }
           return (
             <>
-              <div className={style.DayTile}>
+              <div className={html.length? style.DayTile: style.NoScheduleDayTile} 
+              onClick={(event) => {
+                handleDateClick(date);
+                event.stopPropagation(); // Stop propagation to prevent default calendar behavior
+              }}>
                 {html}
               </div>
             </>
