@@ -1,9 +1,13 @@
-import { CalenderEntity } from '@/Domain/Entity';
-import { CalenderRepository } from '@/Domain/Repository';
-import { CalenderDataSource } from '@/Data/DataSource';
+import { CalenderEntity } from "@/Domain/Entity";
+import { CalenderRepository } from "@/Domain/Repository";
+import { CalenderDataSource } from "@/Data/DataSource";
 
 class CalenderRepositoryImpl implements CalenderRepository {
-  async adjustmentCalender(id: number, startDate: string, endDate: string): Promise<void> {
+  async adjustmentCalender(
+    id: number,
+    startDate: string,
+    endDate: string,
+  ): Promise<void> {
     try {
       await CalenderDataSource.adjustmentCalender(id, startDate, endDate);
     } catch (error) {
@@ -13,13 +17,13 @@ class CalenderRepositoryImpl implements CalenderRepository {
   async getCalender(
     id: number,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<CalenderEntity[]> {
     try {
       const data: CalenderEntity[] = await CalenderDataSource.getCalender(
         id,
         startDate,
-        endDate
+        endDate,
       );
       return data;
     } catch (error) {
@@ -31,7 +35,7 @@ class CalenderRepositoryImpl implements CalenderRepository {
     name: string,
     label: number,
     deadline: Date,
-    estimatedTime: number
+    estimatedTime: number,
   ): Promise<void> {
     try {
       await CalenderDataSource.saveCalender(
@@ -39,7 +43,7 @@ class CalenderRepositoryImpl implements CalenderRepository {
         name,
         label,
         deadline,
-        estimatedTime
+        estimatedTime,
       );
     } catch (error) {
       return Promise.reject(error);

@@ -1,5 +1,5 @@
-import { CalenderRepository } from '@/Domain/Repository';
-import { CalenderEntity } from '@/Domain/Entity';
+import { CalenderRepository } from "@/Domain/Repository";
+import { CalenderEntity } from "@/Domain/Entity";
 
 class GetCalenderUseCase {
   private calenderReposiotry: CalenderRepository;
@@ -11,13 +11,13 @@ class GetCalenderUseCase {
   async execute(
     id: number | null | undefined,
     startDate: string | null | undefined,
-    endDate: string | null | undefined
+    endDate: string | null | undefined,
   ): Promise<CalenderEntity[]> {
     // 조건
     if (
-      typeof id === 'undefined' ||
-      typeof startDate === 'undefined' ||
-      typeof endDate === 'undefined' ||
+      typeof id === "undefined" ||
+      typeof startDate === "undefined" ||
+      typeof endDate === "undefined" ||
       id === null ||
       startDate === null ||
       endDate === null
@@ -31,7 +31,7 @@ class GetCalenderUseCase {
       const data = await this.calenderReposiotry.getCalender(
         id,
         startDate,
-        endDate
+        endDate,
       );
       return data;
     } catch (error) {

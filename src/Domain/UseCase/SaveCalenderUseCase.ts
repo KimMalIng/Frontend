@@ -1,4 +1,4 @@
-import { CalenderRepository } from '@/Domain/Repository';
+import { CalenderRepository } from "@/Domain/Repository";
 
 class SaveCalenderUseCase {
   private calenderReposiotry: CalenderRepository;
@@ -12,14 +12,14 @@ class SaveCalenderUseCase {
     name: string | null | undefined,
     label: number | null | undefined,
     deadline: Date | null | undefined,
-    estimatedTime: number | null | undefined
+    estimatedTime: number | null | undefined,
   ): Promise<void> {
     if (
-      typeof id === 'undefined' ||
-      typeof name === 'undefined' ||
-      typeof label === 'undefined' ||
-      typeof deadline === 'undefined' ||
-      typeof estimatedTime === 'undefined' ||
+      typeof id === "undefined" ||
+      typeof name === "undefined" ||
+      typeof label === "undefined" ||
+      typeof deadline === "undefined" ||
+      typeof estimatedTime === "undefined" ||
       id === null ||
       name === null ||
       label === null ||
@@ -36,7 +36,7 @@ class SaveCalenderUseCase {
         name,
         label,
         deadline,
-        estimatedTime
+        estimatedTime,
       );
     } catch (error) {
       return Promise.reject(error);

@@ -1,8 +1,8 @@
-import { SERVER_URL } from '@/Const';
-import { UserEntity } from '@/Domain/Entity';
-import { UserDataType } from '@/Data/Model';
-import { AuthRepository } from '@/Domain/Repository';
-import { LocalStorageDataSource, AuthDataSource } from '@/Data/DataSource';
+import { SERVER_URL } from "@/Const";
+import { UserEntity } from "@/Domain/Entity";
+import { UserDataType } from "@/Data/Model";
+import { AuthRepository } from "@/Domain/Repository";
+import { LocalStorageDataSource, AuthDataSource } from "@/Data/DataSource";
 
 class AuthRepositoryImpl implements AuthRepository {
   async signUp(data: UserDataType): Promise<UserEntity> {
@@ -22,18 +22,20 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
   async logout(): Promise<void> {
-    await LocalStorageDataSource.saveLocalStorage('');
+    await LocalStorageDataSource.saveLocalStorage("refreshToken", "");
+    await LocalStorageDataSource.saveLocalStorage("accessToken", "");
   }
-  async getCredential(): Promise<boolean> {
+  async getCredential(name: string): Promise<boolean> {
     try {
-      // const token = await LocalStorageDataSource.getLocalStorage();
-      return false;
+      const token = await LocalStorageDataSource.getLocalStorage(name);
+      if (token === null) return false;
+      return true;
     } catch (error) {
       return Promise.reject(error);
     }
   }
-  async saveCredential(token: string): Promise<void> {
-    await LocalStorageDataSource.saveLocalStorage(token);
+  async saveCredential(name: string, token: string): Promise<void> {
+    await LocalStorageDataSource.saveLocalStorage(name, token);
   }
 }
 

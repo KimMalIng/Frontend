@@ -1,9 +1,5 @@
-import AuthDataSource from './auth';
-import CalenderDataSource from './calender';
-import LocalStorageDataSource from './LocalStorage';
+import AuthDataSource from "./auth";
+import CalenderDataSource from "./calender";
+import LocalStorageDataSource from "./LocalStorage";
 
-export {
-  AuthDataSource,
-  CalenderDataSource,
-  LocalStorageDataSource,
-};
+export { AuthDataSource, CalenderDataSource, LocalStorageDataSource };

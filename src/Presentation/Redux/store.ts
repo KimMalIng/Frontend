@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
+import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
 
 type AppDispatch = typeof store.dispatch;
 type RootState = ReturnType<typeof store.getState>;

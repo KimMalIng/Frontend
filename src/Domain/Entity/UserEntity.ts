@@ -14,7 +14,7 @@ class UserEntity {
     name: string,
     nickname: string,
     password: string,
-    university: string
+    university: string,
   ) {
     this.id = id;
     this.imageUrl = imageUrl;

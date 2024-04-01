@@ -1,4 +1,4 @@
-import { AuthRepository } from '@/Domain/Repository';
+import { AuthRepository } from "@/Domain/Repository";
 
 type UserDataType = {
   id: string | null | undefined;
@@ -27,13 +27,13 @@ class SignUpUseCase {
     university,
   }: UserDataType) {
     if (
-      typeof id !== 'string' ||
-      typeof imageUrl !== 'string' ||
-      typeof major !== 'string' ||
-      typeof name !== 'string' ||
-      typeof nickname !== 'string' ||
-      typeof password !== 'string' ||
-      typeof university !== 'string'
+      typeof id !== "string" ||
+      typeof imageUrl !== "string" ||
+      typeof major !== "string" ||
+      typeof name !== "string" ||
+      typeof nickname !== "string" ||
+      typeof password !== "string" ||
+      typeof university !== "string"
     ) {
       return Promise.reject(400);
     }

@@ -1,4 +1,4 @@
-import { CalenderEntity } from '@/Domain/Entity';
+import { CalenderEntity } from "@/Domain/Entity";
 type CalenderProps = {
   data: CalenderEntity[];
   updateNowDate: (n: number) => void;

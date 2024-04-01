@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { AuthModel, CalenderModel } from '@/Presentation/Model';
+import { useEffect } from "react";
+import { AuthModel, CalenderModel } from "@/Presentation/Model";
 
 const Test = () => {
   const authModel = new AuthModel();

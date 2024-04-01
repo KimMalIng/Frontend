@@ -109,7 +109,7 @@
 }
 
 .CheckboxLabel input:checked + .CheckboxCustom::before {
-  content: '\2713';
+  content: "\2713";
   padding-top: 5px;
   font-size: 16px;
   color: #fff;

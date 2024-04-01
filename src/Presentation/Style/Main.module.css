@@ -10,26 +10,19 @@
 
 .ContentBox {
   overflow: auto;
-  width: 650px;
-  height: 600px;
+  width: 600px;
+  height: 650px;
   background-color: #fff;
   padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .CalenderBox {
   overflow: auto;
-  width: 450px;
-  height: 600px;
+  width: 800px;
+  height: 650px;
   background-color: #fff;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .Todo {
@@ -44,8 +37,8 @@
   justify-content: space-between;
 }
 
-.TodoDate > Button:hover{
-  background-color: #49A078;
+.TodoDate > Button:hover {
+  background-color: #49a078;
 }
 
 .addBtn {
@@ -53,6 +46,6 @@
   height: 30px;
 }
 
-.TodoDate > p{
+.TodoDate > p {
   font-weight: 900;
 }
