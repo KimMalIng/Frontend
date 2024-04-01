@@ -34,18 +34,24 @@ const Main = () => {
   const cModel = new CalenderModel();
   // const router = useRouter();
   const [toggleOn, setModalOn] = useState(true);
+  const [deadLine, setDeadLine] = useState("");
 
-  const onAddButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
-    setModalOn(true);
-  };
+  const handleDeadLine = (val:any) => {
+    console.log(val);
+    setDeadLine(val); // 시작, 종료 날짜 세팅 완료
+    if(deadLine[0] != null){
+      setModalOn(true);
+    } 
+  }; 
+
   const closeModal = () => {
     setModalOn(false);
   };
 
-  const updateNowDate = (n: number): void => {
-    const changeDate = date.getDay() === 0 ? 7 : date.getDay();
-    setDate(new Date(date.setDate(date.getDate() + (n - changeDate))));
-  };
+  // const updateNowDate = (n: number): void => {
+  //   const changeDate = date.getDay() === 0 ? 7 : date.getDay();
+  //   setDate(new Date(date.setDate(date.getDate() + (n - changeDate))));
+  // };
 
   const getWeek = async () => {
     const res = await cModel.getCalender();
@@ -100,7 +106,7 @@ const Main = () => {
             }.${date.getDate()}`}</p>
         </div>
         {toggleOn ? (
-          <NewTask closeModal={closeModal} />
+          <NewTask closeModal={closeModal} /> // 여기서 데드라인 보내줘야함
         ) : typeof timeline === "undefined" ? (
           <div>주간 일정을 로딩 중 입니다 ... </div>
         ) : isTimelineLoading ? (
@@ -143,7 +149,7 @@ const Main = () => {
           <></>
         ) : (
           <>
-            <MontlyCalendar />
+            <MontlyCalendar setDeadLine = {handleDeadLine}/>
           </>
         )}
       </div>

@@ -6,28 +6,30 @@ import moment from 'moment';
 import dummyJson from "./dummyJson.json";
 
 
-function MonthlyCalendar() {
-  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
+function MonthlyCalendar({setDeadLine}) {
   const [scheduleData, setScheduleData] = useState({}); // New state variable
-
+  
   const handleDateRange = (value) => {
-    console.log(dateRange);
-    setDateRange(value);
+    const formattdRange = [
+      moment(value[0]).format("YYYYMMDD"),
+      moment(value[1]).format("YYYYMMDD")
+    ];
+    setDeadLine(formattdRange);
   }
+  
   useEffect(() => {
-    // 스케줄 데이터를 날짜별로 분류하여 객체에 저장
     const processedScheduleData = dummyJson.reduce((acc, curr) => {
       const date = moment(curr.date).format("YYYY-MM-DD");
       acc[date] = acc[date] || { date, schedules: [] };
       acc[date].schedules.push({ ...curr.subject[0] });
       return acc;
-    }, {});
+    }, {}); 
 
     setScheduleData(processedScheduleData); // Update state with processed data
   }, []);
 
   const showDailyTodo = () => {
-    
+    // 컴포넌트를 누르면 그날 일정 보여주기  
   }
   
   return (
