@@ -22,12 +22,11 @@ import "./global.css";
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(()=>{
     if (!("permission" in Notification)) {
-      Notification.requestPermission();
+      // Notification.requestPermission();
     }
-    if ('serviceWorker' in navigator) {
+    else if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/firebase-messaging-sw.js').then(function(registration){
         const messaging = getMessaging();
-
         getToken(
           messaging, 
           { vapidKey: 'BHnZZSGA3NSOKwPYOQlD75Y7czLDJQoRrfR0l0JMS8e5L8sB-dhZXb7sUeojCDKyjYouru53H2GDR1ea0mnSIws' }
@@ -44,10 +43,11 @@ const App = ({ Component, pageProps }: AppProps) => {
         onMessage(messaging, (payload) => {
           console.log(payload);
           let notificationOptions = {
-            body: 'Some Notification information',
-            icon: ''
+            body: payload.notification?.body,
+            icon: '/logo.png'
           }
-          let notif = new Notification('My New Notification', notificationOptions);
+          const fcmTitle = (!!payload.notification && typeof payload.notification.title === "string")? payload.notification.title : "너P야에서 보낸 알림입니다";
+          const notif = new Notification(fcmTitle, notificationOptions);
 
           notif.onclick = () => {
             console.log('Notification clicked');
