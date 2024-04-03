@@ -10,26 +10,23 @@
 
 .ContentBox {
   overflow: auto;
-  width: 650px;
-  height: 600px;
+  width: 600px;
+  height: 650px;
   background-color: #fff;
   padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.DailyList {
+  font-size: 30px;
 }
 
 .CalenderBox {
   overflow: auto;
-  width: 450px;
-  height: 600px;
+  width: 800px;
+  height: 650px;
   background-color: #fff;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .Todo {

@@ -1,0 +1,30 @@
+.MonthCalendar {
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    /* height: auto; */
+}
+
+.DayTile {
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: bisque;
+}
+
+.NoScheduleDayTile {
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.ScheduleList {
+    color: #000;
+    
+}
