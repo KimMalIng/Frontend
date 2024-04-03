@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function TimeInput() {
+function TimeInput({setExpectTime}) {
   const [hour, setHour] = useState('00');
   const [minute, setMinute] = useState('00');
+  useEffect(()=>{
+    const val = hour*60 + minute*1;
+    setExpectTime(val);
+  },[hour, minute]);
 
   const handleHourChange = (e) => {
     const value = e.target.value;
@@ -11,7 +15,6 @@ function TimeInput() {
       return;
     } else {
       setHour(value);
-      console.log(hour);
     }
   };
   const handleMinuteChange =  (e) => {

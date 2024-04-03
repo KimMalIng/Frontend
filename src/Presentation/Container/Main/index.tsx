@@ -20,7 +20,6 @@ import { CalenderEntity } from "@/Domain/Entity";
 import NewTask from "./newTask";
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
-import dummyJson from "./dummyJson.json";
 
 
 const Main = () => {
@@ -33,19 +32,26 @@ const Main = () => {
   const [date, setDate] = useState<Date>(new Date());
   const cModel = new CalenderModel();
   // const router = useRouter();
-  const [toggleOn, setModalOn] = useState(true);
+  const [toggleOn, setModalOn] = useState(false);
+  const [deadLine, setDeadLine] = useState("");
+  const [dailyTodo, setDailyTodo] = useState([]);
 
-  const onAddButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
-    setModalOn(true);
+  const handleDeadLine = (val: any) => {
+    console.log(val);
+    setDeadLine(val); // 시작, 종료 날짜 세팅 완료
+    if (deadLine[0] != null) {
+      setModalOn(true);
+    }
   };
+
   const closeModal = () => {
     setModalOn(false);
   };
 
-  const updateNowDate = (n: number): void => {
-    const changeDate = date.getDay() === 0 ? 7 : date.getDay();
-    setDate(new Date(date.setDate(date.getDate() + (n - changeDate))));
-  };
+  // const updateNowDate = (n: number): void => {
+  //   const changeDate = date.getDay() === 0 ? 7 : date.getDay();
+  //   setDate(new Date(date.setDate(date.getDate() + (n - changeDate))));
+  // };
 
   const getWeek = async () => {
     const res = await cModel.getCalender();
@@ -91,6 +97,9 @@ const Main = () => {
     updateTimeLineData();
   }, [date]);
 
+  useEffect(() => {
+  },[dailyTodo]);
+
   return (
     <div className={style.Main}>
       <Header />
@@ -100,7 +109,7 @@ const Main = () => {
             }.${date.getDate()}`}</p>
         </div>
         {toggleOn ? (
-          <NewTask closeModal={closeModal} />
+          <NewTask closeModal={closeModal} /> // 여기서 데드라인 보내줘야함
         ) : typeof timeline === "undefined" ? (
           <div>주간 일정을 로딩 중 입니다 ... </div>
         ) : isTimelineLoading ? (
@@ -136,14 +145,23 @@ const Main = () => {
               checked={todo.isDone ? todo.isDone : undefined}
             ></Todo>
           ))
-        )} */}
+        )} */
+
+        }
+        {
+          dailyTodo.length > 0 && <ul>
+            {dailyTodo.map((schedule:any, index)=>(
+              <li className={style.DailyList} key={index}>{schedule.name}</li>
+            ))}
+          </ul>
+        }
       </div>
       <div className={style.CalenderBox}>
         {isCalenderLoading ? (
           <></>
         ) : (
           <>
-            <MontlyCalendar />
+            <MontlyCalendar setDeadLine={handleDeadLine} setDailyTodo={setDailyTodo} />
           </>
         )}
       </div>

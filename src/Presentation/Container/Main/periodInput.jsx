@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 
-function PeriodInput({ toClear }) {
-  // @dev stat_hour, start_minute
+function PeriodInput({  }) {
+
   const [sHour, setSHour] = useState('00');
   const [sMinute, setSMinute] = useState('00');
 
-  // @dev end_hour, end_minute
   const [eHour, setEHour] = useState('00');
   const [eMinute, setEMinute] = useState('00');
 
   // 시작시간 > 종료시간인 경우 다음 날까지로 인식
-  const [nextDay, setNextDay] = useState(false);
+  // 나중에 -- const [nextDay, setNextDay] = useState(false);
 
   const handleSHourChange = (e) => {
     const value = e.target.value;
