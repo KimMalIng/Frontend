@@ -143,7 +143,6 @@ const Calender = ({ data, updateNowDate }: CalenderProps) => {
   return (
     <div className={style.Calender}>
       <div className={style.title}>
-        <h2>2023.12.04 ~ 2023.12.10</h2>
       </div>
       <div className={style.calenderBox}>
         <div className={style.calenderRow}>

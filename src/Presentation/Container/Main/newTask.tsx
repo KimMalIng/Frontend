@@ -1,7 +1,6 @@
 import React, { MouseEventHandler, useState, ChangeEventHandler, useEffect } from "react";
 import { Button, Input, Header } from "@/Presentation/Component";
 import { useRouter } from "next/router";
-import { CalenderModel } from "@/Presentation/Model";
 import TimeInput from './timeInput';
 import PeriodInput from './periodInput';
 
@@ -10,15 +9,13 @@ import style from "@/Presentation/Style/NewTask.module.css";
 
 interface NewTaskProps {
   closeModal: () => void;
+  clearDeadLine: () => void;
 }
 
-const NewTask: React.FC<NewTaskProps> = ({ closeModal, /* deadLine */ }) => {
+const NewTask: React.FC<NewTaskProps> = ({ closeModal, clearDeadLine}) => {
   const [taskName, setTaskName] = useState("");
-  const [deadLine, setDeadLine] = useState<Date>(new Date());
   const [selectedOption, setSelectedOption] = useState(0);
   const router = useRouter();
-  const cModel = new CalenderModel();
-  const [time, setTime] = useState(0);
   const [autoSchedule, setautoSchedule] = useState(true);
   const [shouldClear, setClear] = useState(false);
   const [expectTime, setExpectTime] = useState(0);
@@ -33,6 +30,7 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal, /* deadLine */ }) => {
     //   await cModel.adjustmentCalender();
     // }, 10);
     closeModal();
+    clearDeadLine();
   };
   const toggleHandler = () => { setautoSchedule((prev) => !prev); };
   const toggleClear = () => { setClear((prev) => !prev); };
