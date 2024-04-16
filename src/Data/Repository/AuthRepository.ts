@@ -4,39 +4,26 @@ import { UserDataType } from "@/Data/Model";
 import { AuthRepository } from "@/Domain/Repository";
 import { LocalStorageDataSource, AuthDataSource } from "@/Data/DataSource";
 
-class AuthRepositoryImpl implements AuthRepository {
-  async signUp(data: UserDataType): Promise<UserEntity> {
-    try {
-      const res = await AuthDataSource.signup(data);
-      return res;
-    } catch (error) {
-      return Promise.reject(error);
-    }
+class AuthRepositoryImpl implements AuthRepository{
+  signUp(data: UserEntity): Promise<UserEntity> {
+    throw new Error("Method not implemented.");
   }
-  async login(id: string, password: string): Promise<UserEntity> {
-    try {
-      const data = await AuthDataSource.login(id, password);
-      return data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
+  login(id: string, password: string): Promise<UserEntity> {
+    throw new Error("Method not implemented.");
   }
-  async logout(): Promise<void> {
-    await LocalStorageDataSource.saveLocalStorage("refreshToken", "");
-    await LocalStorageDataSource.saveLocalStorage("accessToken", "");
+  logout(): Promise<void> {
+    throw new Error("Method not implemented.");
   }
-  async getCredential(name: string): Promise<boolean> {
-    try {
-      const token = await LocalStorageDataSource.getLocalStorage(name);
-      if (token === null) return false;
-      return true;
-    } catch (error) {
-      return Promise.reject(error);
-    }
+  oauth(): Promise<void> {
+    throw new Error("Method not implemented.");
   }
-  async saveCredential(name: string, token: string): Promise<void> {
-    await LocalStorageDataSource.saveLocalStorage(name, token);
+  getCredential(name: string): Promise<boolean> {
+    throw new Error("Method not implemented.");
   }
+  saveCredential(name: string, token: string): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+  
 }
 
 export default AuthRepositoryImpl;

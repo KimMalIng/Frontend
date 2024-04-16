@@ -1,11 +1,11 @@
-class UserEntity {
+class AuthEntity {
   id: string;
   imageUrl: string;
   major: string;
   name: string;
   nickname: string;
-  loginType: string;
-  accessToken: string;
+  password: string;
+  university: string;
 
   constructor(
     id: string,
@@ -13,17 +13,17 @@ class UserEntity {
     major: string,
     name: string,
     nickname: string,
-    loginType: string,
-    accessToken: string,
+    password: string,
+    university: string,
   ) {
     this.id = id;
     this.imageUrl = imageUrl;
     this.major = major;
     this.name = name;
     this.nickname = nickname;
-    this.loginType = loginType;
-    this.accessToken = accessToken;
+    this.password = password;
+    this.university = university;
   }
 }
 
-export default UserEntity;
+export default AuthEntity;
