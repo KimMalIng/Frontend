@@ -2,4 +2,4 @@ import AuthEntity from "./AuthEntity";
 import UserEntity from "./UserEntity";
 import CalenderEntity from "./CalenderEntity";
 
-export { UserEntity, CalenderEntity };
+export { AuthEntity, UserEntity, CalenderEntity };

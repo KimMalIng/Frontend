@@ -1,12 +1,11 @@
-import { UserEntity } from "@/Domain/Entity";
+import { AuthEntity, UserEntity } from "@/Domain/Entity";
 
 interface AuthRepository {
-  signUp(data: UserEntity): Promise<UserEntity>;
+  signUp(data: AuthEntity): Promise<UserEntity>;
   login(id: string, password: string): Promise<UserEntity>;
+  delete(id: string): Promise<void>;
   logout(): Promise<void>;
   oauth(): Promise<void>;
-  getCredential(name: string): Promise<boolean>;
-  saveCredential(name: string, token: string): Promise<void>;
 }
 
 export default AuthRepository;

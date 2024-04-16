@@ -1,7 +1,6 @@
 class UserEntity {
   id: string;
   imageUrl: string;
-  major: string;
   name: string;
   nickname: string;
   loginType: string;
@@ -10,7 +9,6 @@ class UserEntity {
   constructor(
     id: string,
     imageUrl: string,
-    major: string,
     name: string,
     nickname: string,
     loginType: string,
@@ -18,7 +16,6 @@ class UserEntity {
   ) {
     this.id = id;
     this.imageUrl = imageUrl;
-    this.major = major;
     this.name = name;
     this.nickname = nickname;
     this.loginType = loginType;

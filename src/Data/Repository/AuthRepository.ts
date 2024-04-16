@@ -1,26 +1,34 @@
 import { SERVER_URL } from "@/Const";
-import { UserEntity } from "@/Domain/Entity";
-import { UserDataType } from "@/Data/Model";
+import { AuthEntity, UserEntity } from "@/Domain/Entity";
 import { AuthRepository } from "@/Domain/Repository";
 import { LocalStorageDataSource, AuthDataSource } from "@/Data/DataSource";
 
 class AuthRepositoryImpl implements AuthRepository{
-  signUp(data: UserEntity): Promise<UserEntity> {
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<void> {
+    await AuthDataSource.delete(id);
   }
-  login(id: string, password: string): Promise<UserEntity> {
-    throw new Error("Method not implemented.");
+  async signUp(data: AuthEntity): Promise<UserEntity> {
+    try {
+      const res = await AuthDataSource.signup(data);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+  async login(id: string, password: string): Promise<UserEntity> {
+    try {
+      const res = await AuthDataSource.login(id, password);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
   logout(): Promise<void> {
-    throw new Error("Method not implemented.");
+    return new Promise((resolve)=>{
+      localStorage.removeItem("auth");
+    })
   }
   oauth(): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
-  getCredential(name: string): Promise<boolean> {
-    throw new Error("Method not implemented.");
-  }
-  saveCredential(name: string, token: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
   
