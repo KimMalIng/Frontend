@@ -3,11 +3,9 @@ import { AuthRepository } from "@/Domain/Repository";
 type UserDataType = {
   id: string | null | undefined;
   imageUrl: string | null | undefined;
-  major: string | null | undefined;
   name: string | null | undefined;
   nickname: string | null | undefined;
   password: string | null | undefined;
-  university: string | null | undefined;
 };
 
 class SignUpUseCase {
@@ -20,20 +18,16 @@ class SignUpUseCase {
   async execute({
     id,
     imageUrl,
-    major,
     name,
     nickname,
     password,
-    university,
   }: UserDataType) {
     if (
       typeof id !== "string" ||
-      typeof imageUrl !== "string" ||
-      typeof major !== "string" ||
       typeof name !== "string" ||
       typeof nickname !== "string" ||
       typeof password !== "string" ||
-      typeof university !== "string"
+      typeof imageUrl !== "string"
     ) {
       return Promise.reject(400);
     }
@@ -41,11 +35,9 @@ class SignUpUseCase {
       const data = await this.authRepository.signUp({
         id,
         imageUrl,
-        major,
         name,
         nickname,
         password,
-        university,
       });
       return data;
     } catch (error) {

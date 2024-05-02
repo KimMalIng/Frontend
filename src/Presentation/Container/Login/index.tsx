@@ -7,38 +7,29 @@ import {
 import { Input } from "@/Presentation/Component";
 import { Button } from "@/Presentation/Component";
 import { useRouter } from "next/router";
-import { KakaoLoginImage } from "@/Presentation/Resource";
-import Image from "next/image";
+import { LoginUsecase } from "@/Domain/UseCase";
+import { AuthRepositoryImpl } from '@/Data/Repository';
 import style from "@/Presentation/Style/Login.module.css";
 
 const Login = () => {
   const router = useRouter();
-  const [loginButtonText, setLoginButtonText] = useState("계속하기");
+  const loginUseCase = new LoginUsecase(new AuthRepositoryImpl());
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
-  const [isIdVaild, setIdValid] = useState(false);
 
   const idOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setId(e.target.value);
-  };
-  const idSetClick: MouseEventHandler<HTMLButtonElement> = () => {
-    if (id !== "") {
-      setIdValid(true);
-      setLoginButtonText("로그인하기");
-    } else {
-      alert("Please input valid ID");
-    }
   };
 
   const pwdOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setPwd(e.target.value);
   };
-  const pwdVaildCheck: MouseEventHandler<HTMLButtonElement> = () => {
-    if (pwd !== "") {
-      console.log(`id : ${id}, pwd : ${pwd}`);
-      router.push("/main");
-    } else {
-      alert("Please input valid Password");
+  const loginOnClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    try {
+      const data = await loginUseCase.execute(id, pwd);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
     }
   };
   const getSignUp = () => {
@@ -72,9 +63,9 @@ const Login = () => {
           fontSize="18px"
           backgroundColor="#49A078"
           color="#FFF"
-          children={loginButtonText}
+          children={"로그인"}
           imgsrc="#"
-          onClick={isIdVaild ? pwdVaildCheck : idSetClick}
+          onClick={loginOnClick}
         />
       </div>
     </div>
