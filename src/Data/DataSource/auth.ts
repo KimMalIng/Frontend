@@ -7,19 +7,21 @@ class AuthDataSource {
       const res = await fetch(`${SERVER_URL}/users/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           memberId: id,
           memberPw: password,
         }),
       });
+      console.log(res);
       if (res.status === 200) {
         const data: UserEntity = await res.json();
         return data;
       }
       return Promise.reject(res.status);
     } catch (error) {
+      console.log(error);
       return Promise.reject(500);
     }
   }
