@@ -3,7 +3,7 @@ import GetCalenderUseCase from "./GetCalenderUseCase";
 import GetCredentailUseCase from "./GetCredentailUseCase";
 import LoginUsecase from "./LoginUseCase";
 import SaveCalenderUseCase from "./SaveCalenderUseCase";
-import saveCredentialUseCase from "./SaveCredentailUseCase";
+import SaveCredentialUseCase from "./SaveCredentailUseCase";
 import SignUpUseCase from "./SignUpUseCase";
 
 export {
@@ -12,6 +12,6 @@ export {
   GetCredentailUseCase,
   LoginUsecase,
   SaveCalenderUseCase,
-  saveCredentialUseCase,
+  SaveCredentialUseCase,
   SignUpUseCase,
 };

@@ -1,18 +1,18 @@
-import { AuthRepository } from "@/Domain/Repository";
+import { CredentialRepository } from "@/Domain/Repository";
 
-class saveCredentialUseCase {
-  private authRepository: AuthRepository;
+class SaveCredentialUseCase {
+  private credentialRepository: CredentialRepository;
 
-  constructor(at: AuthRepository) {
-    this.authRepository = at;
+  constructor(cr: CredentialRepository) {
+    this.credentialRepository = cr;
   }
-  async execute(token: string): Promise<void> {
+  async execute(name: string, token: string): Promise<void> {
     try {
-      const data = await this.authRepository.saveCredential(token);
+      await this.credentialRepository.setLocalStorage(name, token);
     } catch (error) {
       return Promise.reject(error);
     }
   }
 }
 
-export default saveCredentialUseCase;
+export default SaveCredentialUseCase;

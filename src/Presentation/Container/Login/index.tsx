@@ -6,13 +6,14 @@ import {
 } from "react";
 import { Input, Button, Spinner } from "@/Presentation/Component";
 import { useRouter } from "next/router";
-import { LoginUsecase } from "@/Domain/UseCase";
-import { AuthRepositoryImpl } from '@/Data/Repository';
+import { LoginUsecase, SaveCredentialUseCase } from "@/Domain/UseCase";
+import { AuthRepositoryImpl, CredentialRepositoryImpl } from '@/Data/Repository';
 import style from "@/Presentation/Style/Login.module.css";
 
 const Login = () => {
   const router = useRouter();
   const loginUseCase = new LoginUsecase(new AuthRepositoryImpl());
+  const saveCredentialUseCase = new SaveCredentialUseCase(new CredentialRepositoryImpl());
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -28,13 +29,11 @@ const Login = () => {
     try {
       setIsLoading(true);
       const data = await loginUseCase.execute(id, pwd);
-      console.log(data);
+      await saveCredentialUseCase.execute("accessToken", data.accessToken);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
-  };
-  const getSignUp = () => {
-    router.push("./register");
   };
 
   return (

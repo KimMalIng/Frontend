@@ -28,17 +28,34 @@ class AuthDataSource {
   static async signup(data: AuthEntity): Promise<UserEntity> {
     try {
       const formData = new FormData();
-      formData.append("memeberId", data.id);
+      formData.append("memberId", data.id);
       formData.append("memberPw", data.password);
       formData.append("name", data.name);
       formData.append("nickname", data.nickname);
+      console.log(formData);
       // file 추가 해야함
       const res = await fetch(`${SERVER_URL}/users/join`, {
         method: "POST",
+        body: JSON.stringify(formData),
+      });
+      console.log(res);
+      if (res.status === 200) {
+        const data: UserEntity = await res.json();
+        return data;
+      }
+      return Promise.reject(res.status);
+    } catch (error) {
+      return Promise.reject(500);
+    }
+  }
+  static async info(accessToken: string): Promise<UserEntity> {
+    try {
+      const res = await fetch(`${SERVER_URL}/users/info`, {
+        method: "POST",
         headers: {
           // "Content-Type": "multipart/form-data"
+          "Authorization": accessToken
         },
-        body: formData,
       });
       if (res.status === 200) {
         const data: UserEntity = await res.json();

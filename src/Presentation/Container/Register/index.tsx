@@ -1,20 +1,23 @@
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
-import { Input, Button } from "@/Presentation/Component";
+import { Input, Button, Spinner } from "@/Presentation/Component";
 import { useRouter } from "next/router";
-import { SignUpUseCase } from '@/Domain/UseCase';
-import { AuthRepositoryImpl } from "@/Data/Repository";
+import { SignUpUseCase, LoginUsecase, SaveCredentialUseCase } from '@/Domain/UseCase';
+import { AuthRepositoryImpl, CredentialRepositoryImpl } from "@/Data/Repository";
 
 import style from "@/Presentation/Style/Register.module.css";
 
 const Register = () => {
   const router = useRouter();
   const signUpUseCase = new SignUpUseCase(new AuthRepositoryImpl());
+  const saveCredentialUseCase = new SaveCredentialUseCase(new CredentialRepositoryImpl());
+  const loginUseCase = new LoginUsecase(new AuthRepositoryImpl());
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [checkPw, setCheckPw] = useState("");
   const [checkPage, setCheckPage] = useState(false);
   const [name, setName] = useState("");
   const [nickName, setNickName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const idOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setId(e.target.value);
@@ -40,102 +43,119 @@ const Register = () => {
     setCheckPage(true);
   }
   const registerOnClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    setIsLoading(true);
     try {
-      const data = await signUpUseCase.execute({
+      const signUpData = await signUpUseCase.execute({
         id,
         password: pw,
         name,
         nickname: nickName,
         imageUrl: ""
       });
-      console.log(data);
+      const loginData = await loginUseCase.execute(id, pw);
+      await saveCredentialUseCase.execute("accessToken", loginData.accessToken);
+      setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      alert("정보를 정확히 입력해주세요");
+      setCheckPage(false);
+      setId("");
+      setPw("");
+      setCheckPw("");
+      setNickName("");
+      setName("");
     }
+    setIsLoading(false);
   };
 
   return (
-    <div className={style.Register}>
-      <div className={style.ContentBox}>
-        <h1>회원가입</h1>
-        {(checkPage) ? (
-          <>
-            <Input
-              type="id"
-              width="100%"
-              height="36px"
-              text={name}
-              fontSize="14px"
-              placeHolder={"이름을 입력해주세요"}
-              onChange={nameOnChange}
-            />
-            <Input
-              type="id"
-              width="100%"
-              height="36px"
-              text={nickName}
-              fontSize="14px"
-              placeHolder={"닉네임을 입력해주세요"}
-              onChange={nickNameOnChange}
-            />
-            <Button
-              width="100%"
-              height="42px"
-              fontSize="18px"
-              backgroundColor="#49A078"
-              color="#FFF"
-              imgsrc="#"
-              onClick={registerOnClick}
-            >
-              회원가입  
-            </Button>
-          </>
-        ) : (
-          <>
-            <Input
-              type="id"
-              width="100%"
-              height="36px"
-              text={id}
-              fontSize="14px"
-              placeHolder={"아이디를 입력해주세요"}
-              onChange={idOnChange}
-            />
-            <Input
-              type="password"
-              width="100%"
-              height="36px"
-              text={pw}
-              fontSize="14px"
-              placeHolder={"비밀번호를 입력해주세요"}
-              onChange={pwOnChange}
-            />
-            <Input
-              type="password"
-              width="100%"
-              height="36px"
-              text={checkPw}
-              fontSize="14px"
-              placeHolder={"비밀번호를 한번 더 입력해주세요"}
-              onChange={checkPwOnChange}
-            />
-          
+    <>
+      {(isLoading)? (
+        <Spinner />
+      ) : (
+        <></>
+      )}
+      <div className={style.Register}>
+        <div className={style.ContentBox}>
+          <h1>회원가입</h1>
+          {(checkPage) ? (
+            <>
+              <Input
+                type="id"
+                width="100%"
+                height="36px"
+                text={name}
+                fontSize="14px"
+                placeHolder={"이름을 입력해주세요"}
+                onChange={nameOnChange}
+              />
+              <Input
+                type="id"
+                width="100%"
+                height="36px"
+                text={nickName}
+                fontSize="14px"
+                placeHolder={"닉네임을 입력해주세요"}
+                onChange={nickNameOnChange}
+              />
+              <Button
+                width="100%"
+                height="42px"
+                fontSize="18px"
+                backgroundColor="#49A078"
+                color="#FFF"
+                imgsrc="#"
+                onClick={registerOnClick}
+              >
+                회원가입  
+              </Button>
+            </>
+          ) : (
+            <>
+              <Input
+                type="id"
+                width="100%"
+                height="36px"
+                text={id}
+                fontSize="14px"
+                placeHolder={"아이디를 입력해주세요"}
+                onChange={idOnChange}
+              />
+              <Input
+                type="password"
+                width="100%"
+                height="36px"
+                text={pw}
+                fontSize="14px"
+                placeHolder={"비밀번호를 입력해주세요"}
+                onChange={pwOnChange}
+              />
+              <Input
+                type="password"
+                width="100%"
+                height="36px"
+                text={checkPw}
+                fontSize="14px"
+                placeHolder={"비밀번호를 한번 더 입력해주세요"}
+                onChange={checkPwOnChange}
+              />
+            
 
-            <Button
-              width="100%"
-              height="42px"
-              fontSize="18px"
-              backgroundColor="#49A078"
-              color="#FFF"
-              imgsrc="#"
-              onClick={pageChangeOnClick}
-            >
-              정보입력  
-            </Button>
-          </>
-        )}
+              <Button
+                width="100%"
+                height="42px"
+                fontSize="18px"
+                backgroundColor="#49A078"
+                color="#FFF"
+                imgsrc="#"
+                onClick={pageChangeOnClick}
+              >
+                정보입력  
+              </Button>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
