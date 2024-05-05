@@ -1,11 +1,17 @@
 import { Logo, ProfileNormalImage } from "@/Presentation/Resource";
+import { CheckCredentialUseCase } from '@/Domain/UseCase';
+import { CredentialRepositoryImpl } from "@/Data/Repository";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 import style from "@/Presentation/Style/Header.module.css";
-import { useRouter } from "next/router";
 
 const Header = () => {
   const router = useRouter();
+  const checkCredentialUseCase = new CheckCredentialUseCase(new CredentialRepositoryImpl());
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const moveToMain = () => {
     router.push("./main");
     console.log("push to main");
@@ -15,6 +21,21 @@ const Header = () => {
     router.push("./mypage");
     console.log("push to myPage");
   };
+  useEffect(() => {
+    const getInfo = async () => {
+      console.log("hi")
+      try {
+        const info = await checkCredentialUseCase.execute();
+        console.log(info)
+        setName(info.name);
+        setIsLoading(false);
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+    getInfo();
+  }, []);
 
   return (
     <div className={style.Header}>
@@ -29,7 +50,11 @@ const Header = () => {
             width={32}
             height={32}
           />
-          <p>이장훈 님</p>
+          {(isLoading)?(
+            <></>
+          ) : (
+            <p>{name} 님</p>
+          )}
         </div>
       </div>
     </div>

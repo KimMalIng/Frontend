@@ -4,6 +4,8 @@ import 'react-calendar/dist/Calendar.css';
 import style from "@/Presentation/Style/customCalendar.module.css";
 import moment from 'moment';
 import dummyJson from "./dummyJson.json";
+import * as ContextMenu from '@radix-ui/react-context-menu';
+import ct from '@/Presentation/Style/ContextMenu.module.css';
 
 
 function MonthlyCalendar({setDeadLine, setDailyTodo}) {
@@ -67,15 +69,34 @@ function MonthlyCalendar({setDeadLine, setDailyTodo}) {
             );
           }
           return (
-            <>
-              <div className={html.length? style.DayTile: style.NoScheduleDayTile} 
-              onClick={(event) => {
-                handleDateClick(date);
-                event.stopPropagation(); // Stop propagation to prevent default calendar behavior
-              }}>
-                {html}
-              </div>
-            </>
+              <ContextMenu.Root>
+                <ContextMenu.Trigger
+                   className={ct.ContextMenuTrigger}
+                >
+                  <div className={style.NoScheduleDayTile}>
+                    {html}
+                  </div>
+                </ContextMenu.Trigger>
+                <ContextMenu.Portal>
+                  <ContextMenu.Content
+                    className={ct.ContextMenuContent}
+                    sideoffset={5}
+                    align="end"
+                  >
+                    <ContextMenu.Item
+                      className={ct.ContextMenuItem}
+                    >
+                      일정 추가하기
+                    </ContextMenu.Item>
+                    <ContextMenu.Item
+                      className={ct.ContextMenuItem}
+                    >
+                      일정 삭제하기
+                    </ContextMenu.Item>
+                  </ContextMenu.Content>
+                </ContextMenu.Portal>
+              </ContextMenu.Root>
+
           );
         }}
         onChange={handleDateRange}

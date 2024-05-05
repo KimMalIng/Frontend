@@ -30,10 +30,16 @@ const Login = () => {
       setIsLoading(true);
       const data = await loginUseCase.execute(id, pwd);
       await saveCredentialUseCase.execute("accessToken", data.accessToken);
-      setIsLoading(false);
+      router.push("/main");
     } catch (error) {
-      console.log(error);
+      if(error === 500){
+        alert("서버오류")
+      }
+      else {
+        alert("아이디 또는 비밀번호가 일치하지 않습니다");
+      }
     }
+    setIsLoading(false);
   };
 
   return (

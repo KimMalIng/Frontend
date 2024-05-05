@@ -23,23 +23,23 @@ function WeeklyView() {
     };
 
     const getWeek = async () => {
-        const res = await cModel.getCalender();
-        setCalender(res);
-        setIsCalenderLoading(true);
-        await Promise.all(
-            res.map((d) => {
-                const calenderDate = new Date(
-                    `${d.day.split(".")[0]}-${d.day.split(".")[1]}-${d.day.split(".")[2]
-                    }`,
-                );
-                if (
-                    date.getFullYear() === calenderDate.getFullYear() &&
-                    date.getMonth() === calenderDate.getMonth() &&
-                    date.getDate() === calenderDate.getDate()
-                )
-                    setTimeline(d);
-            }),
-        );
+        // const res = await cModel.getCalender();
+        // setCalender(res);
+        // setIsCalenderLoading(true);
+        // await Promise.all(
+        //     res.map((d) => {
+        //         const calenderDate = new Date(
+        //             `${d.day.split(".")[0]}-${d.day.split(".")[1]}-${d.day.split(".")[2]
+        //             }`,
+        //         );
+        //         if (
+        //             date.getFullYear() === calenderDate.getFullYear() &&
+        //             date.getMonth() === calenderDate.getMonth() &&
+        //             date.getDate() === calenderDate.getDate()
+        //         )
+        //             setTimeline(d);
+        //     }),
+        // );
         setIsTimelineLoading(true);
     };
 

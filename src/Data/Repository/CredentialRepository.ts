@@ -1,19 +1,20 @@
+import { UserEntity } from "@/Domain/Entity";
 import { CredentialRepository } from "@/Domain/Repository";
 import { LocalStorageDataSource, AuthDataSource } from '@/Data/DataSource';
 
 class CredentialRepositoryImpl implements CredentialRepository {
-  async getAuthCredential(): Promise<boolean> {
+  async getAuthCredential(): Promise<UserEntity> {
     const token = await LocalStorageDataSource.getLocalStorage("accessToken");
     if(typeof token === "string"){
       try {
-        await AuthDataSource.info(token);
-        return true;
+        const data =await AuthDataSource.info(token);
+        return data;
       }
       catch (error) {
-        return false;
+        return Promise.reject(error);
       }
     }
-    return false;
+    return Promise.reject(500);
   }
   async setLocalStorage(name: string, token: string): Promise<void> {
     await LocalStorageDataSource.saveLocalStorage(name, token);

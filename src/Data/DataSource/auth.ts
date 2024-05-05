@@ -52,10 +52,10 @@ class AuthDataSource {
   static async info(accessToken: string): Promise<UserEntity> {
     try {
       const res = await fetch(`${SERVER_URL}/users/info`, {
-        method: "POST",
+        method: "GET",
         headers: {
-          // "Content-Type": "multipart/form-data"
-          "Authorization": accessToken
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
         },
       });
       if (res.status === 200) {
