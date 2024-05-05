@@ -32,11 +32,12 @@ class AuthDataSource {
       formData.append("memberPw", data.password);
       formData.append("name", data.name);
       formData.append("nickname", data.nickname);
-      console.log(formData);
+      console.log(data);
       // file 추가 해야함
       const res = await fetch(`${SERVER_URL}/users/join`, {
         method: "POST",
-        body: JSON.stringify(formData),
+        body:formData,
+        redirect: "follow"
       });
       console.log(res);
       if (res.status === 200) {

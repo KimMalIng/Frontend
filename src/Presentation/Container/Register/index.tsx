@@ -56,13 +56,19 @@ const Register = () => {
       await saveCredentialUseCase.execute("accessToken", loginData.accessToken);
       setIsLoading(false);
     } catch (error) {
-      alert("정보를 정확히 입력해주세요");
-      setCheckPage(false);
-      setId("");
-      setPw("");
-      setCheckPw("");
-      setNickName("");
-      setName("");
+      if(error === 500){
+        alert("서버 오류");
+      }
+      else if(error === 403){
+        console.log(error);
+        alert("정보를 정확히 입력해주세요");
+        setCheckPage(false);
+        setId("");
+        setPw("");
+        setCheckPw("");
+        setNickName("");
+        setName("");
+      }
     }
     setIsLoading(false);
   };
