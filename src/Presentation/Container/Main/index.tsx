@@ -13,7 +13,7 @@ import {
   Button,
 } from "@/Presentation/Component";
 import { useRouter } from "next/router";
-import MontlyCalendar from './customCalendar.jsx';
+import MontlyCalendar from './customCalendar';
 import { SubjectType } from "@/Data/Model";
 import NewTask from "./newTask";
 import WeeklyView from "./weeklyView.jsx";
@@ -89,7 +89,7 @@ const Main = () => {
         </div>
         <div className={style.CalenderBox}>
             <>
-              <MontlyCalendar setDeadLine={handleDeadLine} setDailyTodo={setDailyTodo} />
+              <MontlyCalendar />
             </>
         </div>
       </div>

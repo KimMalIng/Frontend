@@ -7,12 +7,7 @@ import PeriodInput from './periodInput';
 import "react-datepicker/dist/react-datepicker.css";
 import style from "@/Presentation/Style/NewTask.module.css";
 
-interface NewTaskProps {
-  closeModal: () => void;
-  clearDeadLine: () => void;
-}
-
-const NewTask: React.FC<NewTaskProps> = ({ closeModal, clearDeadLine}) => {
+const NewTask = ({ }) => {
   const [taskName, setTaskName] = useState("");
   const [selectedOption, setSelectedOption] = useState(0);
   const router = useRouter();
@@ -29,8 +24,6 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal, clearDeadLine}) => {
     // setTimeout(async () => {
     //   await cModel.adjustmentCalender();
     // }, 10);
-    closeModal();
-    clearDeadLine();
   };
   const toggleHandler = () => { setautoSchedule((prev) => !prev); };
   const toggleClear = () => { setClear((prev) => !prev); };
@@ -41,16 +34,12 @@ const NewTask: React.FC<NewTaskProps> = ({ closeModal, clearDeadLine}) => {
     <div className={style.body}>
       <div className={style.ContentBox}>
         <div className={style.TaskName}>
-          <Input
+          <input 
             type="text"
-            width="240px"
-            height="36px"
-            text={taskName}
-            fontSize="16px"
-            placeHolder={"일정 이름을 입력해주세요"}
+            value={taskName}
             onChange={onTaskNameChange}
+            className={style.TaskNameInput}
           />
-          <button onClick={handleButtonClick}>Go!</button>
         </div>
         <div className={style.toggles_times}>
           <div className={style.toggles}>
