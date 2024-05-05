@@ -48,7 +48,6 @@ const Splash = () => {
             <div className={style.CustomBtn}>
               <Image src={Kakao} alt={"카카오 이미지"} width={200} />
             </div>
-
             <div className={style.CustomBtn}>
               <Image src={Naver} alt={"네이버 이미지"} width={200} />
             </div>
