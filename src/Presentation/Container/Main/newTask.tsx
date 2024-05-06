@@ -1,5 +1,6 @@
 import React, { MouseEventHandler, useState, ChangeEventHandler, useEffect } from "react";
-import { Button, Input, Header } from "@/Presentation/Component";
+import * as Switch from '@radix-ui/react-switch';
+import { Toast } from "@/Presentation/Component";
 import { useRouter } from "next/router";
 import TimeInput from './timeInput';
 import PeriodInput from './periodInput';
@@ -8,16 +9,25 @@ import "react-datepicker/dist/react-datepicker.css";
 import style from "@/Presentation/Style/NewTask.module.css";
 
 const NewTask = ({ }) => {
-  const [taskName, setTaskName] = useState("");
-  const [selectedOption, setSelectedOption] = useState(0);
   const router = useRouter();
-  const [autoSchedule, setautoSchedule] = useState(true);
-  const [shouldClear, setClear] = useState(false);
+  const [taskName, setTaskName] = useState("");
+  const [isAuto, setIsAuto] = useState(true);
+  const [isClear, setIsClear] = useState(false);
+  const [isToastOpen, setIsToastOpen] = useState(true);
   const [expectTime, setExpectTime] = useState(0);
 
-  const addNewTask: MouseEventHandler<HTMLButtonElement> = () => {  };
-
-  const onTaskNameChange: ChangeEventHandler<HTMLInputElement> = (e) => { setTaskName(e.target.value); };
+  const handleTaskName: ChangeEventHandler<HTMLInputElement> = (e) => { 
+    setTaskName(e.target.value); 
+  };
+  const handleIsAuto = (checked: boolean) => {
+    setIsAuto(checked);
+  }
+  const handleIsClear = (checked: boolean) => {
+    setIsClear(checked);
+  }
+  const setToastOpen = (open: boolean) => {
+    setIsToastOpen(open);
+  }
 
   const handleButtonClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     // await cModel.saveCalender(1, taskName, selectedOption, deadLine, time);
@@ -25,23 +35,57 @@ const NewTask = ({ }) => {
     //   await cModel.adjustmentCalender();
     // }, 10);
   };
-  const toggleHandler = () => { setautoSchedule((prev) => !prev); };
-  const toggleClear = () => { setClear((prev) => !prev); };
   const handleExpectTime = (val: any) => { setExpectTime(val); };
-  const handlePeriodTime = (val: any) => { };
 
   return (
-    <div className={style.body}>
-      <div className={style.ContentBox}>
-        <div className={style.TaskName}>
-          <input 
-            type="text"
-            value={taskName}
-            onChange={onTaskNameChange}
-            className={style.TaskNameInput}
-          />
-        </div>
-        <div className={style.toggles_times}>
+    <div className={style.NewTask}>
+      <Toast 
+        title="sda"
+        isOpen={isToastOpen}
+        setIsOpen={setToastOpen}
+      />
+      <input 
+        type="text"
+        value={taskName}
+        onChange={handleTaskName}
+        className={style.TaskNameInput}
+        placeholder="일정 이름을 입력해주세요"
+      />
+
+      <div className={style.SwitchBox}>
+        <p>자동 스케쥴링</p>
+        <Switch.Root 
+          className={style.SwitchRoot}
+          checked={isAuto}
+          onCheckedChange={handleIsAuto}
+        >
+          <Switch.Thumb className={style.SwitchThumb} />
+        </Switch.Root>
+      </div>
+
+      <div className={style.SwitchBox}>
+        <p>이후 일정 비우기</p>
+        <Switch.Root 
+          className={style.SwitchRoot}
+          checked={isClear}
+          onCheckedChange={handleIsClear}
+        >
+          <Switch.Thumb className={style.SwitchThumb} />
+        </Switch.Root>
+      </div>
+
+      <div className={style.TimeBox}>
+        {(isAuto)? (
+         <TimeInput setExpectTime={handleExpectTime} />
+        ) : (
+          <>
+            <TimeInput setExpectTime={handleExpectTime} />
+            ~
+            <TimeInput setExpectTime={handleExpectTime} />
+          </>
+        )}
+      </div>
+        {/* <div className={style.toggles_times}>
           <div className={style.toggles}>
             <span>일정 설정</span>
             <label className={style.toggle_switch}>
@@ -69,8 +113,7 @@ const NewTask = ({ }) => {
               </div>
             </div>
           }
-        </div>
-      </div>
+        </div> */}
     </div>
   );
 };

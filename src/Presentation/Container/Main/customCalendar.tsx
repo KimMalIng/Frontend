@@ -40,8 +40,7 @@ const MonthlyCalendar = ({}) => {
   const filterValue = (): string => {
     if(endDate === null){
       return `
-        ${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}
-        에 일정 등록하기
+        ${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}에 일정 등록하기
       `;
     }
     else if(
@@ -50,15 +49,13 @@ const MonthlyCalendar = ({}) => {
       startDate.getDate() === endDate.getDate() 
     ){
       return `
-      ${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}
-      에 일정 등록하기
+      ${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}에 일정 등록하기
     `;
     }
     else {
       return `
       ${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()} ~ 
-      ${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}
-      에 일정 등록하기
+      ${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}에 일정 등록하기
     `;
     }
   }

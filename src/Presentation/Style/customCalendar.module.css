@@ -28,3 +28,9 @@
     color: #000;
     
 }
+
+.DialogTitle {
+    font-weight: 600;
+    color: rgb(33, 31, 38);
+    font-size: 17px;
+}

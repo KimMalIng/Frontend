@@ -55,37 +55,6 @@ const Main = () => {
       <Header />
       <div className={style.MonthandDay}>
         <div className={style.ContentBox}>
-          <div className={style.TodoDate}>
-            <p>Today : {`${date.getFullYear()}.${date.getMonth() + 1
-              }.${date.getDate()}`}</p>
-          </div>
-          {toggleOn ? (
-            <NewTask closeModal={closeModal} clearDeadLine={clearDeadLine} /> // 여기서 데드라인 보내줘야함
-          ) : (<></>)}
-
-          {/* {todos.map((todoSubject, index) =>
-          todoSubject.subject.map((todo, todoIndex) => (
-            <Todo
-              key={index * 10 + todoIndex} // Adjust the key to ensure uniqueness
-              label={todo.label}
-              name={todo.name}
-              startTime={todo.startTime}
-              endTime={todo.endTime}
-              todoType={todo.todo_type}
-              prevValue={todo.progress ? todo.progress : undefined}
-              checked={todo.isDone ? todo.isDone : undefined}
-            ></Todo>
-          ))
-        )} */
-
-          }
-          {
-            dailyTodo.length > 0 && <ul>
-              {dailyTodo.map((schedule: any, index) => (
-                <li className={style.DailyList} key={index}>{schedule.name}</li>
-              ))}
-            </ul>
-          }
         </div>
         <div className={style.CalenderBox}>
             <>

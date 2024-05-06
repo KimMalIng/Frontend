@@ -1,6 +1,6 @@
 .ContextMenuTrigger {
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 
 .ContextMenuContent,
@@ -18,14 +18,14 @@
 .ContextMenuCheckboxItem,
 .ContextMenuRadioItem,
 .ContextMenuSubTrigger {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1;
   color: #598E8E;
   border-radius: 3px;
   display: flex;
   align-items: center;
-  height: 25px;
+  height: 36px;
   padding: 0 5px;
   position: relative;
   padding-left: 25px;

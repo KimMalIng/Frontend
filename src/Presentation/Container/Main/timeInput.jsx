@@ -51,7 +51,6 @@ function TimeInput({setExpectTime}) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "5px"}}>
-      <p style={{ fontSize: "16px" }}>예상 소요 시간</p>
       <div style={{ display: "flex", alignItems:"center", gap:"5px" }}>
         <input
           style={{ width: "55px", height: "45px", fontSize: "22px", backgroundColor: "#FFF", borderRadius: "5px", paddingInlineStart: "12px", color:"#064d2c"}}

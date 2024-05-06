@@ -4,7 +4,9 @@ import { Provider } from "react-redux";
 import { store } from "@/Presentation/Redux";
 //import '@radix-ui/themes/styles.css';
 import { initializeApp } from 'firebase/app';
+import * as Toast from "@radix-ui/react-toast";
 import { getToken, getMessaging, onMessage } from 'firebase/messaging';
+import ToastStyle from '@/Presentation/Style/Toast.module.css';
 
 const firebaseKey = {
   apiKey: "AIzaSyBXQM2A0LabkYjaSGLaJhi1W3whgcCXSE4",
@@ -58,7 +60,10 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, []);
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <Toast.Provider>
+        <Component {...pageProps} />
+        <Toast.Viewport className={ToastStyle.ToastViewport} />
+      </Toast.Provider>
     </Provider>
   );
 };

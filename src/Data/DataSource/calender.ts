@@ -28,24 +28,26 @@ class CalenderDataSource {
     }
   }
   static async saveCalender(
-    id: number,
+    accessToken: string,
     name: string,
     label: number,
-    deadline: Date,
-    estimatedTime: number,
+    startDate: string,
+    endDate: string,
+    estimatedTime: string,
   ): Promise<void> {
     try {
-      const res = await fetch(`${SERVER_URL}/job/save`, {
+      const res = await fetch(`${SERVER_URL}/save/adjust`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify({
-          user_id: id,
           name,
           label,
-          deadline: "2023.12.10 00:00",
-          estimated_time: "04:00",
+          startDate,
+          endDate,
+          estimatedTime,
         }),
       });
     } catch (error) {

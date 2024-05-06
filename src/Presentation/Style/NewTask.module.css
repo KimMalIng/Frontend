@@ -1,100 +1,72 @@
-.body {
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #c5ecca;
-  border-radius: 15px;
-  padding:3px
+.NewTask {
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
 }
 
-.TaskName {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-}
-
-.TaskName > button {
-  width: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #248e5d;
+.TaskNameInput {
+  width: 100%;
+  height: 37px;
+  padding-left: 10px;
   border-radius: 5px;
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.TaskName > button:hover {
-  background-color: #248e5d;
-  color: #fff;
-  font-size: 22px;
-  transition: 0.2s;
-}
-
-.ContentBox {
-  overflow: auto;
-  width:350px;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap:10px;
-  padding: 10px;
-}
-
-.toggles_times{
-  display: flex;
-  flex-direction: row;
-  gap:10px
-}
-
-.toggles {
-  margin-top: 15px;
-}
-
-.toggles > span{
-  font-size: 16px;
-}
-
-.toggles > p {
-  margin-left: 10px;
   font-size: 14px;
-  color: #064d2c;
+  color: black;
+  font-weight: 400;
+  border:1px solid rgba(31, 36, 33, 0.5);
+  outline: none;
 }
 
-.ExpectTime {
+.SwitchBox {
+  width: 100%;
+  height: auto;
   display: flex;
-  flex-direction: column;
-  margin: 15px 0px 0px 15px;
-  gap:5px
-}
-.ExpectTime > p {
-  font-size: 20px;
+  justify-content: space-between;
+  padding-top: 10px; 
 }
 
-.TimeSetter {
+.TimeBox{
+  width: 100%;
+  height: auto;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
-
-.SelectClassify {
-  font-size: 200px;
+.SwitchRoot {
+  width: 42px;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 9999px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.SwitchRoot:focus {
+  box-shadow: 0 0 0 2px black;
+}
+.SwitchRoot[data-state='checked'] {
+  background-color: black;
 }
 
-.toggles{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.SwitchThumb {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background-color: white;
+  border-radius: 9999px;
+  box-shadow: 0 2px 2px black;
+  transition: transform 100ms;
+  transform: translateX(2px);
+  will-change: transform;
+}
+.SwitchThumb[data-state='checked'] {
+  transform: translateX(19px);
 }
 
-.toggle_switch { display: inline-block; position: relative; width: 160px; height: 40px; font-size: 17px;} 
-.toggle_switch input[type="checkbox"] { overflow: hidden; position: absolute; width: 1px; height: 1px; margin: -1px; font-size: initial; clip: rect(0 0 0 0);} 
-.toggle_switch .slider { position: absolute; top: 0; right: 0; bottom: 0; left: 0; 
-  background-color: #fff; border-radius: 34px; cursor: pointer; transition: 0.4s; box-shadow: inset 0px 0px 10px #abaaaa;
-  padding-inline-start: 43px; align-items: center; display: flex; color:#252525; font-weight: 500;} 
-.toggle_switch input[type="checkbox"]:checked + .slider { background-color: #49A078; color:#fff; box-shadow: inset 0px 0px 10px #248e5d; 
-  padding-inline-start: 15px; align-items: center; display: flex; font-weight: 500;} 
-.toggle_switch .slider::before { content: ""; position: absolute; top: 5px; left: 5px; width: 30px; height: 30px; 
-  background-color: #fff; border-radius: 50%; transition: 0.4s; box-shadow: -1px 1px 5px #4b7d65;}  
-.toggle_switch input[type="checkbox"]:checked + .slider::before { transform:translateX(120px); } 
+.Label {
+  color: white;
+  font-size: 15px;
+  line-height: 1;
+}
