@@ -1,24 +1,38 @@
 import * as T from '@radix-ui/react-toast';
 import { useState } from 'react';
 import { ToastProps } from '@/Presentation/Type';
+import cn from 'classnames';
+import { CheckCircledIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 
 import style from '@/Presentation/Style/Toast.module.css';
 
 const Toast = ({
+  iconType,
   title,
+  text,
   isOpen,
   setIsOpen
 }: ToastProps) => {
   return(
     <>
       <T.Root 
-        className={style.ToastRoot}
+        className={cn(style.ToastRoot ,{[style.fail]: (iconType === "fail"), [style.success]: (iconType === "info")})}
         open={isOpen}
         onOpenChange={setIsOpen}
       >
-        <T.ToastTitle className={style.ToastTitle}>{title}</T.ToastTitle>
+        <T.ToastTitle className={cn(style.ToastTitle, {[style.fail]: (iconType === "fail"), [style.success]: (iconType === "info")})}>
+          {(iconType === "fail")? (
+            <CrossCircledIcon
+              width={24} 
+              height={24}
+            />
+          ) : (
+            <CheckCircledIcon />
+          )}
+          <p>{title}</p>
+        </T.ToastTitle>
+        <T.Description className={style.ToastDescription}>{text}</T.Description>
       </T.Root>
-      <T.Viewport className={style.ToastViewport} />
     </>
   );
 };

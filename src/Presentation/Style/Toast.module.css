@@ -76,6 +76,9 @@
   font-weight: 500;
   color: rgb(28, 32, 36);
   font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .ToastDescription {
@@ -130,4 +133,13 @@
 }
 .Button.green:focus {
   box-shadow: 0 0 0 2px green;
+}
+
+.fail {
+  color: #721c24;
+  background-color: #f8d7da; 
+}
+
+.success {
+  color: #155724;
 }

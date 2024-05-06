@@ -13,7 +13,7 @@ const NewTask = ({ }) => {
   const [taskName, setTaskName] = useState("");
   const [isAuto, setIsAuto] = useState(true);
   const [isClear, setIsClear] = useState(false);
-  const [isToastOpen, setIsToastOpen] = useState(true);
+  const [isToastOpen, setIsToastOpen] = useState(false);
   const [expectTime, setExpectTime] = useState(0);
 
   const handleTaskName: ChangeEventHandler<HTMLInputElement> = (e) => { 
@@ -21,8 +21,13 @@ const NewTask = ({ }) => {
   };
   const handleIsAuto = (checked: boolean) => {
     setIsAuto(checked);
+    setIsToastOpen(false);
   }
   const handleIsClear = (checked: boolean) => {
+    if(isAuto){
+      setIsToastOpen(true);
+      return;
+    }
     setIsClear(checked);
   }
   const setToastOpen = (open: boolean) => {
@@ -39,8 +44,10 @@ const NewTask = ({ }) => {
 
   return (
     <div className={style.NewTask}>
-      <Toast 
-        title="sda"
+      <Toast
+        iconType="fail"
+        title="실패"
+        text="자동 스케쥴링에서는 사용할 수 없습니다"
         isOpen={isToastOpen}
         setIsOpen={setToastOpen}
       />
