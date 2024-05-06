@@ -3,25 +3,30 @@ import { Calendar } from 'react-calendar';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import { Dialog } from '@/Presentation/Component';
 import NewTask from './newTask';
+import { MonthCalenderProps } from '@/Presentation/Type';
 import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as D from '@radix-ui/react-dialog';
 
 import ct from '@/Presentation/Style/ContextMenu.module.css';
 import 'react-calendar/dist/Calendar.css';
 import style from "@/Presentation/Style/customCalendar.module.css";
-import { PlusIcon, MinusIcon } from '@radix-ui/react-icons';
+import { PlusIcon, MinusIcon, Cross1Icon } from '@radix-ui/react-icons';
 
 
-const MonthlyCalendar = ({}) => {
+const MonthlyCalendar = ({
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate
+}: MonthCalenderProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [calenderValue, setCalenderValue] = useState<Value>(new Date());
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(null);
   
   const handleAddSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
     setIsDialogOpen(true);
     console.log(calenderValue);
   }
-  const handleAddScheduleClose: MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleAddScheduleClose: MouseEventHandler<SVGAElement> = (e) => {
     setIsDialogOpen(false);
   }
   const handleCalenderValue = (value: Value, e: MouseEvent<HTMLButtonElement>) => {
@@ -69,15 +74,22 @@ const MonthlyCalendar = ({}) => {
         <Dialog 
           dialogChildren={
             <div>
-              <h2
+              <div
                 className={style.DialogTitle}
               >
                 {filterValue()}
-              </h2>
-              <NewTask />
+                <D.DialogClose>
+                  <Cross1Icon 
+                    onClick={handleAddScheduleClose}
+                  />
+                </D.DialogClose>
+              </div>
+              <NewTask
+                startDate={startDate}
+                endDate={endDate}
+              />
             </div>
           }
-          onClose={handleAddScheduleClose}
         />
       ) : (<></>)}
       <Calendar

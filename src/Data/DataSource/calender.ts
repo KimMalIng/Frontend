@@ -1,29 +1,30 @@
 import { SERVER_URL } from "@/Const";
 import { CalenderData } from "@/Data/Model";
+import { CalenderEntity } from "@/Domain/Entity";
 class CalenderDataSource {
   static async getCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
-  ): Promise<CalenderData[]> {
+  ): Promise<CalenderEntity> {
     try {
-      const res = await fetch(`${SERVER_URL}/timetable/period`, {
-        method: "POST",
+      console.log(`/timetable/period?startDate=${startDate}&endDate=${endDate}`);
+      const res = await fetch(`${SERVER_URL}/timetable/period?startDate=${startDate}&endDate=${endDate}`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: id,
-          startDate,
-          endDate,
-        }),
+          "Authorization": `Bearer ${accessToken}`
+        }
       });
+      console.log(res.status)
       if (res.status === 200) {
-        const data: CalenderData[] = await res.json();
+        const r = await res.json();
+        const data: CalenderEntity = r;
         return data;
       }
       return Promise.reject(res.status);
     } catch (error) {
+      console.log(error);
       return Promise.reject(500);
     }
   }
@@ -36,20 +37,22 @@ class CalenderDataSource {
     estimatedTime: string,
   ): Promise<void> {
     try {
-      const res = await fetch(`${SERVER_URL}/save/adjust`, {
+      const res = await fetch(`${SERVER_URL}/job/save/adjust`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify({
-          name,
-          label,
-          startDate,
-          endDate,
-          estimatedTime,
+          "name": name,
+          "label": 1,
+          "startDate": startDate,
+          "endDate": endDate,
+          "estimatedTime": estimatedTime
+
         }),
       });
+      console.log(res);
     } catch (error) {
       return Promise.reject(500);
     }

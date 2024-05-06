@@ -1,20 +1,54 @@
-type SubjectType = {
-  date: string;
-  deadline: string;
-  endTime: string;
-  estimatedTime: number;
-  label: number;
+
+
+type EveryTimeType = {
+  id: number;
   name: string;
+  label: number;
   startTime: string;
-};
+  endTime: string;
+  estimatedTime: string;
+  dayOfTheWeek: number;
+  fixed: boolean;
+  complete: boolean;
+}
+
+type SeperatedJobType = {
+  id: number;
+  name: string;
+  label: number;
+  day: string;
+  startTime: string;
+  endTime: string;
+  estimatedTime: string;
+  deadline: string | null;
+  completion: number;
+  fixed: boolean;
+  complete: boolean;
+}
+
+type FixedJobType = {
+  id: number;
+  name: string;
+  label: number;
+  startTime: string;
+  endTime: string;
+  estimatedTime: string;
+  startDate: string;
+  deadline: string | null;
+  shouldClear: boolean;
+  fixed: boolean;
+  complete: boolean;
+}
 
 class CalenderEntity {
-  day: string;
-  subject: SubjectType[];
+  EveryTimeJob: EveryTimeType[];
+  SeperatedJob: SeperatedJobType[];
+  FixedJob: FixedJobType[];
 
-  constructor(day: string, subject: SubjectType[]) {
-    this.day = day;
-    this.subject = subject;
+  constructor(e: EveryTimeType[], s: SeperatedJobType[], f: FixedJobType[]) {
+    this.EveryTimeJob = e;
+    this.SeperatedJob = s;
+    this.FixedJob = f;
   }
 }
 

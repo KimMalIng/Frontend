@@ -2,10 +2,10 @@ import { CalenderEntity } from "@/Domain/Entity";
 
 interface CalenderRepository {
   getCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
-  ): Promise<CalenderEntity[]>;
+  ): Promise<CalenderEntity>;
   saveCalender(
     accessToken: string,
     name: string,

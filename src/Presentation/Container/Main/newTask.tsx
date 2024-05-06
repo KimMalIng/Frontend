@@ -1,20 +1,25 @@
-import React, { MouseEventHandler, useState, ChangeEventHandler, useEffect } from "react";
+import React, { MouseEventHandler, useState, ChangeEventHandler } from "react";
+import { NewTaskProps } from '@/Presentation/Type';
+import cn from 'classnames';
 import * as Switch from '@radix-ui/react-switch';
 import { Toast } from "@/Presentation/Component";
-import { useRouter } from "next/router";
-import TimeInput from './timeInput';
-import PeriodInput from './periodInput';
+import { SaveCalenderUseCase } from '@/Domain/UseCase';
+import { CalenderRepositoryImpl, CredentialRepositoryImpl } from '@/Data/Repository';
 
 import "react-datepicker/dist/react-datepicker.css";
 import style from "@/Presentation/Style/NewTask.module.css";
 
-const NewTask = ({ }) => {
-  const router = useRouter();
+const NewTask = ({ startDate, endDate }: NewTaskProps) => {
+  const saveCalenderUseCase = new SaveCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const [taskName, setTaskName] = useState("");
   const [isAuto, setIsAuto] = useState(true);
   const [isClear, setIsClear] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
-  const [expectTime, setExpectTime] = useState(0);
+  const [isRequestErrorToastOpen, setIsRequestErrorToastOpen] = useState(false);
+  const [startHour, setStartHour] = useState("00");
+  const [startMinute, setStartMinute] = useState("00");
+  const [endHour, setEndHour] = useState("00");
+  const [endMinute, setEndMinute] = useState("00");
 
   const handleTaskName: ChangeEventHandler<HTMLInputElement> = (e) => { 
     setTaskName(e.target.value); 
@@ -22,6 +27,10 @@ const NewTask = ({ }) => {
   const handleIsAuto = (checked: boolean) => {
     setIsAuto(checked);
     setIsToastOpen(false);
+    setStartHour("00");
+    setStartMinute("00");
+    setEndHour("00");
+    setEndMinute("00");
   }
   const handleIsClear = (checked: boolean) => {
     if(isAuto){
@@ -29,18 +38,78 @@ const NewTask = ({ }) => {
       return;
     }
     setIsClear(checked);
+    setIsRequestErrorToastOpen(false);
   }
+  const handleStartHour: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setIsRequestErrorToastOpen(false);
+    if(isNaN(Number(e.target.value))) return;
+    if(Number(e.target.value) < 10) {
+      const n = Number(e.target.value);
+      setStartHour('');
+      setStartHour(`0${n}`)
+    }
+    else setStartHour(String(Number(e.target.value)));
+  }
+  const handleStartMinute: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setIsRequestErrorToastOpen(false);
+    if(isNaN(Number(e.target.value))) return;
+    if(isNaN(Number(startMinute))) return;
+    if(Number(e.target.value) < Number(startMinute)){
+      if(Number(e.target.value) < 0) return;
+      setStartMinute(`${Math.floor(Number(e.target.value) / 10) * 10}`)
+    }
+    else {
+      if(Number(e.target.value) > 50) return;
+      setStartMinute(`${Math.ceil(Number(e.target.value) / 10) * 10}`)
+    }
+  }
+  const handleEndHour: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setIsRequestErrorToastOpen(false);
+    if(isNaN(Number(e.target.value))) return;
+    if(Number(e.target.value) < 10) {
+      const n = Number(e.target.value);
+      setEndHour('');
+      setEndHour(`0${n}`)
+    }
+    else setStartHour(String(Number(e.target.value)));
+  }
+  const handleEndMinute: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setIsRequestErrorToastOpen(false);
+    if(isNaN(Number(e.target.value))) return;
+    if(isNaN(Number(endMinute))) return;
+    if(Number(e.target.value) < Number(endMinute)){
+      if(Number(e.target.value) < 0) return;
+      setEndMinute(`${Math.floor(Number(e.target.value) / 10) * 10}`)
+    }
+    else {
+      if(Number(e.target.value) > 50) return;
+      setEndMinute(`${Math.ceil(Number(e.target.value) / 10) * 10}`)
+    }
+  }
+
   const setToastOpen = (open: boolean) => {
     setIsToastOpen(open);
   }
+  
+  const setRequestErrorToastOpen = (open: boolean) => {
+    setRequestErrorToastOpen(open);
+  }
 
-  const handleButtonClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    // await cModel.saveCalender(1, taskName, selectedOption, deadLine, time);
-    // setTimeout(async () => {
-    //   await cModel.adjustmentCalender();
-    // }, 10);
+  const handleSaveButtonClick: MouseEventHandler<HTMLDivElement> = async (e) => {
+    try {
+      const e = (endDate === null)? (startDate) : (endDate);
+      await saveCalenderUseCase.execute(
+        taskName,
+        1,
+        startDate,
+        e,
+        `${startHour}:${startMinute}`
+      );
+    } catch (error) {
+      console.log(error);
+      setIsRequestErrorToastOpen(true)
+    }
   };
-  const handleExpectTime = (val: any) => { setExpectTime(val); };
 
   return (
     <div className={style.NewTask}>
@@ -51,6 +120,13 @@ const NewTask = ({ }) => {
         isOpen={isToastOpen}
         setIsOpen={setToastOpen}
       />
+      <Toast
+        iconType="fail"
+        title="실패"
+        text="정보를 정확히 입력해주세요"
+        isOpen={isRequestErrorToastOpen}
+        setIsOpen={setRequestErrorToastOpen}
+      />
       <input 
         type="text"
         value={taskName}
@@ -60,7 +136,7 @@ const NewTask = ({ }) => {
       />
 
       <div className={style.SwitchBox}>
-        <p>자동 스케쥴링</p>
+        <p className={style.SwitchText}>자동 스케쥴링</p>
         <Switch.Root 
           className={style.SwitchRoot}
           checked={isAuto}
@@ -71,7 +147,7 @@ const NewTask = ({ }) => {
       </div>
 
       <div className={style.SwitchBox}>
-        <p>이후 일정 비우기</p>
+        <p className={style.SwitchText}>이후 일정 비우기</p>
         <Switch.Root 
           className={style.SwitchRoot}
           checked={isClear}
@@ -83,14 +159,75 @@ const NewTask = ({ }) => {
 
       <div className={style.TimeBox}>
         {(isAuto)? (
-         <TimeInput setExpectTime={handleExpectTime} />
+          <>
+            <h2 className={style.TimeBoxTitle}>필요시간 지정하기</h2>
+            <div className={style.NumberInputBox}>
+              <input 
+                type="number" 
+                value={startHour}
+                onChange={handleStartHour}
+                className={style.NumberInput}
+              />
+              <h2 className={style.NumberInputSlice}> : </h2>
+              <input
+                type="number" 
+                value={startMinute}
+                onKeyDown={() => false}
+                onKeyUp={() => false}
+                onChange={handleStartMinute}
+                className={style.NumberInput}
+              />
+            </div>
+          </>
         ) : (
           <>
-            <TimeInput setExpectTime={handleExpectTime} />
-            ~
-            <TimeInput setExpectTime={handleExpectTime} />
+            <h2 className={style.TimeBoxTitle}>시작시간 지정하기</h2>
+            <div className={style.NumberInputBox}>
+              <input 
+                type="number" 
+                value={startHour}
+                onChange={handleStartHour}
+                className={style.NumberInput}
+              />
+              <h2 className={style.NumberInputSlice}> : </h2>
+              <input
+                type="number" 
+                value={startMinute}
+                onKeyDown={() => false}
+                onKeyUp={() => false}
+                onChange={handleStartMinute}
+                className={style.NumberInput}
+              />
+            </div>
+            <h2 className={style.TimeBoxTitle}>종료시간 지정하기</h2>
+            <div className={style.NumberInputBox}>
+              <input 
+                type="number" 
+                value={endHour}
+                onChange={handleEndHour}
+                className={style.NumberInput}
+              />
+              <h2 className={style.NumberInputSlice}> : </h2>
+              <input
+                type="number" 
+                value={endMinute}
+                onKeyDown={() => false}
+                onKeyUp={() => false}
+                onChange={handleEndMinute}
+                className={style.NumberInput}
+              />
+            </div>
+  
           </>
         )}
+         <div className={style.btnBox}>
+          <div 
+            className={cn(style.btn, style.save)}
+            onClick={handleSaveButtonClick}
+          >
+            저장하기
+          </div>
+        </div>
       </div>
         {/* <div className={style.toggles_times}>
           <div className={style.toggles}>

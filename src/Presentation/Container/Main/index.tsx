@@ -5,64 +5,55 @@ import {
   MouseEventHandler,
 } from "react";
 import {
-  Todo,
-  getToday,
-  showToday,
   Header,
-  Calender,
-  Button,
 } from "@/Presentation/Component";
-import { useRouter } from "next/router";
+import { GetCalenderUseCase } from '@/Domain/UseCase';
+import { CalenderRepositoryImpl, CredentialRepositoryImpl } from "@/Data/Repository";
+import { CalenderEntity } from "@/Domain/Entity";
 import MontlyCalendar from './customCalendar';
-import { SubjectType } from "@/Data/Model";
-import NewTask from "./newTask";
-import WeeklyView from "./weeklyView.jsx";
+
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
 
 
 const Main = () => {
-  // const upperBarDate = showToday();
-  // isTodoCheck === false, make progress bar
-  const [date, setDate] = useState<Date>(new Date());
-  // const router = useRouter();
-  const [toggleOn, setModalOn] = useState(false);
-  const [deadLine, setDeadLine] = useState("");
-  const [dailyTodo, setDailyTodo] = useState([]);
+  const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [calender, setCalender] = useState<CalenderEntity | null>();
 
-  const handleDeadLine = (val: any) => {
-    console.log(val);
-    setDeadLine(val); // 시작, 종료 날짜 세팅 완료
-    if (deadLine[0] != null) {
-      setModalOn(true);
+  const getList = async () => {
+    const e = (endDate === null)? (startDate) : (endDate);
+    try {
+      const data = await getCalenderUseCase.execute(startDate, e);
+      setCalender(data);
+    } catch (error) {
+      console.log(error);
     }
-  };
-
-  const closeModal = () => {
-    setModalOn(false);
-  };
-
-  const clearDeadLine = () => {
-    setDeadLine("");
   }
 
-
   useEffect(() => {
-  }, [dailyTodo]);
-
+    getList();
+  }, [])
+  useEffect(() => {
+    getList();
+  }, [startDate, endDate])
   return (
     <div className={style.Main}>
       <Header />
       <div className={style.MonthandDay}>
         <div className={style.ContentBox}>
+          <h2>일정 목록</h2>
         </div>
         <div className={style.CalenderBox}>
-            <>
-              <MontlyCalendar />
-            </>
+            <MontlyCalendar
+              startDate={startDate}
+              endDate={endDate}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+            />
         </div>
       </div>
-      <WeeklyView />
     </div>
   );
 };

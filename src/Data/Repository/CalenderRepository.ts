@@ -25,13 +25,13 @@ class CalenderRepositoryImpl implements CalenderRepository {
     }
   }
   async getCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
-  ): Promise<CalenderEntity[]> {
+  ): Promise<CalenderEntity> {
     try {
-      const data: CalenderEntity[] = await CalenderDataSource.getCalender(
-        id,
+      const data: CalenderEntity = await CalenderDataSource.getCalender(
+        accessToken,
         startDate,
         endDate,
       );
