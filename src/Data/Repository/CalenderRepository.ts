@@ -3,8 +3,12 @@ import { CalenderRepository } from "@/Domain/Repository";
 import { CalenderDataSource } from "@/Data/DataSource";
 
 class CalenderRepositoryImpl implements CalenderRepository {
-  saveFixCalender(accessToken: string, name: string, startDate: string, endDate: string, label: number, startTime: string, endTime: string, shouldClear: boolean): Promise<void> {
-    throw new Error("Method not implemented.");
+  async saveFixCalender(accessToken: string, name: string, startDate: string, endDate: string, label: number, startTime: string, endTime: string, shouldClear: boolean): Promise<void> {
+    try {
+      await CalenderDataSource.saveFiexdCalender(accessToken, name, label, startDate, endDate, startTime, endTime, shouldClear);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
   async saveCalender(accessToken: string, name: string, startDate: string, endDate: string, label: number, estimatedTime: string): Promise<void> {
     try {

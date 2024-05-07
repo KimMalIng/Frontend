@@ -1,5 +1,5 @@
 import * as T from '@radix-ui/react-toast';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { ToastProps } from '@/Presentation/Type';
 import cn from 'classnames';
 import { CheckCircledIcon, CrossCircledIcon } from '@radix-ui/react-icons';
@@ -13,12 +13,16 @@ const Toast = ({
   isOpen,
   setIsOpen
 }: ToastProps) => {
+  useEffect(() => {
+    setTimeout(() => {
+      if(isOpen) setIsOpen(false);
+    }, 1500);
+  }, [])
   return(
     <>
       <T.Root 
         className={cn(style.ToastRoot ,{[style.fail]: (iconType === "fail"), [style.success]: (iconType === "info")})}
         open={isOpen}
-        onOpenChange={setIsOpen}
       >
         <T.ToastTitle className={cn(style.ToastTitle, {[style.fail]: (iconType === "fail"), [style.success]: (iconType === "info")})}>
           {(iconType === "fail")? (

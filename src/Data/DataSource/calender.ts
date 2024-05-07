@@ -45,17 +45,51 @@ class CalenderDataSource {
         },
         body: JSON.stringify({
           "name": name,
-          "label": 1,
+          "label": label,
           "startDate": startDate,
           "endDate": endDate,
           "estimatedTime": estimatedTime
 
         }),
       });
-      console.log(res);
+      if(res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       return Promise.reject(500);
     }
+  }
+  static async saveFiexdCalender(
+    accessToken: string,
+    name: string,
+    label: number,
+    startDate: string,
+    endDate: string,
+    startTime: string,
+    endTime: string,
+    shouldClear: boolean
+  ): Promise<void> {
+    try {
+      const res = await fetch(`${SERVER_URL}/job/save/fix`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
+        },
+        body: JSON.stringify({
+          "name": name,
+          "label": label,
+          "startDate": startDate,
+          "endDate": endDate,
+          "startTime": startTime,
+          "endTime": endTime,
+          "shouldClear": shouldClear
+  
+        })
+      });
+      if(res.status !== 200) return Promise.reject(res.status);
+    } catch (error) {
+        return Promise.reject(500);
+    }
+    
   }
   static async adjustmentCalender(
     id: number,

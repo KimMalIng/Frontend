@@ -29,6 +29,9 @@ const MonthlyCalendar = ({
   const handleAddScheduleClose: MouseEventHandler<SVGAElement> = (e) => {
     setIsDialogOpen(false);
   }
+  const handleSaveNewTask = (): void => {
+    setIsDialogOpen(false);
+  }
   const handleCalenderValue = (value: Value, e: MouseEvent<HTMLButtonElement>) => {
     if(value === null) return;
     console.log(value);
@@ -65,8 +68,6 @@ const MonthlyCalendar = ({
     }
   }
   
-  useEffect(() => {
-  }, []);
 
   return (
     <>
@@ -87,6 +88,7 @@ const MonthlyCalendar = ({
               <NewTask
                 startDate={startDate}
                 endDate={endDate}
+                handleSaveNewTask={handleSaveNewTask}
               />
             </div>
           }

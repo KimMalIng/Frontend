@@ -85,11 +85,20 @@
   margin-top: 5px;
 }
 
+.WeeklyListBox {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid black; 
+}
+
 .WeeklyListTitle {
   font-size: 18px;
   font-weight: 900;
   line-height: 40px;
-  border-bottom: 1px solid black; 
+  width: 100%;
 }
 
 .WeeklyListItemBox {
@@ -119,7 +128,7 @@
   border-radius: 1px;
   display: flex;
   align-items: center;
-  padding-left: 10px;
+  justify-content: center;
   box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -128,6 +137,7 @@
   font-weight: 800;
   font-family: 'Inter';
 }
+
 
 .label1 {
   background-color: #AFD5F7;

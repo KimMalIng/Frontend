@@ -13,6 +13,7 @@ type SetLabelColor = {
 type NewTaskProps = {
   startDate: Date;
   endDate: Date | null;
+  handleSaveNewTask: () => void;
 }
 
 type MonthCalenderProps = {

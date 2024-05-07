@@ -14,7 +14,10 @@ import { CalenderEntity } from "@/Domain/Entity";
 import { DateListType, DateType } from '@/Presentation/Type';
 import MontlyCalendar from './customCalendar';
 import Skeleton from 'react-loading-skeleton'
+import * as ContextMenu from '@radix-ui/react-context-menu';
+import ct from '@/Presentation/Style/ContextMenu.module.css';
 import cn from 'classnames';
+import { PlusIcon, MinusIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
@@ -28,8 +31,19 @@ const Main = () => {
   const [dateList, setDateList] = useState<DateListType>({});
   const [isSortFinish, setIsSortFinish] = useState(false);
   const [isDateListLoading, setIsDateListLoading] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [saveIndex, setSaveIndex] = useState(0);
+
+  const handleFinishSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
+
+  }
+  const handleAddSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
+    setIsDialogOpen(true);
+  }
+  const handleAddScheduleClose: MouseEventHandler<SVGAElement> = (e) => {
+    setIsDialogOpen(false);
+  }
 
   const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
     const dateSaveList: DateType[] = [];
@@ -155,7 +169,9 @@ const Main = () => {
       }
       return (
         <>
-          <h2 className={style.WeeklyListTitle}>{dateKey}</h2>
+          <div className={style.WeeklyListBox}>
+            <h2 className={style.WeeklyListTitle}>{dateKey}</h2>
+          </div>
           <div className={style.WeeklyListItemBox}>
           {
             dateList[dateKey].map((d) => {
@@ -166,9 +182,38 @@ const Main = () => {
                   )}
                 >
                   <p className={style.WeeklyStartTime}>{d.startTime}</p>
-                  <div className={cn(style.WeeklyItem, setLabel(d.label))}>
-                    <h2 className={style.WeeklyItemTitle}>{d.name}</h2>
-                  </div>
+                  <ContextMenu.Root>
+                    <ContextMenu.Trigger
+                      className={ct.ContextMenuTrigger}
+                    >
+                      <div className={cn(style.WeeklyItem, setLabel(d.label))}>
+                        <h2 className={style.WeeklyItemTitle}>{d.name}</h2>
+                      </div>
+                    </ContextMenu.Trigger>
+                    <ContextMenu.Portal>
+                  <ContextMenu.Content
+                    className={ct.ContextMenuContent}
+                  >
+                    <ContextMenu.Item
+                      className={ct.ContextMenuItem}
+                      onClick={handleFinishSchedule}
+                    >
+                      일정 완료하기
+                      <div className={ct.RightSlot}>
+                        <PlusIcon />
+                      </div>
+                    </ContextMenu.Item>
+                    <ContextMenu.Item
+                      className={ct.ContextMenuItem}
+                    >
+                      일정 삭제하기
+                      <div className={ct.RightSlot}>
+                        <MinusIcon />
+                      </div>
+                    </ContextMenu.Item>
+                  </ContextMenu.Content>
+                </ContextMenu.Portal>
+                  </ContextMenu.Root>
                 </div>
               );
             })

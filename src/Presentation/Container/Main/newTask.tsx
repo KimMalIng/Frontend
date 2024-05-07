@@ -1,21 +1,25 @@
-import React, { MouseEventHandler, useState, ChangeEventHandler } from "react";
+import React, { MouseEventHandler, useState, ChangeEventHandler, useEffect } from "react";
 import { NewTaskProps } from '@/Presentation/Type';
 import cn from 'classnames';
 import * as Switch from '@radix-ui/react-switch';
 import { Toast } from "@/Presentation/Component";
-import { SaveCalenderUseCase } from '@/Domain/UseCase';
+import { SaveCalenderUseCase, SaveFiexdCalenderUseCase } from '@/Domain/UseCase';
 import { CalenderRepositoryImpl, CredentialRepositoryImpl } from '@/Data/Repository';
 
 import "react-datepicker/dist/react-datepicker.css";
 import style from "@/Presentation/Style/NewTask.module.css";
+import st from '@/Presentation/Style/Select.module.css';
 
-const NewTask = ({ startDate, endDate }: NewTaskProps) => {
+const NewTask = ({ startDate, endDate, handleSaveNewTask }: NewTaskProps) => {
   const saveCalenderUseCase = new SaveCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const saveFiexdCalenderUseCase = new SaveFiexdCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const [taskName, setTaskName] = useState("");
   const [isAuto, setIsAuto] = useState(true);
   const [isClear, setIsClear] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [isRequestErrorToastOpen, setIsRequestErrorToastOpen] = useState(false);
+  const [isSuccessToastOpen, setIsSucessToastOpen] = useState(false);
+  const [selectLable, setSelectLabel] = useState("일반")
   const [startHour, setStartHour] = useState("00");
   const [startMinute, setStartMinute] = useState("00");
   const [endHour, setEndHour] = useState("00");
@@ -38,10 +42,16 @@ const NewTask = ({ startDate, endDate }: NewTaskProps) => {
       return;
     }
     setIsClear(checked);
-    setIsRequestErrorToastOpen(false);
+    if(checked){
+      setEndHour("24");
+      setEndMinute("00");
+    }
+    else {
+      setEndHour("00");
+      setEndMinute("00");
+    }
   }
   const handleStartHour: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setIsRequestErrorToastOpen(false);
     if(isNaN(Number(e.target.value))) return;
     if(Number(e.target.value) < 10) {
       const n = Number(e.target.value);
@@ -51,7 +61,6 @@ const NewTask = ({ startDate, endDate }: NewTaskProps) => {
     else setStartHour(String(Number(e.target.value)));
   }
   const handleStartMinute: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setIsRequestErrorToastOpen(false);
     if(isNaN(Number(e.target.value))) return;
     if(isNaN(Number(startMinute))) return;
     if(Number(e.target.value) < Number(startMinute)){
@@ -64,17 +73,17 @@ const NewTask = ({ startDate, endDate }: NewTaskProps) => {
     }
   }
   const handleEndHour: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setIsRequestErrorToastOpen(false);
+    if(isClear) return;
     if(isNaN(Number(e.target.value))) return;
     if(Number(e.target.value) < 10) {
       const n = Number(e.target.value);
       setEndHour('');
       setEndHour(`0${n}`)
     }
-    else setStartHour(String(Number(e.target.value)));
+    else setEndHour(String(Number(e.target.value)));
   }
   const handleEndMinute: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setIsRequestErrorToastOpen(false);
+    if(isClear) return;
     if(isNaN(Number(e.target.value))) return;
     if(isNaN(Number(endMinute))) return;
     if(Number(e.target.value) < Number(endMinute)){
@@ -94,25 +103,66 @@ const NewTask = ({ startDate, endDate }: NewTaskProps) => {
   const setRequestErrorToastOpen = (open: boolean) => {
     setRequestErrorToastOpen(open);
   }
-
+  const handleLabelSelected = (text: "학업" | "일반" | "업무") => {
+    setSelectLabel(text);
+  }
+  const translateSelected = (): number => {
+    console.log(selectLable);
+    if(selectLable === "학업") return 3;
+    if(selectLable === "업무") return 2;
+    return 1;
+  }
   const handleSaveButtonClick: MouseEventHandler<HTMLDivElement> = async (e) => {
     try {
       const e = (endDate === null)? (startDate) : (endDate);
-      await saveCalenderUseCase.execute(
-        taskName,
-        1,
-        startDate,
-        e,
-        `${startHour}:${startMinute}`
-      );
+      if(isAuto) {
+        await saveCalenderUseCase.execute(
+          taskName,
+          translateSelected(),
+          startDate,
+          e,
+          `${startHour}:${startMinute}`
+        );
+      }
+      else {
+        await saveFiexdCalenderUseCase.execute(
+          taskName,
+          translateSelected(),
+          startDate,
+          e,
+          `${startHour}:${startMinute}`,
+          `${endHour}:${endMinute}`,
+          isClear
+        )
+      }
+      handleSaveNewTask();
+      setIsSucessToastOpen(true);
     } catch (error) {
       console.log(error);
-      setIsRequestErrorToastOpen(true)
+      if(!isRequestErrorToastOpen) setIsRequestErrorToastOpen(true);
     }
   };
 
+  useEffect(() => {
+    if(Number(startHour) > Number(endHour)){
+      setEndHour(startHour);
+      if(Number(startMinute) > Number(endMinute)) setEndMinute(startMinute);
+    }
+  }, [startHour]);
+
+  useEffect(() => {
+    if(Number(startMinute) > Number(endMinute)) setEndMinute(startMinute);
+  }, [startMinute]);
+
   return (
     <div className={style.NewTask}>
+      <Toast
+        iconType="info"
+        title="성공"
+        text="일정이 저장되었습니다"
+        isOpen={isSuccessToastOpen}
+        setIsOpen={setIsSucessToastOpen}
+      />
       <Toast
         iconType="fail"
         title="실패"
@@ -128,12 +178,32 @@ const NewTask = ({ startDate, endDate }: NewTaskProps) => {
         setIsOpen={setRequestErrorToastOpen}
       />
       <input 
-        type="text"
-        value={taskName}
-        onChange={handleTaskName}
-        className={style.TaskNameInput}
-        placeholder="일정 이름을 입력해주세요"
-      />
+          type="text"
+          value={taskName}
+          onChange={handleTaskName}
+          className={style.TaskNameInput}
+          placeholder="일정 이름을 입력해주세요"
+        />
+      <div className={style.LabelBox}>
+        <div 
+          className={cn(style.SelectLabel, {[style.Select]: (selectLable === "학업")})}
+          onClick={() => handleLabelSelected("학업")}
+        >
+          학업
+        </div>
+        <div 
+          className={cn(style.SelectLabel, {[style.Select]: (selectLable === "업무")})}
+          onClick={() => handleLabelSelected("업무")}
+        >
+          업무
+        </div>
+        <div 
+          className={cn(style.SelectLabel, {[style.Select]: (selectLable === "일반")})}
+          onClick={() => handleLabelSelected("일반")}
+        >
+          일반
+        </div>
+      </div>
 
       <div className={style.SwitchBox}>
         <p className={style.SwitchText}>자동 스케쥴링</p>
