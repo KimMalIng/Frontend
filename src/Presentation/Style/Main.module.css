@@ -30,6 +30,13 @@
   flex-direction: column;
 }
 
+.ContentTitle {
+  font-family: 'Inter';
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
 .DailyList {
   font-size: 30px;
 }
@@ -76,4 +83,60 @@
   gap: 5px;
   height: auto;
   margin-top: 5px;
+}
+
+.WeeklyListTitle {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 40px;
+  border-bottom: 1px solid black; 
+}
+
+.WeeklyListItemBox {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.WeeklyListItem {
+  width: 100%;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.WeeklyItemTitle {
+  font-family: 'Inter';
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.WeeklyItem {
+  flex: 1;
+  height: 100%;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.WeeklyStartTime {
+  font-size: 14px;
+  font-weight: 800;
+  font-family: 'Inter';
+}
+
+.label1 {
+  background-color: #AFD5F7;
+}
+
+.label2 {
+  background-color: #FBB4C1;
+}
+
+.label3 {
+  background-color: #B7E6B6;
 }

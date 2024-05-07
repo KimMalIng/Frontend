@@ -14,10 +14,12 @@ import { CalenderEntity } from "@/Domain/Entity";
 import { DateListType, DateType } from '@/Presentation/Type';
 import MontlyCalendar from './customCalendar';
 import Skeleton from 'react-loading-skeleton'
+import cn from 'classnames';
 
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
-import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-loading-skeleton/dist/skeleton.css';
+import '@fontsource/inter';
 
 const Main = () => {
   const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
@@ -127,6 +129,11 @@ const Main = () => {
       console.log(error);
     }
   }
+  const setLabel = (l: number): string => {
+    if(l === 1) return style.label1;
+    if(l === 2) return style.label2;
+    return style.label3;
+  }
   const printCalender = (d: Date): ReactNode => {
     if(isDateListLoading) return <></>
     const end = (endDate === null) ? startDate : endDate;
@@ -141,21 +148,32 @@ const Main = () => {
       if(typeof dateList[dateKey] === "undefined"){
         return (
           <>
-            <h2>{dateKey}</h2>
+            <h2 className={style.WeeklyListTitle}>{dateKey}</h2>
             {returnComponent}
           </>
         );
       }
       return (
         <>
-          <h2>{dateKey}</h2>
+          <h2 className={style.WeeklyListTitle}>{dateKey}</h2>
+          <div className={style.WeeklyListItemBox}>
           {
             dateList[dateKey].map((d) => {
               return (
-                <h2>{d.name}</h2>
+                <div 
+                  className={cn(
+                    style.WeeklyListItem,
+                  )}
+                >
+                  <p className={style.WeeklyStartTime}>{d.startTime}</p>
+                  <div className={cn(style.WeeklyItem, setLabel(d.label))}>
+                    <h2 className={style.WeeklyItemTitle}>{d.name}</h2>
+                  </div>
+                </div>
               );
             })
           }
+          </div>
           {returnComponent}
         </>
       );
@@ -178,7 +196,7 @@ const Main = () => {
       <Header />
       <div className={style.MonthandDay}>
         <div className={style.ContentBox}>
-          <h2>일정 목록</h2>
+          <h2 className={style.ContentTitle}>일정 목록</h2>
           {(isDateListLoading)? (
                  <>
                   <Skeleton 

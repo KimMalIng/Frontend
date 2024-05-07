@@ -6,6 +6,7 @@ import { store } from "@/Presentation/Redux";
 import { initializeApp } from 'firebase/app';
 import * as Toast from "@radix-ui/react-toast";
 import { getToken, getMessaging, onMessage } from 'firebase/messaging';
+import Head from "next/head";
 import ToastStyle from '@/Presentation/Style/Toast.module.css';
 
 const firebaseKey = {
@@ -60,6 +61,11 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, []);
   return (
     <Provider store={store}>
+      <Head>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        </style>
+      </Head>
       <Toast.Provider>
         <Component {...pageProps} />
         <Toast.Viewport className={ToastStyle.ToastViewport} />
