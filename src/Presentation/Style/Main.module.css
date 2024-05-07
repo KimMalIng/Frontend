@@ -65,3 +65,15 @@
 .TodoDate > p {
   font-weight: 900;
 }
+
+.SkeletonTitle {
+  margin-top: 10px;
+}
+
+.SkeletonBox {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: auto;
+  margin-top: 5px;
+}
