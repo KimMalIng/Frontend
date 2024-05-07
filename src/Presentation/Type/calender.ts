@@ -22,4 +22,19 @@ type MonthCalenderProps = {
   setStartDate: Dispatch<React.SetStateAction<Date>>
 }
 
-export type { CalenderProps, SetLabelColor , NewTaskProps, MonthCalenderProps};
+type DateType = {
+  id: number;
+  label: number;
+  name: string;
+  startTime: string;
+  endTime: string;
+  estimatedTime: string;
+  fixed: boolean;
+  complete: boolean;  
+}
+
+type DateListType = {
+  [key: string]: DateType[];
+}
+
+export type { CalenderProps, SetLabelColor , NewTaskProps, MonthCalenderProps, DateListType, DateType};
