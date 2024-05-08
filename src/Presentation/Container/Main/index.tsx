@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from "react";
 import {
-  Header, Spinner
+  Header, Dialog
 } from "@/Presentation/Component";
 import { GetCalenderUseCase } from '@/Domain/UseCase';
 import { CalenderRepositoryImpl, CredentialRepositoryImpl } from "@/Data/Repository";
@@ -31,19 +31,18 @@ const Main = () => {
   const [dateList, setDateList] = useState<DateListType>({});
   const [isSortFinish, setIsSortFinish] = useState(false);
   const [isDateListLoading, setIsDateListLoading] = useState(true);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEndDialogOpen, setIsEndDialogOpen] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [saveIndex, setSaveIndex] = useState(0);
 
   const handleFinishSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
+    setIsEndDialogOpen(true);
+  }
 
+  const handleFinishScheduleClose: MouseEventHandler<HTMLDivElement> = (e) => {
+    setIsEndDialogOpen(false);
   }
-  const handleAddSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
-    setIsDialogOpen(true);
-  }
-  const handleAddScheduleClose: MouseEventHandler<SVGAElement> = (e) => {
-    setIsDialogOpen(false);
-  }
+
 
   const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
     const dateSaveList: DateType[] = [];
@@ -242,6 +241,17 @@ const Main = () => {
       <div className={style.MonthandDay}>
         <div className={style.ContentBox}>
           <h2 className={style.ContentTitle}>일정 목록</h2>
+          {(isEndDialogOpen)? ( 
+            <Dialog
+              dialogChildren={
+                <>
+                  <h2>일정 완료하기</h2>
+                </>
+              }
+            />
+          )  : (
+            <></>
+          )}
           {(isDateListLoading)? (
                  <>
                   <Skeleton 
