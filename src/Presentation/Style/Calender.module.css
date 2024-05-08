@@ -87,3 +87,9 @@
   flex: 1;
   width: 100%;
 }
+
+.SkeletonBox {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

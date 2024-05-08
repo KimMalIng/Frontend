@@ -1,18 +1,21 @@
 import { CredentialRepository } from "@/Domain/Repository";
+import { UserEntity } from "../Entity";
 
-class SaveCredentialUseCase {
+class CheckCredentialUseCase {
   private credentialRepository: CredentialRepository;
 
   constructor(cr: CredentialRepository) {
     this.credentialRepository = cr;
   }
-  async execute(name: string, token: string): Promise<void> {
+  async execute(): Promise<UserEntity>{
     try {
-      await this.credentialRepository.setLocalStorage(name, token);
+      const info = this.credentialRepository.getAuthCredential();
+      return info;
+
     } catch (error) {
       return Promise.reject(error);
     }
   }
 }
 
-export default SaveCredentialUseCase;
+export default CheckCredentialUseCase;

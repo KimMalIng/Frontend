@@ -1,3 +1,3 @@
-const SERVER_URL = "3.34.48.41:8000";
+const SERVER_URL = "https://server.kimmaling.com";
 
 export { SERVER_URL };

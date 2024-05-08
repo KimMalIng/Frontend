@@ -1,46 +1,94 @@
 [
     {
-        "date": "2024-03-30",
-        "subject": [
-            {
-                "id" : 1,
-                "name": "스타트업벤처",
-                "start": "18:00",
-                "end": "20:00"
-            }
-        ]
+      "id": 100,
+      "name": "알고리즘 과제",
+      "label": 1,
+      "day": "2024-05-03",
+      "startTime": "10:00",
+      "endTime": "11:30",
+      "estimatedTime": "1:30",
+      "deadline": null,
+      "completion": 0,
+      "fixed": true,
+      "complete": false
     },
     {
-        "date": "2024-03-30",
-        "subject": [
-            {
-                "id" : 2,
-                "name": "경제학의 이해",
-                "start": "21:00",
-                "end": "22:00"
-            }
-        ]
+      "id": 101,
+      "name": "웹 프로그래밍 과제",
+      "label": 2,
+      "day": "2024-05-04",
+      "startTime": "14:00",
+      "endTime": "15:20",
+      "estimatedTime": "1:20",
+      "deadline": null,
+      "completion": 0,
+      "fixed": true,
+      "complete": false
     },
     {
-        "date": "2024-03-31",
-        "subject": [
-            {
-                "id" : 3,
-                "name": "컴퓨터개론",
-                "start": "08:00",
-                "end": "12:00"
-            }
-        ]
+      "id": 102,
+      "name": "데이터 구조 및 알고리즘 실습",
+      "label": 1,
+      "day": "2024-05-05",
+      "startTime": "16:00",
+      "endTime": "18:30",
+      "estimatedTime": "2:30",
+      "deadline": null,
+      "completion": 0,
+      "fixed": true,
+      "complete": false
     },
     {
-        "date": "2024-03-31",
-        "subject": [
-            {
-                "id" : 4,
-                "name": "논문 읽기",
-                "start": "13:00",
-                "end": "18:00"
-            }
-        ]
+      "id": 103,
+      "name": "운영 체제 개론 과제",
+      "label": 2,
+      "day": "2024-05-06",
+      "startTime": "19:00",
+      "endTime": "20:10",
+      "estimatedTime": "1:10",
+      "deadline": null,
+      "completion": 0,
+      "fixed": true,
+      "complete": false
+    },
+    {
+      "id": 104,
+      "name": "컴퓨터 네트워크 과제",
+      "label": 1,
+      "day": "2024-05-07",
+      "startTime": "10:30",
+      "endTime": "12:00",
+      "estimatedTime": "1:30",
+      "deadline": null,
+      "completion": 0,
+      "fixed": true,
+      "complete": false
+    },
+    {
+      "id": 105,
+      "name": "인공지능 개론 리포트 작성",
+      "label": 2,
+      "day": "2024-05-08",
+      "startTime": "13:00",
+      "endTime": "14:20",
+      "estimatedTime": "1:20",
+      "deadline": null,
+      "completion": 0,
+      "fixed": true,
+      "complete": false
+    },
+    {
+      "id": 106,
+      "name": "소프트웨어 공학 개론 발표 준비",
+      "label": 1,
+      "day": "2024-05-09",
+      "startTime": "15:30",
+      "endTime": "17:00",
+      "estimatedTime": "1:30",
+      "deadline": null,
+      "completion": 0,
+      "fixed": true,
+      "complete": false
     }
 ]
+  

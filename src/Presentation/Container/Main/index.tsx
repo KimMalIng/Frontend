@@ -1,169 +1,281 @@
 import {
   useState,
-  ChangeEventHandler,
+  useRef,
   useEffect,
   MouseEventHandler,
+  ReactNode,
 } from "react";
 import {
-  Todo,
-  getToday,
-  showToday,
-  Header,
-  Calender,
-  Button,
+  Header, Spinner
 } from "@/Presentation/Component";
-import { useRouter } from "next/router";
-import MontlyCalendar from './customCalendar.jsx';
-import { CalenderModel } from "@/Presentation/Model";
-import { SubjectType } from "@/Data/Model";
+import { GetCalenderUseCase } from '@/Domain/UseCase';
+import { CalenderRepositoryImpl, CredentialRepositoryImpl } from "@/Data/Repository";
 import { CalenderEntity } from "@/Domain/Entity";
-import NewTask from "./newTask";
+import { DateListType, DateType } from '@/Presentation/Type';
+import MontlyCalendar from './customCalendar';
+import Skeleton from 'react-loading-skeleton'
+import * as ContextMenu from '@radix-ui/react-context-menu';
+import ct from '@/Presentation/Style/ContextMenu.module.css';
+import cn from 'classnames';
+import { PlusIcon, MinusIcon, PlusCircledIcon } from '@radix-ui/react-icons';
+
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
-
+import 'react-loading-skeleton/dist/skeleton.css';
+import '@fontsource/inter';
 
 const Main = () => {
-  // const upperBarDate = showToday();
-  // isTodoCheck === false, make progress bar
-  const [calender, setCalender] = useState<CalenderEntity[]>([]);
-  const [timeline, setTimeline] = useState<CalenderEntity>();
-  const [isCalenderLoading, setIsCalenderLoading] = useState(false);
-  const [isTimelineLoading, setIsTimelineLoading] = useState(true);
-  const [date, setDate] = useState<Date>(new Date());
-  const cModel = new CalenderModel();
-  // const router = useRouter();
-  const [toggleOn, setModalOn] = useState(false);
-  const [deadLine, setDeadLine] = useState("");
-  const [dailyTodo, setDailyTodo] = useState([]);
+  const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [dateList, setDateList] = useState<DateListType>({});
+  const [isSortFinish, setIsSortFinish] = useState(false);
+  const [isDateListLoading, setIsDateListLoading] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isToastOpen, setIsToastOpen] = useState(false);
+  const [saveIndex, setSaveIndex] = useState(0);
 
-  const handleDeadLine = (val: any) => {
-    console.log(val);
-    setDeadLine(val); // 시작, 종료 날짜 세팅 완료
-    if (deadLine[0] != null) {
-      setModalOn(true);
-    }
-  };
+  const handleFinishSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
 
-  const closeModal = () => {
-    setModalOn(false);
-  };
+  }
+  const handleAddSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
+    setIsDialogOpen(true);
+  }
+  const handleAddScheduleClose: MouseEventHandler<SVGAElement> = (e) => {
+    setIsDialogOpen(false);
+  }
 
-  // const updateNowDate = (n: number): void => {
-  //   const changeDate = date.getDay() === 0 ? 7 : date.getDay();
-  //   setDate(new Date(date.setDate(date.getDate() + (n - changeDate))));
-  // };
-
-  const getWeek = async () => {
-    const res = await cModel.getCalender();
-    setCalender(res);
-    setIsCalenderLoading(true);
-    await Promise.all(
-      res.map((d) => {
-        const calenderDate = new Date(
-          `${d.day.split(".")[0]}-${d.day.split(".")[1]}-${d.day.split(".")[2]
-          }`,
-        );
-        if (
-          date.getFullYear() === calenderDate.getFullYear() &&
-          date.getMonth() === calenderDate.getMonth() &&
-          date.getDate() === calenderDate.getDate()
-        )
-          setTimeline(d);
-      }),
-    );
-    setIsTimelineLoading(true);
-  };
-
-  const updateTimeLineData = () => {
-    setTimeline(undefined);
-    calender.map((d) => {
-      const calenderDate = new Date(
-        `${d.day.split(".")[0]}-${d.day.split(".")[1]}-${d.day.split(".")[2]}`,
+  const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
+    const dateSaveList: DateType[] = [];
+    if(calender === null || typeof calender === "undefined") return Promise.reject(404);
+    const end = (endDate === null) ? startDate : endDate;
+    if(d <= end){
+     
+      const dayMonthKey = (d.getMonth() + 1 < 10)? `0${(d.getMonth() + 1)}`: `${(d.getMonth() + 1)}`;
+      const dayDatekey = (d.getDate() < 10)? `0${d.getDate()}` : `${d.getDate()}`;
+      const dateKey = `${d.getFullYear()}.${dayMonthKey}.${dayDatekey}`;
+      await Promise.all(
+        calender.EveryTimeJob.map((c) => {
+          const day = d.getDay();
+          if((c.dayOfTheWeek + 1) === day){
+            const saveDate: DateType = {
+              id: c.id,
+              label: c.label,
+              name: c.name,
+              startTime: c.startTime,
+              endTime: c.endTime,
+              fixed: true,
+              complete: c.complete,
+              estimatedTime: c.estimatedTime
+            }
+         
+            dateSaveList.push(saveDate);
+          }
+        })
       );
-      if (
-        date.getFullYear() === calenderDate.getFullYear() &&
-        date.getMonth() === calenderDate.getMonth() &&
-        date.getDate() === calenderDate.getDate()
-      )
-        setTimeline(d);
-    });
-  };
+      await Promise.all(
+        calender.SeperatedJob.map((c) => {
+          if(dateKey === c.day){
+            const saveDate: DateType = {
+              id: c.id,
+              label: c.label,
+              name: c.name,
+              startTime: c.startTime,
+              endTime: c.endTime,
+              fixed: c.fixed,
+              complete: c.complete,
+              estimatedTime: c.estimatedTime
+            }
+            dateSaveList.push(saveDate);
+          }
+        })
+      );
+      await Promise.all(
+        calender.FixedJob.map((c) => {
+          const dateKeyToDate = new Date(`${dateKey.split(".")[0]}-${dateKey.split(".")[1]}-${dateKey.split(".")[2]}`);
+          const cStartDateToDate = new Date(`${c.startDate.split(".")[0]}-${c.startDate.split(".")[1]}-${c.startDate.split(".")[2]}`);
+          const deadline = (c.deadline === null)? c.startDate : c.deadline;
+          const cEndDateToDate = new Date(`${deadline.split(".")[0]}-${deadline.split(".")[1]}-${deadline.split(".")[2]}`);
+          if(dateKeyToDate >= cStartDateToDate && dateKeyToDate <= cEndDateToDate){
+            const saveDate: DateType = {
+              id: c.id,
+              label: c.label,
+              name: c.name,
+              startTime: c.startTime,
+              endTime: c.endTime,
+              fixed: true,
+              complete: c.complete,
+              estimatedTime: c.estimatedTime
+            }
+            dateSaveList.push(saveDate);
+          }
+        })
+      );
+        const sortDateList = dateSaveList.sort((a, b) => {
+        const aTime = (Number(a.startTime.split(":")[0]) * 60) + (Number(a.startTime.split(":")[1]));
+        const bTime = (Number(b.startTime.split(":")[0]) * 60) + (Number(b.startTime.split(":")[1]));
+        return aTime - bTime;
+      });
+      console.log(dateSaveList);
+      setDateList({
+        ...dateList,
+        [dateKey]: sortDateList
+      })
+      // dateSaveList.current.splice(0, dateSaveList.current.length);
+      const nextDate = new Date(d);
+      await sortCalenderList(new Date(nextDate.setDate(nextDate.getDate() + 1)), calender);
+    }
+    else {
+      setIsSortFinish(true);
+      setTimeout(() => {
+        setIsDateListLoading(false);
+      }, 1000)
+    }
+  }
+  const getList = async () => {
+    const e = (endDate === null)? (startDate) : (endDate);
+    try {
+      const data = await getCalenderUseCase.execute(startDate, e);
+      console.log(data);
+      setDateList({});
+      sortCalenderList(startDate, data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const setLabel = (l: number): string => {
+    if(l === 1) return style.label1;
+    if(l === 2) return style.label2;
+    return style.label3;
+  }
+  const printCalender = (d: Date): ReactNode => {
+    if(isDateListLoading) return <></>
+    const end = (endDate === null) ? startDate : endDate;
+    if(d <= end){
+      const dayMonthKey = (d.getMonth() + 1 < 10)? `0${(d.getMonth() + 1)}`: `${(d.getMonth() + 1)}`;
+      const dayDatekey = (d.getDate() < 10)? `0${d.getDate()}` : `${d.getDate()}`;
+      const dateKey = `${d.getFullYear()}.${dayMonthKey}.${dayDatekey}`;
+
+      const nextDate = new Date(d);
+      const returnComponent = printCalender(new Date(nextDate.setDate(nextDate.getDate() + 1)));
+      console.log(dateList);
+      if(typeof dateList[dateKey] === "undefined"){
+        return (
+          <>
+            <h2 className={style.WeeklyListTitle}>{dateKey}</h2>
+            {returnComponent}
+          </>
+        );
+      }
+      return (
+        <>
+          <div className={style.WeeklyListBox}>
+            <h2 className={style.WeeklyListTitle}>{dateKey}</h2>
+          </div>
+          <div className={style.WeeklyListItemBox}>
+          {
+            dateList[dateKey].map((d) => {
+              return (
+                <div 
+                  className={cn(
+                    style.WeeklyListItem,
+                  )}
+                >
+                  <p className={style.WeeklyStartTime}>{d.startTime}</p>
+                  <ContextMenu.Root>
+                    <ContextMenu.Trigger
+                      className={ct.ContextMenuTrigger}
+                    >
+                      <div className={cn(style.WeeklyItem, setLabel(d.label))}>
+                        <h2 className={style.WeeklyItemTitle}>{d.name}</h2>
+                      </div>
+                    </ContextMenu.Trigger>
+                    <ContextMenu.Portal>
+                  <ContextMenu.Content
+                    className={ct.ContextMenuContent}
+                  >
+                    <ContextMenu.Item
+                      className={ct.ContextMenuItem}
+                      onClick={handleFinishSchedule}
+                    >
+                      일정 완료하기
+                      <div className={ct.RightSlot}>
+                        <PlusIcon />
+                      </div>
+                    </ContextMenu.Item>
+                    <ContextMenu.Item
+                      className={ct.ContextMenuItem}
+                    >
+                      일정 삭제하기
+                      <div className={ct.RightSlot}>
+                        <MinusIcon />
+                      </div>
+                    </ContextMenu.Item>
+                  </ContextMenu.Content>
+                </ContextMenu.Portal>
+                  </ContextMenu.Root>
+                </div>
+              );
+            })
+          }
+          </div>
+          {returnComponent}
+        </>
+      );
+    }
+    else{
+      return <></>;
+    }
+  }
+ 
+  useEffect(() => {
+    setIsDateListLoading(true);
+    getList();
+  }, [startDate, endDate]);
 
   useEffect(() => {
-    getWeek();
-  }, []);
-
-  useEffect(() => {
-    updateTimeLineData();
-  }, [date]);
-
-  useEffect(() => {
-  },[dailyTodo]);
-
+    if(isSortFinish) return;
+  }, [isSortFinish]);
   return (
     <div className={style.Main}>
       <Header />
-      <div className={style.ContentBox}>
-        <div className={style.TodoDate}>
-          <p>Today : {`${date.getFullYear()}.${date.getMonth() + 1
-            }.${date.getDate()}`}</p>
+      <div className={style.MonthandDay}>
+        <div className={style.ContentBox}>
+          <h2 className={style.ContentTitle}>일정 목록</h2>
+          {(isDateListLoading)? (
+                 <>
+                  <Skeleton 
+                    className={style.SkeletonTitle} 
+                    height={30}
+                  />
+                  <div className={style.SkeletonBox}>
+                    <Skeleton height={44}/>
+                    <Skeleton height={22}/>
+                    <Skeleton height={44}/>
+                    <Skeleton height={22}/>
+                    <Skeleton height={44}/>
+                    <Skeleton height={22}/>
+                    <Skeleton height={44}/>
+                    <Skeleton height={22}/>
+                    <Skeleton height={44}/>
+                    <Skeleton height={22}/>
+                    <Skeleton height={44}/>
+                    <Skeleton height={22}/>
+                    <Skeleton height={44}/>
+                  </div>
+                </>
+          ) : (
+            printCalender(startDate)
+          )}
         </div>
-        {toggleOn ? (
-          <NewTask closeModal={closeModal} /> // 여기서 데드라인 보내줘야함
-        ) : typeof timeline === "undefined" ? (
-          <div>주간 일정을 로딩 중 입니다 ... </div>
-        ) : isTimelineLoading ? (
-          timeline.subject.map((todo, i) => {
-            return (
-              <Todo
-                key={i} // Adjust the key to ensure uniqueness
-                label={todo.label}
-                name={todo.name}
-                startTime={todo.startTime}
-                endTime={todo.endTime}
-                todoType={todo.label === 0 ? "fixed" : "check"}
-                prevValue={undefined}
-                checked={undefined}
-              ></Todo>
-            );
-          })
-        ) : (
-          <>
-          </>
-        )}
-
-        {/* {todos.map((todoSubject, index) =>
-          todoSubject.subject.map((todo, todoIndex) => (
-            <Todo
-              key={index * 10 + todoIndex} // Adjust the key to ensure uniqueness
-              label={todo.label}
-              name={todo.name}
-              startTime={todo.startTime}
-              endTime={todo.endTime}
-              todoType={todo.todo_type}
-              prevValue={todo.progress ? todo.progress : undefined}
-              checked={todo.isDone ? todo.isDone : undefined}
-            ></Todo>
-          ))
-        )} */
-
-        }
-        {
-          dailyTodo.length > 0 && <ul>
-            {dailyTodo.map((schedule:any, index)=>(
-              <li className={style.DailyList} key={index}>{schedule.name}</li>
-            ))}
-          </ul>
-        }
-      </div>
-      <div className={style.CalenderBox}>
-        {isCalenderLoading ? (
-          <></>
-        ) : (
-          <>
-            <MontlyCalendar setDeadLine={handleDeadLine} setDailyTodo={setDailyTodo} />
-          </>
-        )}
+        <div className={style.CalenderBox}>
+            <MontlyCalendar
+              startDate={startDate}
+              endDate={endDate}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+            />
+        </div>
       </div>
     </div>
   );

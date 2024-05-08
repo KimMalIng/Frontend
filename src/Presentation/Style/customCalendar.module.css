@@ -4,6 +4,7 @@
     width: 100%;
     padding: 10px;
     font-size: 20px;
+    border: none;
     /* height: auto; */
 }
 
@@ -27,4 +28,13 @@
 .ScheduleList {
     color: #000;
     
+}
+
+.DialogTitle {
+    font-weight: 600;
+    color: rgb(33, 31, 38);
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

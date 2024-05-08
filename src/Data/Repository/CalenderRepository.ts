@@ -3,6 +3,20 @@ import { CalenderRepository } from "@/Domain/Repository";
 import { CalenderDataSource } from "@/Data/DataSource";
 
 class CalenderRepositoryImpl implements CalenderRepository {
+  async saveFixCalender(accessToken: string, name: string, startDate: string, endDate: string, label: number, startTime: string, endTime: string, shouldClear: boolean): Promise<void> {
+    try {
+      await CalenderDataSource.saveFiexdCalender(accessToken, name, label, startDate, endDate, startTime, endTime, shouldClear);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+  async saveCalender(accessToken: string, name: string, startDate: string, endDate: string, label: number, estimatedTime: string): Promise<void> {
+    try {
+      await CalenderDataSource.saveCalender(accessToken, name, label, startDate, endDate, estimatedTime);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
   async adjustmentCalender(
     id: number,
     startDate: string,
@@ -15,36 +29,17 @@ class CalenderRepositoryImpl implements CalenderRepository {
     }
   }
   async getCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
-  ): Promise<CalenderEntity[]> {
+  ): Promise<CalenderEntity> {
     try {
-      const data: CalenderEntity[] = await CalenderDataSource.getCalender(
-        id,
+      const data: CalenderEntity = await CalenderDataSource.getCalender(
+        accessToken,
         startDate,
         endDate,
       );
       return data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-  async saveCalender(
-    id: number,
-    name: string,
-    label: number,
-    deadline: Date,
-    estimatedTime: number,
-  ): Promise<void> {
-    try {
-      await CalenderDataSource.saveCalender(
-        id,
-        name,
-        label,
-        deadline,
-        estimatedTime,
-      );
     } catch (error) {
       return Promise.reject(error);
     }

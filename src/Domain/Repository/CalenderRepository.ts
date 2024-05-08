@@ -2,16 +2,27 @@ import { CalenderEntity } from "@/Domain/Entity";
 
 interface CalenderRepository {
   getCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
-  ): Promise<CalenderEntity[]>;
+  ): Promise<CalenderEntity>;
   saveCalender(
-    id: number,
+    accessToken: string,
     name: string,
+    startDate: string,
+    endDate: string,
     label: number,
-    deadline: Date,
-    estimatedTime: number,
+    estimatedTime: string,
+  ): Promise<void>;
+  saveFixCalender(
+    accessToken: string,
+    name: string,
+    startDate: string,
+    endDate: string,
+    label: number,
+    startTime: string,
+    endTime: string,
+    shouldClear: boolean,
   ): Promise<void>;
   adjustmentCalender(
     id: number,
