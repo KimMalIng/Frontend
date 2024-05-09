@@ -15,20 +15,23 @@ import { DateListType, DateType } from '@/Presentation/Type';
 import MontlyCalendar from './customCalendar';
 import Skeleton from 'react-loading-skeleton'
 import * as ContextMenu from '@radix-ui/react-context-menu';
-import ct from '@/Presentation/Style/ContextMenu.module.css';
+import * as Progress from '@radix-ui/react-progress';
 import cn from 'classnames';
-import { PlusIcon, MinusIcon, PlusCircledIcon } from '@radix-ui/react-icons';
+import { PlusIcon, MinusIcon } from '@radix-ui/react-icons';
 
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
 import 'react-loading-skeleton/dist/skeleton.css';
 import '@fontsource/inter';
+import ct from '@/Presentation/Style/ContextMenu.module.css';
+import pg from '@/Presentation/Style/Progress.module.css';
 
 const Main = () => {
   const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [dateList, setDateList] = useState<DateListType>({});
+  const [progressPercentage, setProgressPercentage] = useState(100);
   const [isSortFinish, setIsSortFinish] = useState(false);
   const [isDateListLoading, setIsDateListLoading] = useState(true);
   const [isEndDialogOpen, setIsEndDialogOpen] = useState(false);
@@ -246,6 +249,14 @@ const Main = () => {
               dialogChildren={
                 <>
                   <h2>일정 완료하기</h2>
+                  <Progress.Root
+                    className={pg.ProgressRoot}
+                  >
+                      <Progress.Indicator
+                        className={pg.ProgressIndicator}
+                        style={{ transform: `translateX(-${100 - progressPercentage}%)` }}
+                      />
+                  </Progress.Root>
                 </>
               }
             />
