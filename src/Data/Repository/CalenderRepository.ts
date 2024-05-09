@@ -3,6 +3,20 @@ import { CalenderRepository } from "@/Domain/Repository";
 import { CalenderDataSource } from "@/Data/DataSource";
 
 class CalenderRepositoryImpl implements CalenderRepository {
+  async deleteCalender(accessToken: string, id: number): Promise<void> {
+    try {
+        await CalenderDataSource.deleteCalender(accessToken, id);
+    } catch (error) {
+      return Promise.reject();
+    }
+  }
+  async completeCalender(accessToken: string, id: number): Promise<void> {
+    try {
+      await CalenderDataSource.completCalender(accessToken, id);
+  } catch (error) {
+    return Promise.reject();
+  }
+  }
   async saveFixCalender(accessToken: string, name: string, startDate: string, endDate: string, label: number, startTime: string, endTime: string, shouldClear: boolean): Promise<void> {
     try {
       await CalenderDataSource.saveFiexdCalender(accessToken, name, label, startDate, endDate, startTime, endTime, shouldClear);

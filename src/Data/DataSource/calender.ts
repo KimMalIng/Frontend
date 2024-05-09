@@ -117,6 +117,42 @@ class CalenderDataSource {
       return Promise.reject(500);
     }
   }
+
+  static async deleteCalender(
+    accessToken: string,
+    id: number,
+  ): Promise<void>{
+    try {
+      const res = await fetch(`${SERVER_URL}/job/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
+        }
+      });
+      console.log(res);
+      if(res.status !== 200) return Promise.reject(res.status);
+    } catch (error) {
+      return Promise.reject(500);
+    }
+  }
+  static async completCalender(
+    accessToken: string,
+    id: number,
+  ): Promise<void>{
+    try {
+      const res = await fetch(`${SERVER_URL}/job/complete/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
+        }
+      });
+      if(res.status !== 200) return Promise.reject(res.status);
+    } catch (error) {
+      return Promise.reject(500);
+    }
+  }
 }
 
 export default CalenderDataSource;

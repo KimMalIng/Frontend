@@ -6,9 +6,9 @@ import {
   ReactNode,
 } from "react";
 import {
-  Alert, Header, Dialog
+  Alert, Header, Dialog, Toast
 } from "@/Presentation/Component";
-import { GetCalenderUseCase } from '@/Domain/UseCase';
+import { GetCalenderUseCase, DeleteCalenderUseCase, CompleteCalenderUseCase } from '@/Domain/UseCase';
 import { CalenderRepositoryImpl, CredentialRepositoryImpl } from "@/Data/Repository";
 import { CalenderEntity } from "@/Domain/Entity";
 import { DateListType, DateType } from '@/Presentation/Type';
@@ -28,14 +28,17 @@ import pg from '@/Presentation/Style/Progress.module.css';
 
 const Main = () => {
   const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const deleteCalenderUseCase = new DeleteCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const completeenderUseCase = new CompleteCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [dateList, setDateList] = useState<DateListType>({});
-  const [progressPercentage, setProgressPercentage] = useState(100);
+  const [id, setId] = useState(-1);
   const [isSortFinish, setIsSortFinish] = useState(false);
   const [isDateListLoading, setIsDateListLoading] = useState(true);
   const [isEndDialogOpen, setIsEndDialogOpen] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
+  const [isErrorToastOpen, setIsErrorToastOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [saveIndex, setSaveIndex] = useState(0);
 
@@ -51,8 +54,14 @@ const Main = () => {
     setIsAlertOpen(b);
   }
 
-  const handleAlerteDeleteClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-  
+  const handleAlerteDeleteClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    try {
+      await deleteCalenderUseCase.execute(id);
+      setIsToastOpen(true);
+    } catch (error) {
+      setIsErrorToastOpen(true);
+    }
+    handleAlert(false);
   }
 
   const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
@@ -215,7 +224,10 @@ const Main = () => {
                     </ContextMenu.Item>
                     <ContextMenu.Item
                       className={ct.ContextMenuItem}
-                      onClick={()=>handleAlert(true)}
+                      onClick={()=> {
+                        handleAlert(true)
+                        setId(d.id);
+                      }}
                     >
                       일정 삭제하기
                       <div className={ct.RightSlot}>
@@ -248,77 +260,93 @@ const Main = () => {
     if(isSortFinish) return;
   }, [isSortFinish]);
   return (
-    <div className={style.Main}>
-      <Header />
-      {(isAlertOpen)? 
-        (
-          <Alert 
-            title={"일정을 삭제하시겠습니까?"}
-            text={"삭제 후 일정은 복구 불가능합니다"}
-            alertOnClose={() => handleAlert(false)}
-            buttonOnClick={handleAlerteDeleteClick}
-          />
-        ) : (
-          <></>
-        )}
-      <div className={style.MonthandDay}>
-        <div className={style.ContentBox}>
-          <h2 className={style.ContentTitle}>일정 목록</h2>
-          {(isEndDialogOpen)? ( 
-            <Dialog
-              dialogChildren={
-                <>
-                  <h2>일정 완료하기</h2>
-                  <Progress.Root
-                    className={pg.ProgressRoot}
-                  >
-                      <Progress.Indicator
-                        className={pg.ProgressIndicator}
-                        style={{ transform: `translateX(-${100 - 30}%)` }}
-                      />
-                  </Progress.Root>
-                </>
-              }
+    <>
+      <Toast 
+        iconType="info"
+        title="성공"
+        text="일정 삭제에 성공했습니다"
+        isOpen={isToastOpen}
+        setIsOpen={setIsToastOpen}
+      />
+      <Toast 
+        iconType="fail"
+        title="실패"
+        text="일정 삭제에 실패했습니다"
+        isOpen={isErrorToastOpen}
+        setIsOpen={setIsErrorToastOpen}
+      />
+      <div className={style.Main}>
+        <Header />
+        {(isAlertOpen)? 
+          (
+            <Alert 
+              title={"일정을 삭제하시겠습니까?"}
+              text={"삭제 후 일정은 복구 불가능합니다"}
+              alertOnClose={() => handleAlert(false)}
+              buttonOnClick={handleAlerteDeleteClick}
             />
-          )  : (
+          ) : (
             <></>
           )}
-          {(isDateListLoading)? (
-                 <>
-                  <Skeleton 
-                    className={style.SkeletonTitle} 
-                    height={30}
-                  />
-                  <div className={style.SkeletonBox}>
-                    <Skeleton height={44}/>
-                    <Skeleton height={22}/>
-                    <Skeleton height={44}/>
-                    <Skeleton height={22}/>
-                    <Skeleton height={44}/>
-                    <Skeleton height={22}/>
-                    <Skeleton height={44}/>
-                    <Skeleton height={22}/>
-                    <Skeleton height={44}/>
-                    <Skeleton height={22}/>
-                    <Skeleton height={44}/>
-                    <Skeleton height={22}/>
-                    <Skeleton height={44}/>
-                  </div>
-                </>
-          ) : (
-            printCalender(startDate)
-          )}
-        </div>
-        <div className={style.CalenderBox}>
-            <MontlyCalendar
-              startDate={startDate}
-              endDate={endDate}
-              setStartDate={setStartDate}
-              setEndDate={setEndDate}
-            />
+        <div className={style.MonthandDay}>
+          <div className={style.ContentBox}>
+            <h2 className={style.ContentTitle}>일정 목록</h2>
+            {(isEndDialogOpen)? ( 
+              <Dialog
+                dialogChildren={
+                  <>
+                    <h2>일정 완료하기</h2>
+                    <Progress.Root
+                      className={pg.ProgressRoot}
+                    >
+                        <Progress.Indicator
+                          className={pg.ProgressIndicator}
+                          style={{ transform: `translateX(-${100 - 30}%)` }}
+                        />
+                    </Progress.Root>
+                  </>
+                }
+              />
+            )  : (
+              <></>
+            )}
+            {(isDateListLoading)? (
+                  <>
+                    <Skeleton 
+                      className={style.SkeletonTitle} 
+                      height={30}
+                    />
+                    <div className={style.SkeletonBox}>
+                      <Skeleton height={44}/>
+                      <Skeleton height={22}/>
+                      <Skeleton height={44}/>
+                      <Skeleton height={22}/>
+                      <Skeleton height={44}/>
+                      <Skeleton height={22}/>
+                      <Skeleton height={44}/>
+                      <Skeleton height={22}/>
+                      <Skeleton height={44}/>
+                      <Skeleton height={22}/>
+                      <Skeleton height={44}/>
+                      <Skeleton height={22}/>
+                      <Skeleton height={44}/>
+                    </div>
+                  </>
+            ) : (
+              printCalender(startDate)
+            )}
+          </div>
+          <div className={style.CalenderBox}>
+              <MontlyCalendar
+                startDate={startDate}
+                endDate={endDate}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+              />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Main;
