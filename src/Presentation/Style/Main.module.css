@@ -1,5 +1,6 @@
 .Main {
   width: 100vw;
+  height: 8 0vh;
   background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
@@ -46,6 +47,7 @@
   width: 800px;
   height: 650px;
   background-color: #fff;
+  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .Todo {
@@ -149,4 +151,31 @@
 
 .label3 {
   background-color: #B7E6B6;
+}
+
+.Weekly {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+
+.WeeklyBox {
+  width: 90%;
+  height: 90%;
+  min-width: 1400px;
+  background-color: #fff;
+  box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+}
+
+.WeeklyTitle {
+  font-family: 'Inter';
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 40px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
 }

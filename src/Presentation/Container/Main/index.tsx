@@ -17,7 +17,7 @@ import Skeleton from 'react-loading-skeleton'
 import * as ContextMenu from '@radix-ui/react-context-menu';
 import * as Progress from '@radix-ui/react-progress';
 import cn from 'classnames';
-import { PlusIcon, MinusIcon } from '@radix-ui/react-icons';
+import { PlusIcon, MinusIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
@@ -29,26 +29,21 @@ import pg from '@/Presentation/Style/Progress.module.css';
 const Main = () => {
   const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const deleteCalenderUseCase = new DeleteCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
-  const completeenderUseCase = new CompleteCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const completeCalenderUseCase = new CompleteCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const [weekStartDate, setWeekStartDate] = useState(new Date());
+  const [weekEndDate, setWeekEndDate] = useState(new Date());
+  const [month, setMonth] = useState<Date>(new Date(`${new Date().getFullYear()}-${new Date().getMonth() + 1}-1`));
   const [dateList, setDateList] = useState<DateListType>({});
   const [id, setId] = useState(-1);
   const [isSortFinish, setIsSortFinish] = useState(false);
   const [isDateListLoading, setIsDateListLoading] = useState(true);
-  const [isEndDialogOpen, setIsEndDialogOpen] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [isErrorToastOpen, setIsErrorToastOpen] = useState(false);
+  const [isCompleteToastOpen, setIsCompleteToastOpen] = useState(false);
+  const [isErrorCompleteToastOpen, setIsErrorCompleteToastOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [saveIndex, setSaveIndex] = useState(0);
-
-  const handleFinishSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
-    setIsEndDialogOpen(true);
-  }
-
-  const handleFinishScheduleClose: MouseEventHandler<HTMLDivElement> = (e) => {
-    setIsEndDialogOpen(false);
-  }
 
   const handleAlert = (b: boolean) => {
     setIsAlertOpen(b);
@@ -56,12 +51,26 @@ const Main = () => {
 
   const handleAlerteDeleteClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     try {
+      if(id === -1) return;
       await deleteCalenderUseCase.execute(id);
       setIsToastOpen(true);
     } catch (error) {
       setIsErrorToastOpen(true);
     }
     handleAlert(false);
+  }
+
+  const handleCompleteClick: MouseEventHandler<HTMLDivElement> = async (e) => {
+    try {
+      console.log(id);
+      if(id === -1) return;
+      console.log(id);
+      await completeCalenderUseCase.execute(id);
+      setIsCompleteToastOpen(true);
+    } catch (error) {
+      console.log(error);
+      setIsErrorCompleteToastOpen(true);
+    }
   }
 
   const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
@@ -206,7 +215,14 @@ const Main = () => {
                       className={ct.ContextMenuTrigger}
                     >
                       <div className={cn(style.WeeklyItem, setLabel(d.label))}>
-                        <h2 className={style.WeeklyItemTitle}>{d.name}</h2>
+                        <h2 className={style.WeeklyItemTitle}>
+                          {d.name}
+                          {(d.complete)? (
+                            <CheckIcon />
+                          ) : (
+                            <></>
+                          )}  
+                        </h2>
                       </div>
                     </ContextMenu.Trigger>
                     <ContextMenu.Portal>
@@ -215,7 +231,13 @@ const Main = () => {
                   >
                     <ContextMenu.Item
                       className={ct.ContextMenuItem}
-                      onClick={handleFinishSchedule}
+                      onClick={
+                        (e) => {
+                          console.log(d.id);
+                          setId(d.id);
+                          handleCompleteClick(e);
+                        }
+                      }
                     >
                       일정 완료하기
                       <div className={ct.RightSlot}>
@@ -225,8 +247,8 @@ const Main = () => {
                     <ContextMenu.Item
                       className={ct.ContextMenuItem}
                       onClick={()=> {
-                        handleAlert(true)
                         setId(d.id);
+                        handleAlert(true);
                       }}
                     >
                       일정 삭제하기
@@ -251,6 +273,13 @@ const Main = () => {
     }
   }
  
+  const printDateToString = (d: Date) => {
+    const dayMonthKey = (d.getMonth() + 1 < 10)? `0${(d.getMonth() + 1)}`: `${(d.getMonth() + 1)}`;
+    const dayDatekey = (d.getDate() < 10)? `0${d.getDate()}` : `${d.getDate()}`;
+    const dateKey = `${d.getFullYear()}.${dayMonthKey}.${dayDatekey}`;
+    return dateKey;
+  }
+
   useEffect(() => {
     setIsDateListLoading(true);
     getList();
@@ -259,6 +288,13 @@ const Main = () => {
   useEffect(() => {
     if(isSortFinish) return;
   }, [isSortFinish]);
+
+  useEffect(() => {
+    const startWeek = new Date((new Date().setDate(new Date().getDate() - new Date().getDay())));
+    const endWeek = new Date((new Date().setDate(new Date().getDate() + 6 - new Date().getDay())));
+    setWeekStartDate(startWeek);
+    setWeekEndDate(endWeek);
+  }, []);
   return (
     <>
       <Toast 
@@ -269,11 +305,25 @@ const Main = () => {
         setIsOpen={setIsToastOpen}
       />
       <Toast 
+        iconType="info"
+        title="성공"
+        text="일정 완료에 성공했습니다"
+        isOpen={isCompleteToastOpen}
+        setIsOpen={setIsCompleteToastOpen}
+      />
+      <Toast 
         iconType="fail"
         title="실패"
         text="일정 삭제에 실패했습니다"
         isOpen={isErrorToastOpen}
         setIsOpen={setIsErrorToastOpen}
+      />
+      <Toast 
+        iconType="fail"
+        title="실패"
+        text="일정 완료에 실패했습니다"
+        isOpen={isErrorCompleteToastOpen}
+        setIsOpen={setIsErrorCompleteToastOpen}
       />
       <div className={style.Main}>
         <Header />
@@ -291,25 +341,6 @@ const Main = () => {
         <div className={style.MonthandDay}>
           <div className={style.ContentBox}>
             <h2 className={style.ContentTitle}>일정 목록</h2>
-            {(isEndDialogOpen)? ( 
-              <Dialog
-                dialogChildren={
-                  <>
-                    <h2>일정 완료하기</h2>
-                    <Progress.Root
-                      className={pg.ProgressRoot}
-                    >
-                        <Progress.Indicator
-                          className={pg.ProgressIndicator}
-                          style={{ transform: `translateX(-${100 - 30}%)` }}
-                        />
-                    </Progress.Root>
-                  </>
-                }
-              />
-            )  : (
-              <></>
-            )}
             {(isDateListLoading)? (
                   <>
                     <Skeleton 
@@ -343,6 +374,17 @@ const Main = () => {
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
               />
+          </div>
+        </div>
+      </div>
+      <div className={style.Weekly}>
+        <div className={style.WeeklyBox}>
+          <h2 className={style.WeeklyTitle}>
+            주간일정 {`${printDateToString(weekStartDate)} ~ ${printDateToString(weekEndDate)}`}
+          </h2>
+
+          <div className={style.WeekCalender}>
+            
           </div>
         </div>
       </div>

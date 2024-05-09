@@ -42,6 +42,7 @@ const MonthlyCalendar = ({
     }
     else{
       setStartDate(value);
+      setEndDate(null);
     }
   }
 
