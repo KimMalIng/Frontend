@@ -1,5 +1,7 @@
 import AdjustmentCalenderUseCase from "./AdjustmentCalenderUseCase";
 import CheckCredentialUseCase from "./CheckCredentialUseCase";
+import CompleteCalenderUseCase from "./CompleteCalenderUseCase";
+import DeleteCalenderUseCase from "./DeleteCalenderUseCase";
 import GetCalenderUseCase from "./GetCalenderUseCase";
 import GetCredentailUseCase from "./GetCredentailUseCase";
 import LoginUsecase from "./LoginUseCase";
@@ -11,6 +13,8 @@ import SignUpUseCase from "./SignUpUseCase";
 export {
   AdjustmentCalenderUseCase,
   CheckCredentialUseCase,
+  CompleteCalenderUseCase,
+  DeleteCalenderUseCase,
   GetCalenderUseCase,
   GetCredentailUseCase,
   LoginUsecase,

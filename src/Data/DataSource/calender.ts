@@ -52,6 +52,8 @@ class CalenderDataSource {
 
         }),
       });
+      console.log("hi")
+      console.log(res);
       if(res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       return Promise.reject(500);

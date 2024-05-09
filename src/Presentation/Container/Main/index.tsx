@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from "react";
 import {
-  Header, Dialog
+  Alert, Header, Dialog
 } from "@/Presentation/Component";
 import { GetCalenderUseCase } from '@/Domain/UseCase';
 import { CalenderRepositoryImpl, CredentialRepositoryImpl } from "@/Data/Repository";
@@ -36,6 +36,7 @@ const Main = () => {
   const [isDateListLoading, setIsDateListLoading] = useState(true);
   const [isEndDialogOpen, setIsEndDialogOpen] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [saveIndex, setSaveIndex] = useState(0);
 
   const handleFinishSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -46,6 +47,13 @@ const Main = () => {
     setIsEndDialogOpen(false);
   }
 
+  const handleAlert = (b: boolean) => {
+    setIsAlertOpen(b);
+  }
+
+  const handleAlerteDeleteClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+  
+  }
 
   const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
     const dateSaveList: DateType[] = [];
@@ -207,6 +215,7 @@ const Main = () => {
                     </ContextMenu.Item>
                     <ContextMenu.Item
                       className={ct.ContextMenuItem}
+                      onClick={()=>handleAlert(true)}
                     >
                       일정 삭제하기
                       <div className={ct.RightSlot}>
@@ -241,6 +250,17 @@ const Main = () => {
   return (
     <div className={style.Main}>
       <Header />
+      {(isAlertOpen)? 
+        (
+          <Alert 
+            title={"일정을 삭제하시겠습니까?"}
+            text={"삭제 후 일정은 복구 불가능합니다"}
+            alertOnClose={() => handleAlert(false)}
+            buttonOnClick={handleAlerteDeleteClick}
+          />
+        ) : (
+          <></>
+        )}
       <div className={style.MonthandDay}>
         <div className={style.ContentBox}>
           <h2 className={style.ContentTitle}>일정 목록</h2>
@@ -254,7 +274,7 @@ const Main = () => {
                   >
                       <Progress.Indicator
                         className={pg.ProgressIndicator}
-                        style={{ transform: `translateX(-${100 - progressPercentage}%)` }}
+                        style={{ transform: `translateX(-${100 - 30}%)` }}
                       />
                   </Progress.Root>
                 </>
