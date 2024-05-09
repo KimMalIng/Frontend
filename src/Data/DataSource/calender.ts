@@ -8,7 +8,6 @@ class CalenderDataSource {
     endDate: string,
   ): Promise<CalenderEntity> {
     try {
-      console.log(`/timetable/period?startDate=${startDate}&endDate=${endDate}`);
       const res = await fetch(`${SERVER_URL}/timetable/period?startDate=${startDate}&endDate=${endDate}`, {
         method: "GET",
         headers: {
@@ -16,7 +15,6 @@ class CalenderDataSource {
           "Authorization": `Bearer ${accessToken}`
         }
       });
-      console.log(res.status)
       if (res.status === 200) {
         const r = await res.json();
         const data: CalenderEntity = r;
@@ -52,8 +50,6 @@ class CalenderDataSource {
 
         }),
       });
-      console.log("hi")
-      console.log(res);
       if(res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       return Promise.reject(500);
@@ -110,7 +106,6 @@ class CalenderDataSource {
           endDate,
         }),
       });
-      console.log(res);
       if (res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       console.log(error);
@@ -130,7 +125,6 @@ class CalenderDataSource {
           "Authorization": `Bearer ${accessToken}`
         }
       });
-      console.log(res);
       if(res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       return Promise.reject(500);

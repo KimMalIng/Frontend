@@ -17,7 +17,8 @@ import Skeleton from 'react-loading-skeleton'
 import * as ContextMenu from '@radix-ui/react-context-menu';
 import * as Progress from '@radix-ui/react-progress';
 import cn from 'classnames';
-import { PlusIcon, MinusIcon, CheckIcon } from '@radix-ui/react-icons';
+import { PlusIcon, MinusIcon, CheckIcon, ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
+import Week from "./Week";
 
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
@@ -62,9 +63,7 @@ const Main = () => {
 
   const handleCompleteClick: MouseEventHandler<HTMLDivElement> = async (e) => {
     try {
-      console.log(id);
       if(id === -1) return;
-      console.log(id);
       await completeCalenderUseCase.execute(id);
       setIsCompleteToastOpen(true);
     } catch (error) {
@@ -144,7 +143,6 @@ const Main = () => {
         const bTime = (Number(b.startTime.split(":")[0]) * 60) + (Number(b.startTime.split(":")[1]));
         return aTime - bTime;
       });
-      console.log(dateSaveList);
       setDateList({
         ...dateList,
         [dateKey]: sortDateList
@@ -164,7 +162,6 @@ const Main = () => {
     const e = (endDate === null)? (startDate) : (endDate);
     try {
       const data = await getCalenderUseCase.execute(startDate, e);
-      console.log(data);
       setDateList({});
       sortCalenderList(startDate, data);
     } catch (error) {
@@ -348,19 +345,13 @@ const Main = () => {
                       height={30}
                     />
                     <div className={style.SkeletonBox}>
+                      <Skeleton height={88}/>
                       <Skeleton height={44}/>
-                      <Skeleton height={22}/>
+                      <Skeleton height={88}/>
                       <Skeleton height={44}/>
-                      <Skeleton height={22}/>
+                      <Skeleton height={88}/>
                       <Skeleton height={44}/>
-                      <Skeleton height={22}/>
-                      <Skeleton height={44}/>
-                      <Skeleton height={22}/>
-                      <Skeleton height={44}/>
-                      <Skeleton height={22}/>
-                      <Skeleton height={44}/>
-                      <Skeleton height={22}/>
-                      <Skeleton height={44}/>
+                      <Skeleton height={88}/>
                     </div>
                   </>
             ) : (
@@ -384,7 +375,32 @@ const Main = () => {
           </h2>
 
           <div className={style.WeekCalender}>
-            
+            <div className={style.WeekMoveBox}>
+              <ChevronLeftIcon 
+                width={24}
+                height={24}
+              />
+              <ChevronRightIcon 
+                width={24}
+                height={24}
+              />
+            </div>
+            <div className={style.WeekContentBox}>
+              <div className={cn(style.WeekBox)}>
+                <div className={style.WeekContent}></div>
+                <div className={style.WeekContent}>일</div>
+                <div className={style.WeekContent}>월</div>
+                <div className={style.WeekContent}>화</div>
+                <div className={style.WeekContent}>수</div>
+                <div className={style.WeekContent}>목</div>
+                <div className={style.WeekContent}>금</div>
+                <div className={style.WeekContent}>토</div>
+              </div>
+              <Week 
+                startDate={weekStartDate}
+                endDate={weekEndDate}
+              />
+            </div>
           </div>
         </div>
       </div>
