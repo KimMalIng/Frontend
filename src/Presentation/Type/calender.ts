@@ -38,4 +38,10 @@ type DateListType = {
   [key: string]: DateType[];
 }
 
-export type { CalenderProps, SetLabelColor , NewTaskProps, MonthCalenderProps, DateListType, DateType};
+type MonthCalenderLabelType = {
+  firstLabel: boolean; // label 1
+  secondLabel: boolean; // label 2
+  thirdLabel: boolean;
+}
+
+export type { CalenderProps, SetLabelColor , NewTaskProps, MonthCalenderProps, DateListType, DateType, MonthCalenderLabelType};
