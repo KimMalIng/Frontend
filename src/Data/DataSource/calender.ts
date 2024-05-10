@@ -90,7 +90,7 @@ class CalenderDataSource {
     
   }
   static async adjustmentCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
   ): Promise<void> {
@@ -99,9 +99,9 @@ class CalenderDataSource {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify({
-          user_id: id,
           startDate,
           endDate,
         }),

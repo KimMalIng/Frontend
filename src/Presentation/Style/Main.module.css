@@ -228,3 +228,32 @@
   border-bottom:1px solid black;
   display: flex;
 }
+
+.WeekExplainBox {
+  width: 350px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+.WeekExplain {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.WeekExplain > h2{
+  font-size: 14px;
+  font-family: 'Inter';
+  font-weight: bold;
+}
+
+.WeekExplainIcon {
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+}

@@ -1,30 +1,35 @@
-import { CalenderRepository } from "@/Domain/Repository";
+import { CalenderRepository, CredentialRepository } from "@/Domain/Repository";
 
 class AdjustmentCalenderUseCase {
   private calenderReposiotry: CalenderRepository;
+  private credentialRepository: CredentialRepository;
 
-  constructor(cr: CalenderRepository) {
+  constructor(cr: CalenderRepository, cl: CredentialRepository) {
     this.calenderReposiotry = cr;
+    this.credentialRepository = cl;
   }
 
   async execute(
-    // 리턴값이 무조건 promise 처리가 됨, 그래서 await 쓸 수 있음
-    id: number | null | undefined,
-    startDate: string | null | undefined,
-    endDate: string | null | undefined,
+    startDate: Date | null | undefined,
+    endDate: Date | null | undefined,
   ): Promise<void> {
     if (
-      typeof id === "undefined" ||
-      typeof startDate === "undefined" ||
-      typeof endDate === "undefined" ||
-      id === null ||
+      typeof startDate !== "object" ||
+      typeof endDate !== "object" ||
       startDate === null ||
       endDate === null
     ) {
       return Promise.reject(400);
     }
     try {
-      await this.calenderReposiotry.adjustmentCalender(id, startDate, endDate);
+      const accessToken = await this.credentialRepository.getLocalStorage("accessToken");
+      const sMonth = ((startDate.getMonth() + 1) < 10)? (`0${startDate.getMonth() + 1}`) : (`${startDate.getMonth() + 1}`)
+      const eMonth = ((endDate.getMonth() + 1) < 10)? (`0${endDate.getMonth() + 1}`) : (`${endDate.getMonth() + 1}`)
+      const sDay = (startDate.getDate() < 10)? (`0${startDate.getDate()}`) : (`${startDate.getDate()}`);
+      const eDay = (endDate.getDate() < 10)? (`0${endDate.getDate()}`) : (`${endDate.getDate()}`);
+      const s = `${startDate.getFullYear()}.${sMonth}.${sDay}`;
+      const e = `${endDate.getFullYear()}.${eMonth}.${eDay}`;
+      await this.calenderReposiotry.adjustmentCalender(accessToken, s, e);
     } catch (error) {
       return Promise.reject(error);
     }

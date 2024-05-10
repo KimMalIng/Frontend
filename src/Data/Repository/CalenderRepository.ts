@@ -32,12 +32,12 @@ class CalenderRepositoryImpl implements CalenderRepository {
     }
   }
   async adjustmentCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
   ): Promise<void> {
     try {
-      await CalenderDataSource.adjustmentCalender(id, startDate, endDate);
+      await CalenderDataSource.adjustmentCalender(accessToken, startDate, endDate);
     } catch (error) {
       return Promise.reject(error);
     }

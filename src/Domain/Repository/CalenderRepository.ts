@@ -25,7 +25,7 @@ interface CalenderRepository {
     shouldClear: boolean,
   ): Promise<void>;
   adjustmentCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
   ): Promise<void>;

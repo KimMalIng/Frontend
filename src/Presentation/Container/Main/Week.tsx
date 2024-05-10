@@ -132,10 +132,12 @@ const Week = ({
         })
       );
         const sortDateList = dateSaveList.sort((a, b) => {
-        const aTime = (Number(a.startTime.split(":")[0]) * 60) + (Number(a.startTime.split(":")[1]));
-        const bTime = (Number(b.startTime.split(":")[0]) * 60) + (Number(b.startTime.split(":")[1]));
-        return aTime - bTime;
-      });
+          console.log(a);
+          console.log(b);
+          const aTime = (Number(a.startTime.split(":")[0]) * 60) + (Number(a.startTime.split(":")[1]));
+          const bTime = (Number(b.startTime.split(":")[0]) * 60) + (Number(b.startTime.split(":")[1]));
+          return aTime - bTime;
+        });
       const newR: DateListType = {
         ...r,
         [dateKey]: sortDateList
@@ -189,7 +191,7 @@ const Week = ({
         if(i % 8 !== 0) return <></>;
         const nowList = printList.slice(i, (i+8));
         return (
-          <div className={main.WeekPrintBox}>
+          <div className={main.WeekPrintBox} key={`i-${i}`}>
             {nowList.map((n, index)=>{
               return(
                 <div key={index + i}className={cn(main.WeekContent, setLabel(n))}>

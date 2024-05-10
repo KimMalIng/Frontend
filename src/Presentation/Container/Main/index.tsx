@@ -35,7 +35,6 @@ const Main = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [weekEndDate, setWeekEndDate] = useState(new Date());
-  const [month, setMonth] = useState<Date>(new Date(`${new Date().getFullYear()}-${new Date().getMonth() + 1}-1`));
   const [dateList, setDateList] = useState<DateListType>({});
   const [id, setId] = useState(-1);
   const [isSortFinish, setIsSortFinish] = useState(false);
@@ -70,6 +69,10 @@ const Main = () => {
       console.log(error);
       setIsErrorCompleteToastOpen(true);
     }
+  }
+
+  const handleWeeklyLeftButton: MouseEventHandler<SVGAElement> = () => {
+
   }
 
   const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
@@ -139,10 +142,10 @@ const Main = () => {
         })
       );
         const sortDateList = dateSaveList.sort((a, b) => {
-        const aTime = (Number(a.startTime.split(":")[0]) * 60) + (Number(a.startTime.split(":")[1]));
-        const bTime = (Number(b.startTime.split(":")[0]) * 60) + (Number(b.startTime.split(":")[1]));
-        return aTime - bTime;
-      });
+          const aTime = (Number(a.startTime.split(":")[0]) * 60) + (Number(a.startTime.split(":")[1]));
+          const bTime = (Number(b.startTime.split(":")[0]) * 60) + (Number(b.startTime.split(":")[1]));
+          return aTime - bTime;
+        });
       setDateList({
         ...dateList,
         [dateKey]: sortDateList
@@ -380,6 +383,22 @@ const Main = () => {
                 width={24}
                 height={24}
               />
+
+              <div className={style.WeekExplainBox}>
+                <div className={style.WeekExplain}>
+                  <div className={cn(style.WeekExplainIcon, style.label1)}></div>
+                  <h2>일반</h2>
+                </div>
+                <div className={style.WeekExplain}>
+                  <div className={cn(style.WeekExplainIcon, style.label2)}></div>
+                  <h2>업무</h2>
+                </div>
+                <div className={style.WeekExplain}>
+                  <div className={cn(style.WeekExplainIcon, style.label3)}></div>
+                  <h2>학업</h2>
+                </div>
+              </div>
+
               <ChevronRightIcon 
                 width={24}
                 height={24}
