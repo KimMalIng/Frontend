@@ -3,4 +3,8 @@ type WeekProps = {
   endDate: Date
 };
 
-export type { WeekProps }
+type WeekPrintProps = {
+  printList: number[];
+}
+
+export type { WeekProps, WeekPrintProps }

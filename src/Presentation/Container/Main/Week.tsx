@@ -4,6 +4,7 @@ import { DateType, DateListType, WeekProps} from '@/Presentation/Type';
 import { GetCalenderUseCase } from "@/Domain/UseCase";
 import { CalenderRepositoryImpl, CredentialRepositoryImpl } from '@/Data/Repository';
 import { CalenderEntity } from "@/Domain/Entity";
+import Skeleton from 'react-loading-skeleton';
 
 import main from '@/Presentation/Style/Main.module.css';
 
@@ -12,8 +13,8 @@ const Week = ({
   endDate
 }: WeekProps) => {
   const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
-  const [dateList, setDateList] = useState<DateListType>({});
-  const [printList, setPrintList] = useState<number[]>(new Array(192).fill(0));
+  const [dateList, setDateList] = useState<DateListType>();
+  const [printList, setPrintList] = useState<number[] | null>();
   const [isSortFinish, setIsSortFinish] = useState(false);
   const [isDateListLoading, setIsDateListLoading] = useState(true);
 
@@ -24,17 +25,23 @@ const Week = ({
     return dateKey;
   }
 
+  const translateLabel = (l: number): number => {
+    if(l === 0) return 3;
+    if(l === 1) return 1;
+    if(l === 2) return 2;
+    return 4;
+  }
+
   const getList = async () => {
     try {
       const data = await getCalenderUseCase.execute(startDate, endDate);
-      setDateList({});
-      sortCalenderList(startDate, data);
+      sortCalenderList(startDate, data, {});
     } catch (error) {
       console.log(error);
     }
   }
-
-  const translateList = async (d: Date) => {
+  const translateList = async (d: Date, pl: number[]) => {
+    if(typeof dateList === "undefined" || dateList === null) return;
     if(d <= endDate){
       const dateKey = translateDate(d);
       const nowDay = d.getDay();
@@ -42,27 +49,27 @@ const Week = ({
         await Promise.all(
           dateList[dateKey].map((c)=>{
             const startN = Number(c.startTime.split(":")[0]);
-            console.log(startN)
             const endN = Number(c.endTime.split(":")[0]);
             if(isNaN(startN) || isNaN(endN)) return;
-            for(let i = startN; i < endN; i++){
-              const changeList = printList;
-              const changeIndex = (nowDay) + (i) * 8;
-              changeList.splice(changeIndex, 1, c.label + 1);
-              setPrintList([...changeList])
-            }
+            const updatePL = new Array(endN - startN).fill(0);
+            updatePL.map((up, i) => {
+              pl[(startN + i) * 8 + nowDay + 1] = translateLabel(c.label);
+            });
           })
         );
       }
       const nextDate = new Date(d);
-      await translateList(new Date(nextDate.setDate(nextDate.getDate() + 1)));
+      await translateList(new Date(nextDate.setDate(nextDate.getDate() + 1)), pl);
     }
     else{
+      console.log(d);
+      console.log(pl);
+      setPrintList(pl);
       setIsSortFinish(true);
     }
   }
 
-  const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
+  const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined, r: DateListType): Promise<void> => {
     const dateSaveList: DateType[] = [];
     if(calender === null || typeof calender === "undefined") return Promise.reject(404);
     if(d <= endDate){
@@ -129,19 +136,17 @@ const Week = ({
         const bTime = (Number(b.startTime.split(":")[0]) * 60) + (Number(b.startTime.split(":")[1]));
         return aTime - bTime;
       });
-      setDateList({
-        ...dateList,
+      const newR: DateListType = {
+        ...r,
         [dateKey]: sortDateList
-      })
+      }
       const nextDate = new Date(d);
-      await sortCalenderList(new Date(nextDate.setDate(nextDate.getDate() + 1)), calender);
+      await sortCalenderList(new Date(nextDate.setDate(nextDate.getDate() + 1)), calender, newR);
     }
     else {
-      const s = new Date(startDate);
-      translateList(s);
+      setDateList(r);
     }
   }
-  
   const setLabel = (l: number): string => {
     if(l === 1) return main.label1;
     if(l === 2) return main.label2;
@@ -149,41 +154,57 @@ const Week = ({
     return main.label4;
   }
 
-  const print = (i: number, l: ReactNode): ReactNode => {
-    if(i === 192) return (<>{l}</>);
-    const nowList = printList.slice(i, (i+8));
-    const nextList: ReactNode = (
-      <>
-        {l}
-        <div className={main.WeekPrintBox}>
-          {nowList.map((n, index)=>{
-            return(
-              <div key={index + i}className={cn(main.WeekContent, setLabel(n))}>
-                {((index + i) % 8 === 0)? (
-                  <>{`${(index + i) / 8} : 00 ~ ${(index + i) / 8 + 1} : 00`}</>
-                ) : (
-                  <></>                  
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </>
-    )
-    return print((i+8), nextList);
-  }
   useEffect(() => {
-    getList();
-  }, [])
+    if(startDate !== endDate) {
+      getList();
+    }
+  }, [startDate])
   useEffect(() => {
     if(isSortFinish){
       setTimeout(() => {
         setIsDateListLoading(false);
       }, 1000)
     }
-  }, [isSortFinish])
+    else {
+      setIsSortFinish(false);
+    }
+  }, [isSortFinish]);
+  
+  useEffect(() => {
+    if(typeof dateList === "object" && dateList !== null ) {
+      const s = new Date(startDate);
+      translateList(s, new Array(192).fill(0));
+    }
+  }, [dateList])
+
+
   return(
-    <>{(isDateListLoading )?(<></>):(print(0, <></>))}</>
+    <>{(typeof printList === "undefined" || printList === null)?(
+      <>
+        
+      </>
+    ):(
+      printList.map((p, i) => {
+        if(i >= 192) return <></>;
+        if(i % 8 !== 0) return <></>;
+        const nowList = printList.slice(i, (i+8));
+        return (
+          <div className={main.WeekPrintBox}>
+            {nowList.map((n, index)=>{
+              return(
+                <div key={index + i}className={cn(main.WeekContent, setLabel(n))}>
+                  {((index + i) % 8 === 0)? (
+                    <>{`${((index + i) / 8 < 10)? (`0${(index + i) / 8}`) : ((index + i) / 8)} : 00`}</>
+                  ) : (
+                    <></>                  
+                  )}
+                </div>
+              );
+            })}
+        </div>
+        )
+      })
+    )}</>
   );
 };
 

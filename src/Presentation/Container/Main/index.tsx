@@ -183,7 +183,6 @@ const Main = () => {
 
       const nextDate = new Date(d);
       const returnComponent = printCalender(new Date(nextDate.setDate(nextDate.getDate() + 1)));
-      console.log(dateList);
       if(typeof dateList[dateKey] === "undefined"){
         return (
           <>
@@ -199,12 +198,13 @@ const Main = () => {
           </div>
           <div className={style.WeeklyListItemBox}>
           {
-            dateList[dateKey].map((d) => {
+            dateList[dateKey].map((d, i) => {
               return (
                 <div 
                   className={cn(
                     style.WeeklyListItem,
                   )}
+                  key={i}
                 >
                   <p className={style.WeeklyStartTime}>{d.startTime}</p>
                   <ContextMenu.Root>
