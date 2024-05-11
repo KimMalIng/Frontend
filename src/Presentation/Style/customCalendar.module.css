@@ -38,3 +38,20 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.CalenderLabelBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.CalenderLabel {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+}
+
+.None {
+    display: none;
+}

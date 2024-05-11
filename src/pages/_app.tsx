@@ -67,6 +67,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         </style>
       </Head>
       <Toast.Provider>
+        <div id="portal"></div>
         <Component {...pageProps} />
         <Toast.Viewport className={ToastStyle.ToastViewport} />
       </Toast.Provider>

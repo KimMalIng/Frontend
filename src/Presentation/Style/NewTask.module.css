@@ -103,6 +103,12 @@
   color: rgb(33, 31, 38);
 }
 
+.TimeBoxSubTitle {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgb(33, 31, 38);
+}
+
 .SwitchRoot {
   width: 42px;
   height: 25px;

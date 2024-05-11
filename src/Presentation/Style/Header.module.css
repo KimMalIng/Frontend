@@ -3,6 +3,7 @@
   height: 60px;
   background-color: #9cc5a1;
   position: fixed;
+  z-index: 9999;
   box-shadow: 1px 1px 1px 1px #dce1de;
   top: 0;
   display: flex;

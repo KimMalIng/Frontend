@@ -1,3 +1,4 @@
+import Alert from './Alert';
 import Calender from "./calender";
 import Dialog from "./dialog";
 import Input from "./input";
@@ -8,4 +9,4 @@ import { getToday, showToday } from "./getToday";
 import Header from "./header";
 import Spinner from "./spinner";
 
-export { Calender, Dialog, Input, Button, Toast, Todo, getToday, showToday, Header, Spinner };
+export { Alert, Calender, Dialog, Input, Button, Toast, Todo, getToday, showToday, Header, Spinner };

@@ -25,10 +25,12 @@ interface CalenderRepository {
     shouldClear: boolean,
   ): Promise<void>;
   adjustmentCalender(
-    id: number,
+    accessToken: string,
     startDate: string,
     endDate: string,
   ): Promise<void>;
+  deleteCalender(accessToken: string, id: number): Promise<void>;
+  completeCalender(accessToken: string, id: number): Promise<void>;
 }
 
 export default CalenderRepository;
