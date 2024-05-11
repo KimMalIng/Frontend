@@ -5,6 +5,7 @@ import * as Switch from '@radix-ui/react-switch';
 import { Toast, Spinner } from "@/Presentation/Component";
 import { SaveCalenderUseCase, SaveFiexdCalenderUseCase, AdjustmentCalenderUseCase } from '@/Domain/UseCase';
 import { CalenderRepositoryImpl, CredentialRepositoryImpl } from '@/Data/Repository';
+import { useRouter } from "next/router";
 
 import "react-datepicker/dist/react-datepicker.css";
 import style from "@/Presentation/Style/NewTask.module.css";
@@ -13,7 +14,8 @@ import st from '@/Presentation/Style/Select.module.css';
 const NewTask = ({ startDate, endDate, handleSaveNewTask }: NewTaskProps) => {
   const saveCalenderUseCase = new SaveCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const saveFiexdCalenderUseCase = new SaveFiexdCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
-  const adjustmentCalenderUseCase = new AdjustmentCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl())
+  const adjustmentCalenderUseCase = new AdjustmentCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const router = useRouter();
   const [taskName, setTaskName] = useState("");
   const [isAuto, setIsAuto] = useState(true);
   const [isClear, setIsClear] = useState(false);
@@ -145,6 +147,7 @@ const NewTask = ({ startDate, endDate, handleSaveNewTask }: NewTaskProps) => {
         setIsSpinnerOpen(false);
         handleSaveNewTask();
       }, 500)
+      router.reload();
     } catch (error) {
       console.log(error);
       if(!isRequestErrorToastOpen) setIsRequestErrorToastOpen(true);
