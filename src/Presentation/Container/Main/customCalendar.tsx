@@ -105,6 +105,7 @@ const MonthlyCalendar = ({
         if(c.label === 0) label.thirdLabel = true;
         if(c.label === 1) label.firstLabel = true;
         if(c.label === 2) label.secondLabel = true;
+        if(c.label === 3) label.thirdLabel = true;
       }
     });
     data.SeperatedJob.map((c) => {
@@ -112,6 +113,7 @@ const MonthlyCalendar = ({
         if(c.label === 0) label.thirdLabel = true;
         if(c.label === 1) label.firstLabel = true;
         if(c.label === 2) label.secondLabel = true;
+        if(c.label === 3) label.thirdLabel = true;
       }
     })
     data.FixedJob.map((c) => {
@@ -123,6 +125,7 @@ const MonthlyCalendar = ({
         if(c.label === 0) label.thirdLabel = true;
         if(c.label === 1) label.firstLabel = true;
         if(c.label === 2) label.secondLabel = true;
+        if(c.label === 3) label.thirdLabel = true;
       }
     })
 
