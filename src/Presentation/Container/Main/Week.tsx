@@ -52,6 +52,8 @@ const Week = ({
             const startN = Number(c.startTime.split(":")[0]);
             const endN = Number(c.endTime.split(":")[0]);
             if(isNaN(startN) || isNaN(endN)) return;
+            console.log(endN);
+            console.log(startN);
             const updatePL = new Array(endN - startN).fill(0);
             updatePL.map((up, i) => {
               pl[(startN + i) * 8 + nowDay + 1] = translateLabel(c.label);
