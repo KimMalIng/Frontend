@@ -72,7 +72,21 @@ const Main = () => {
   }
 
   const handleWeeklyLeftButton: MouseEventHandler<SVGAElement> = () => {
+    const changeStartDate = new Date(weekStartDate);
+    const changeEndDate = new Date(weekEndDate);
+    changeStartDate.setDate(changeStartDate.getDate() - 7);
+    changeEndDate.setDate(changeEndDate.getDate() - 7);
+    setWeekStartDate(changeStartDate);
+    setWeekEndDate(changeEndDate);
+  }
 
+  const handleWeeklyRightButton: MouseEventHandler<SVGAElement> = () => {
+    const changeStartDate = new Date(weekStartDate);
+    const changeEndDate = new Date(weekEndDate);
+    changeStartDate.setDate(changeStartDate.getDate() + 7);
+    changeEndDate.setDate(changeEndDate.getDate() + 7);
+    setWeekStartDate(changeStartDate);
+    setWeekEndDate(changeEndDate);
   }
 
   const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
@@ -282,6 +296,10 @@ const Main = () => {
 
   useEffect(() => {
     setIsDateListLoading(true);
+    const startWeek = new Date((new Date().setDate(startDate.getDate() - startDate.getDay())));
+    const endWeek = new Date((new Date().setDate(startDate.getDate() + 6 - startDate.getDay())));
+    setWeekStartDate(startWeek);
+    setWeekEndDate(endWeek);
     getList();
   }, [startDate, endDate]);
 
@@ -382,6 +400,7 @@ const Main = () => {
               <ChevronLeftIcon 
                 width={24}
                 height={24}
+                onClick={handleWeeklyLeftButton}
               />
 
               <div className={style.WeekExplainBox}>
@@ -402,6 +421,7 @@ const Main = () => {
               <ChevronRightIcon 
                 width={24}
                 height={24}
+                onClick={handleWeeklyRightButton}
               />
             </div>
             <div className={style.WeekContentBox}>
