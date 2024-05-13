@@ -128,6 +128,8 @@ const NewTask = ({ startDate, endDate, handleSaveNewTask }: NewTaskProps) => {
           e,
           `${startHour}:${startMinute}`
         );
+        console.log("isSave")
+        await adjustmentCalenderUseCase.execute(startDate, e);
       }
       else {
         await saveFiexdCalenderUseCase.execute(
@@ -142,12 +144,12 @@ const NewTask = ({ startDate, endDate, handleSaveNewTask }: NewTaskProps) => {
       }
       setIsSucessToastOpen(true);
       setIsSpinnerOpen(true);
-      await adjustmentCalenderUseCase.execute(startDate, e);
+   
       setTimeout(() => {
         setIsSpinnerOpen(false);
         handleSaveNewTask();
       }, 500)
-      router.reload();
+      // router.reload();
     } catch (error) {
       console.log(error);
       if(!isRequestErrorToastOpen) setIsRequestErrorToastOpen(true);

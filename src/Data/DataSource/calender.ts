@@ -106,6 +106,8 @@ class CalenderDataSource {
           endDate,
         }),
       });
+      const r = await res.json();
+      console.log(r);
       if (res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       console.log(error);

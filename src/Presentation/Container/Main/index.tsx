@@ -232,7 +232,10 @@ const Main = () => {
                         <h2 className={style.WeeklyItemTitle}>
                           {d.name}
                           {(d.complete)? (
-                            <CheckIcon />
+                              <CheckIcon 
+                                width={26}
+                                height={26}
+                              />
                           ) : (
                             <></>
                           )}  

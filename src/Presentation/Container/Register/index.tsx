@@ -54,7 +54,10 @@ const Register = () => {
       });
       const loginData = await loginUseCase.execute(id, pw);
       await saveCredentialUseCase.execute("accessToken", loginData.accessToken);
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500)
+      router.push("/main");
     } catch (error) {
       if(error === 500){
         alert("서버 오류");
