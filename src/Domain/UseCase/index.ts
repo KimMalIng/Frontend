@@ -2,6 +2,7 @@ import AdjustmentCalenderUseCase from "./AdjustmentCalenderUseCase";
 import CheckCredentialUseCase from "./CheckCredentialUseCase";
 import CompleteCalenderUseCase from "./CompleteCalenderUseCase";
 import DeleteCalenderUseCase from "./DeleteCalenderUseCase";
+import DeleteUserUseCase from "./DeleteUserUseCase";
 import GetCalenderUseCase from "./GetCalenderUseCase";
 import GetCredentailUseCase from "./GetCredentailUseCase";
 import LoginUsecase from "./LoginUseCase";
@@ -9,12 +10,14 @@ import SaveCalenderUseCase from "./SaveCalenderUseCase";
 import SaveCredentialUseCase from "./SaveCredentailUseCase";
 import SaveFiexdCalenderUseCase from "./SaveFixedCalenderUseCase";
 import SignUpUseCase from "./SignUpUseCase";
+import UpdateUserUseCase from "./UpdateUserUseCase";
 
 export {
   AdjustmentCalenderUseCase,
   CheckCredentialUseCase,
   CompleteCalenderUseCase,
   DeleteCalenderUseCase,
+  DeleteUserUseCase,
   GetCalenderUseCase,
   GetCredentailUseCase,
   LoginUsecase,
@@ -22,4 +25,5 @@ export {
   SaveCredentialUseCase,
   SaveFiexdCalenderUseCase,
   SignUpUseCase,
+  UpdateUserUseCase
 };

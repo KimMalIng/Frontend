@@ -59,7 +59,9 @@ class AuthDataSource {
         },
       });
       if (res.status === 200) {
-        const data: UserEntity = await res.json();
+        const json = await res.json();
+        console.log(json);
+        const data: UserEntity = json;
         return data;
       }
       return Promise.reject(res.status);

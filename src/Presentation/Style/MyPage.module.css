@@ -19,6 +19,14 @@
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
+.Name {
+  font-family: 'Inter';
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 30px;
+  margin-top: 10px;
+}
+
 .UserData {
   display: flex;
   flex-direction: column;
@@ -56,7 +64,58 @@
 }
 
 .etcData > p {
-  font-size: 18px;
+  font-family: 'Inter';
+  font-size: 14px;
   font-weight: 400;
-  background-color: #f5f5f5;
+  cursor: pointer;
+  user-select: none;
+}
+
+.MyPageBtn {
+  width: 200px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #49A078;
+  color: #fff;
+  font-family: 'Inter';
+  font-weight: 900;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.DialogTitle {
+  font-weight: 600;
+  color: rgb(33, 31, 38);
+  font-size: 17px;
+  font-family: 'Inter';
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.Dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.DialogSubmitBtn {
+  width: 100%;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #49A078;
+  color: #fff;
+  font-family: 'Inter';
+  font-weight: 900;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 10px;
 }
