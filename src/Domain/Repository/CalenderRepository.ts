@@ -31,6 +31,7 @@ interface CalenderRepository {
   ): Promise<void>;
   deleteCalender(accessToken: string, id: number): Promise<void>;
   completeCalender(accessToken: string, id: number): Promise<void>;
+  fixCalender(accessToken: string, id: number): Promise<void>;
 }
 
 export default CalenderRepository;

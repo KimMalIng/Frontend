@@ -185,7 +185,7 @@ const MonthlyCalendar = ({
               <div
                 className={style.DialogTitle}
               >
-                등록 일정 확인하기
+                자동 일정 확인하기
                 <D.DialogClose>
                   <Cross1Icon 
                     onClick={handleCompleteClose}
@@ -232,7 +232,7 @@ const MonthlyCalendar = ({
                       className={ct.ContextMenuItem}
                       onClick={handleComplete}
                     >
-                      완료 일정 확인하기
+                      스케쥴링 확인하기
                       <div className={ct.RightSlot}>
                         <MinusIcon />
                       </div>

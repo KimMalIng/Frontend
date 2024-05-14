@@ -10,7 +10,7 @@ class UserDataSource {
           "Authorization": `Bearer ${accessToken}`
         }
       });
-      console.log(res);
+
       if(res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       console.log(error);
@@ -19,23 +19,19 @@ class UserDataSource {
   }
   static async update(accessToken: string, memberId: string, memberPw: string, name: string, nickname: string){
     try {
-      const formData = new FormData();
-      formData.append("memberId", memberId);
-      formData.append("memberPw", memberPw);
-      formData.append("name", name);
-      formData.append("nickname", nickname);
-
       const res = await fetch(`${SERVER_URL}/users/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${accessToken}`
         },
-        body:formData,
-        redirect: "follow"
+        body:JSON.stringify({
+          memberId,
+          memberPw,
+          name,
+          nickname
+        }),
       });
-      const json = await res.json();
-      console.log(json);
       if(res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       console.log(error);

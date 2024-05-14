@@ -1,6 +1,6 @@
-import { ChangeEventHandler, MouseEventHandler, useState } from "react";
+import { ChangeEventHandler, MouseEventHandler, useEffect, useState } from "react";
 import { ProfileNormalImage } from "@/Presentation/Resource";
-import { Dialog, Header, Spinner, Input, Alert } from "@/Presentation/Component";
+import { Dialog, Header, Spinner, Input, Alert, Toast } from "@/Presentation/Component";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { SaveCredentialUseCase, CheckCredentialUseCase, DeleteUserUseCase, UpdateUserUseCase } from '@/Domain/UseCase';
@@ -28,6 +28,7 @@ const MyPage = () => {
   const [isPasswordChange, setIsPasswordChange] = useState(false);
   const [isNicknameChange, setIsNickNameChange] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
+  const [isToast, setIsToast] = useState(false);
   const logout: MouseEventHandler<HTMLDivElement> = async () => {
     setIsSpinnerOpen(true);
     await saveCredentialUseCase.execute("accessToken", "");
@@ -65,7 +66,6 @@ const MyPage = () => {
   }
   const handleAlertSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
     try {
-      console.log(id);
       await deleteUserUseCase.execute(id);
     } catch (error) {
       console.log(error);
@@ -74,11 +74,20 @@ const MyPage = () => {
   }
   const handleNameUpdate: MouseEventHandler<HTMLDivElement> = async (e) => {
     try {
-      console.log(id);
-      console.log(pw);
-      console.log(name);
-      console.log(nn)
       await updateUserUseCase.execute(id, pw, name, nn);
+      router.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const handlePasswordUpdate: MouseEventHandler<HTMLDivElement> = async (e) => {
+    try {
+      if(password !== checkPassword) {
+        setIsToast(true);
+        return;
+      }
+      await updateUserUseCase.execute(id, password, name, nickName);
+      router.reload();
     } catch (error) {
       console.log(error);
     }
@@ -102,9 +111,22 @@ const MyPage = () => {
       router.push("/");
     }
   }
-  getInfo();
+  useEffect(() => {
+    getInfo();
+  }, []);
   return (
     <>
+      {(isToast)? (
+        <Toast 
+          iconType="fail"
+          title="실패"
+          text="비밀번호가 일치하지 않습니다"
+          isOpen={isToast}
+          setIsOpen={setIsToast}
+        />
+      ) : (
+        <></>
+      )}
       {(isAlert)? (
         <Alert 
           title="정말로 탈퇴하시겠습니까?"
@@ -182,6 +204,7 @@ const MyPage = () => {
               />
               <div 
                 className={style.DialogSubmitBtn}
+                onClick={handlePasswordUpdate}
               >
                 변경하기
                 </div>

@@ -3,6 +3,7 @@ import CheckCredentialUseCase from "./CheckCredentialUseCase";
 import CompleteCalenderUseCase from "./CompleteCalenderUseCase";
 import DeleteCalenderUseCase from "./DeleteCalenderUseCase";
 import DeleteUserUseCase from "./DeleteUserUseCase";
+import FixCalenderUseCase from "./FixCalenderUseCase";
 import GetCalenderUseCase from "./GetCalenderUseCase";
 import GetCredentailUseCase from "./GetCredentailUseCase";
 import LoginUsecase from "./LoginUseCase";
@@ -18,6 +19,7 @@ export {
   CompleteCalenderUseCase,
   DeleteCalenderUseCase,
   DeleteUserUseCase,
+  FixCalenderUseCase,
   GetCalenderUseCase,
   GetCredentailUseCase,
   LoginUsecase,
