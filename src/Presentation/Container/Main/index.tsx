@@ -77,10 +77,10 @@ const Main = () => {
     }
   }
 
-  const handleFixClick: MouseEventHandler<HTMLDivElement> = async (e) => {
+  const handleFixClick = async (i: number) => {
     try {
-      await fixCalenderUseCase.execute(id);
-      router.reload();
+      await fixCalenderUseCase.execute(i);
+      // router.reload();
     } catch (error) {
       
     }
@@ -290,8 +290,8 @@ const Main = () => {
                     </ContextMenu.Item>
                     <ContextMenu.Item
                       className={ct.ContextMenuItem}
-                      onClick={()=> {
-                        setId(d.id);
+                      onClick={(e)=> {
+                        handleFixClick(d.id);
                       }}
                     >
                       일정 고정하기

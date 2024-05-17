@@ -63,8 +63,6 @@ const Week = ({
       await translateList(new Date(nextDate.setDate(nextDate.getDate() + 1)), pl);
     }
     else{
-      console.log(d);
-      console.log(pl);
       setPrintList(pl);
       setIsSortFinish(true);
     }
@@ -133,8 +131,6 @@ const Week = ({
         })
       );
         const sortDateList = dateSaveList.sort((a, b) => {
-          console.log(a);
-          console.log(b);
           const aTime = (Number(a.startTime.split(":")[0]) * 60) + (Number(a.startTime.split(":")[1]));
           const bTime = (Number(b.startTime.split(":")[0]) * 60) + (Number(b.startTime.split(":")[1]));
           return aTime - bTime;
