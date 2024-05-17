@@ -5,11 +5,12 @@ import DeleteCalenderUseCase from "./DeleteCalenderUseCase";
 import DeleteUserUseCase from "./DeleteUserUseCase";
 import FixCalenderUseCase from "./FixCalenderUseCase";
 import GetCalenderUseCase from "./GetCalenderUseCase";
-import GetCredentailUseCase from "./GetCredentailUseCase";
+import GetTimeTableUseCase from "./GetTimeTableUseCase";
 import LoginUsecase from "./LoginUseCase";
 import SaveCalenderUseCase from "./SaveCalenderUseCase";
 import SaveCredentialUseCase from "./SaveCredentailUseCase";
 import SaveFiexdCalenderUseCase from "./SaveFixedCalenderUseCase";
+import SetTimeTableUseCase from './SetTimeTableUseCase'
 import SignUpUseCase from "./SignUpUseCase";
 import UpdateUserUseCase from "./UpdateUserUseCase";
 
@@ -21,11 +22,12 @@ export {
   DeleteUserUseCase,
   FixCalenderUseCase,
   GetCalenderUseCase,
-  GetCredentailUseCase,
+  GetTimeTableUseCase,
   LoginUsecase,
   SaveCalenderUseCase,
   SaveCredentialUseCase,
   SaveFiexdCalenderUseCase,
+  SetTimeTableUseCase,
   SignUpUseCase,
   UpdateUserUseCase
 };

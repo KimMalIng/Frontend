@@ -57,7 +57,7 @@ const Register = () => {
       setTimeout(() => {
         setIsLoading(false);
       }, 500)
-      router.push("/main");
+      router.push("/add");
     } catch (error) {
       if(error === 500){
         alert("서버 오류");

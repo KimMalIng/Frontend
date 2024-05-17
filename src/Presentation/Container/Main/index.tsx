@@ -80,7 +80,9 @@ const Main = () => {
   const handleFixClick = async (i: number) => {
     try {
       await fixCalenderUseCase.execute(i);
-      // router.reload();
+      setTimeout(() => {
+        router.reload();
+      }, 1000);
     } catch (error) {
       
     }

@@ -1,8 +1,24 @@
 import { CalenderEntity } from "@/Domain/Entity";
 import { CalenderRepository } from "@/Domain/Repository";
 import { CalenderDataSource } from "@/Data/DataSource";
+import { EveryTimeResponseType } from '@/Data/Model'
 
 class CalenderRepositoryImpl implements CalenderRepository {
+  async setEverytime(accessToken: string, data: EveryTimeResponseType): Promise<void> {
+    try {
+      await CalenderDataSource.setTimeTable(accessToken, data);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+  async getEverytime(id: string, password: string): Promise<EveryTimeResponseType> {
+    try {
+      const data = await CalenderDataSource.getET(id, password);
+      return data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
   async fixCalender(accessToken: string, id: number): Promise<void> {
     try {
       await CalenderDataSource.fixCalender(accessToken, id);

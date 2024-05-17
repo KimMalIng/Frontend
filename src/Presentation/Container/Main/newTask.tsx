@@ -148,8 +148,8 @@ const NewTask = ({ startDate, endDate, handleSaveNewTask }: NewTaskProps) => {
       setTimeout(() => {
         setIsSpinnerOpen(false);
         handleSaveNewTask();
-      }, 500)
-      // router.reload();
+        router.reload();
+      }, 1500)
     } catch (error) {
       console.log(error);
       if(!isRequestErrorToastOpen) setIsRequestErrorToastOpen(true);

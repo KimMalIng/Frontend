@@ -1,0 +1,85 @@
+.ET {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+}
+
+.ContentBox {
+  width: 500px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.TextBox {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ContentTitle {
+  font-family: 'Inter';
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.TextBox > p {
+  font-family: 'Inter';
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 300;
+  color: rgb(33, 31, 38);
+}
+
+.Input { 
+  width: calc(100%);
+  height: 37px;
+  padding-left: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: black;
+  font-weight: 400;
+  border: 1px solid rgba(31, 36, 33, 0.5);
+  outline: none;
+}
+
+.BtnBox {
+  width: 100%;
+  height: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.SubmitBtn {
+  flex: 1;
+  height: 40px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.Save { 
+  color: rgb(33, 131, 88);
+  background-color: rgb(196, 232, 209);
+}
+
+.Cancel {
+  background-color: rgb(234, 231, 236);
+  color: rgb(101, 99, 109);
+}
