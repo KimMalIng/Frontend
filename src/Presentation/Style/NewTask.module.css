@@ -19,7 +19,7 @@
 .SelectLabel {
   width: 60px;
   height: 28px;
-  border:1px solid rgba(31, 36, 33, 0.5);
+  border: 1px solid rgba(31, 36, 33, 0.5);
   color: rgba(31, 36, 33, 0.5);
   display: flex;
   align-items: center;
@@ -33,7 +33,7 @@
 
 .Select {
   background-color: #598E8E;
-  border:1px solid #598E8E;
+  border: 1px solid #598E8E;
   color: #fff;
 }
 
@@ -45,7 +45,7 @@
   font-size: 14px;
   color: black;
   font-weight: 400;
-  border:1px solid rgba(31, 36, 33, 0.5);
+  border: 1px solid rgba(31, 36, 33, 0.5);
   outline: none;
 }
 
@@ -55,6 +55,10 @@
   align-items: center;
   justify-content: flex-start;
   gap: 5px;
+}
+
+.NumberInputBox > form  {
+  
 }
 
 .NumberInputSlice {
@@ -79,7 +83,7 @@
   height: auto;
   display: flex;
   justify-content: space-between;
-  padding-top: 10px; 
+  padding-top: 10px;
 }
 
 .SwitchText {
@@ -94,7 +98,7 @@
   flex-direction: column;
   gap: 5px;
   padding-top: 5px;
-  padding-bottom: 5px; 
+  padding-bottom: 5px;
   margin-top: 10px;
 }
 
@@ -109,6 +113,13 @@
   color: rgb(33, 31, 38);
 }
 
+.NumberRow {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+}
+
 .SwitchRoot {
   width: 42px;
   height: 25px;
@@ -118,9 +129,11 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
 .SwitchRoot:focus {
   /* box-shadow: 0 0 0 2px black; */
 }
+
 .SwitchRoot[data-state='checked'] {
   background-color: rgb(33, 131, 88);
 }
@@ -136,6 +149,7 @@
   transform: translateX(2px);
   will-change: transform;
 }
+
 .SwitchThumb[data-state='checked'] {
   transform: translateX(19px);
 }
@@ -146,12 +160,12 @@
   line-height: 1;
 }
 
-.btnBox{
+.btnBox {
   height: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-} 
+}
 
 .btn {
   width: 100%;

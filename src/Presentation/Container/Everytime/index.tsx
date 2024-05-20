@@ -36,7 +36,7 @@ const Everytime = () => {
       console.log(data);
       await setTimeTableUseCase.execute(data);
       setTimeout(() => {
-        router.push('/main');
+        router.push('/basicTimeline');
       }, 1000);
     } catch (error) {
       console.log(error)
@@ -52,7 +52,7 @@ const Everytime = () => {
     setIsAlert(false);
   }
   const handleAlertSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
-    router.push("/main");
+    router.push("/basicTimeline");
   }
   return(
     <>

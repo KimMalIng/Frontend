@@ -7,5 +7,6 @@ import Splash from "./Splash";
 import Test from "./Test";
 import LoginCheck from "./LoginCheck";
 import GetUserData from "./GetUserData";
+import BasicTimeline from "./GetBasicTimeline";
 
-export { Everytime, Login, Main, Register, Splash, Test, LoginCheck, MyPage, GetUserData };
+export { Everytime, Login, Main, Register, Splash, Test, LoginCheck, MyPage, GetUserData, BasicTimeline };
