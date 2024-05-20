@@ -1,5 +1,23 @@
 import { CalenderEntity } from "@/Domain/Entity";
 
+type TimelineType = {
+  endTime: string;
+  startTime: string;
+  name: string;
+};
+
+type TranslateTimeLineType = {
+  day: number;
+  subject: TimelineType[];
+};
+
+type EveryTimeResponseType = {
+  semester: number | string;
+  timeline: TranslateTimeLineType[];
+  year: number;
+};
+
+
 interface CalenderRepository {
   getCalender(
     accessToken: string,
@@ -31,6 +49,9 @@ interface CalenderRepository {
   ): Promise<void>;
   deleteCalender(accessToken: string, id: number): Promise<void>;
   completeCalender(accessToken: string, id: number): Promise<void>;
+  fixCalender(accessToken: string, id: number): Promise<void>;
+  getEverytime(id: string, password: string): Promise<EveryTimeResponseType>;
+  setEverytime(accessToken: string, data: EveryTimeResponseType): Promise<void>;
 }
 
 export default CalenderRepository;

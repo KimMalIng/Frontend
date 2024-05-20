@@ -13,21 +13,17 @@ const Header = () => {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const moveToMain = () => {
-    router.push("./main");
-    console.log("push to main");
+    router.push("/main");
   };
 
   const moveToMyPage = () => {
-    router.push("./mypage");
-    console.log("push to myPage");
+    router.push("/mypage");
   };
   useEffect(() => {
     const getInfo = async () => {
-      console.log("hi")
       try {
         const info = await checkCredentialUseCase.execute();
-        console.log(info)
-        setName(info.name);
+        setName(info.nickname);
         setIsLoading(false);
       }
       catch (error) {

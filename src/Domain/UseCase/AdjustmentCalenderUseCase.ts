@@ -29,6 +29,9 @@ class AdjustmentCalenderUseCase {
       const eDay = (endDate.getDate() < 10)? (`0${endDate.getDate()}`) : (`${endDate.getDate()}`);
       const s = `${startDate.getFullYear()}.${sMonth}.${sDay}`;
       const e = `${endDate.getFullYear()}.${eMonth}.${eDay}`;
+      console.log("sibal")
+      console.log(s);
+      console.log(e);
       await this.calenderReposiotry.adjustmentCalender(accessToken, s, e);
     } catch (error) {
       return Promise.reject(error);

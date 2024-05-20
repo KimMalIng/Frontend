@@ -8,7 +8,7 @@ import {
 import {
   Alert, Header, Dialog, Toast
 } from "@/Presentation/Component";
-import { GetCalenderUseCase, DeleteCalenderUseCase, CompleteCalenderUseCase } from '@/Domain/UseCase';
+import { GetCalenderUseCase, DeleteCalenderUseCase, CompleteCalenderUseCase, FixCalenderUseCase } from '@/Domain/UseCase';
 import { CalenderRepositoryImpl, CredentialRepositoryImpl } from "@/Data/Repository";
 import { CalenderEntity } from "@/Domain/Entity";
 import { DateListType, DateType } from '@/Presentation/Type';
@@ -17,8 +17,9 @@ import Skeleton from 'react-loading-skeleton'
 import * as ContextMenu from '@radix-ui/react-context-menu';
 import * as Progress from '@radix-ui/react-progress';
 import cn from 'classnames';
-import { PlusIcon, MinusIcon, CheckIcon, ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
+import { PlusIcon, MinusIcon, CheckIcon, ChevronLeftIcon, ChevronRightIcon, DrawingPinFilledIcon } from '@radix-ui/react-icons';
 import Week from "./Week";
+import { useRouter } from "next/router";
 
 import style from "@/Presentation/Style/Main.module.css";
 import "react-calendar/dist/Calendar.css";
@@ -31,6 +32,9 @@ const Main = () => {
   const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const deleteCalenderUseCase = new DeleteCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
   const completeCalenderUseCase = new CompleteCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const fixCalenderUseCase = new FixCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
+  const router = useRouter();
+  
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
@@ -44,6 +48,8 @@ const Main = () => {
   const [isCompleteToastOpen, setIsCompleteToastOpen] = useState(false);
   const [isErrorCompleteToastOpen, setIsErrorCompleteToastOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isFixToastOpen, setIsFixToastOpen] = useState(false);
+  const [isFixErrorToastOpen, setIsFixErrorToastOpen] = useState(false);
 
   const handleAlert = (b: boolean) => {
     setIsAlertOpen(b);
@@ -71,8 +77,33 @@ const Main = () => {
     }
   }
 
-  const handleWeeklyLeftButton: MouseEventHandler<SVGAElement> = () => {
+  const handleFixClick = async (i: number) => {
+    try {
+      await fixCalenderUseCase.execute(i);
+      setTimeout(() => {
+        router.reload();
+      }, 1000);
+    } catch (error) {
+      
+    }
+  }
 
+  const handleWeeklyLeftButton: MouseEventHandler<SVGAElement> = () => {
+    const changeStartDate = new Date(weekStartDate);
+    const changeEndDate = new Date(weekEndDate);
+    changeStartDate.setDate(changeStartDate.getDate() - 7);
+    changeEndDate.setDate(changeEndDate.getDate() - 7);
+    setWeekStartDate(changeStartDate);
+    setWeekEndDate(changeEndDate);
+  }
+
+  const handleWeeklyRightButton: MouseEventHandler<SVGAElement> = () => {
+    const changeStartDate = new Date(weekStartDate);
+    const changeEndDate = new Date(weekEndDate);
+    changeStartDate.setDate(changeStartDate.getDate() + 7);
+    changeEndDate.setDate(changeEndDate.getDate() + 7);
+    setWeekStartDate(changeStartDate);
+    setWeekEndDate(changeEndDate);
   }
 
   const sortCalenderList = async (d: Date, calender: CalenderEntity | null | undefined): Promise<void> => {
@@ -218,7 +249,10 @@ const Main = () => {
                         <h2 className={style.WeeklyItemTitle}>
                           {d.name}
                           {(d.complete)? (
-                            <CheckIcon />
+                              <CheckIcon 
+                                width={26}
+                                height={26}
+                              />
                           ) : (
                             <></>
                           )}  
@@ -256,6 +290,17 @@ const Main = () => {
                         <MinusIcon />
                       </div>
                     </ContextMenu.Item>
+                    <ContextMenu.Item
+                      className={ct.ContextMenuItem}
+                      onClick={(e)=> {
+                        handleFixClick(d.id);
+                      }}
+                    >
+                      일정 고정하기
+                      <div className={ct.RightSlot}>
+                        <DrawingPinFilledIcon />
+                      </div>
+                    </ContextMenu.Item>
                   </ContextMenu.Content>
                 </ContextMenu.Portal>
                   </ContextMenu.Root>
@@ -282,6 +327,10 @@ const Main = () => {
 
   useEffect(() => {
     setIsDateListLoading(true);
+    const startWeek = new Date((new Date().setDate(startDate.getDate() - startDate.getDay())));
+    const endWeek = new Date((new Date().setDate(startDate.getDate() + 6 - startDate.getDay())));
+    setWeekStartDate(startWeek);
+    setWeekEndDate(endWeek);
     getList();
   }, [startDate, endDate]);
 
@@ -310,6 +359,20 @@ const Main = () => {
         text="일정 완료에 성공했습니다"
         isOpen={isCompleteToastOpen}
         setIsOpen={setIsCompleteToastOpen}
+      />
+      <Toast 
+        iconType="info"
+        title="성공"
+        text="일정 고정에 성공했습니다"
+        isOpen={isFixToastOpen}
+        setIsOpen={setIsFixToastOpen}
+      />
+      <Toast 
+        iconType="fail"
+        title="실패"
+        text="일정 고정에 실패했습니다"
+        isOpen={isFixErrorToastOpen}
+        setIsOpen={setIsFixErrorToastOpen}
       />
       <Toast 
         iconType="fail"
@@ -382,6 +445,7 @@ const Main = () => {
               <ChevronLeftIcon 
                 width={24}
                 height={24}
+                onClick={handleWeeklyLeftButton}
               />
 
               <div className={style.WeekExplainBox}>
@@ -402,6 +466,7 @@ const Main = () => {
               <ChevronRightIcon 
                 width={24}
                 height={24}
+                onClick={handleWeeklyRightButton}
               />
             </div>
             <div className={style.WeekContentBox}>

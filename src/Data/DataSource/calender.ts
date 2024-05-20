@@ -1,7 +1,31 @@
-import { SERVER_URL } from "@/Const";
-import { CalenderData } from "@/Data/Model";
+import { SERVER_URL, DATA_URL } from "@/Const";
+import { EveryTimeResponseType } from "@/Data/Model";
 import { CalenderEntity } from "@/Domain/Entity";
 class CalenderDataSource {
+  static async getET(
+    id: string,
+    password: string,
+  ): Promise<EveryTimeResponseType> {
+    try {
+      const urlencoded = new URLSearchParams();
+      urlencoded.append("id", id);
+      urlencoded.append("password", password);
+      const res = await fetch(`${DATA_URL}/everytime/auth`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: urlencoded
+      });
+      const d = await res.json();
+      const data: EveryTimeResponseType = d.data;
+      return data;
+    } catch (error) {
+      console.log(error);
+      return Promise.reject(500);
+    }
+  }
+
   static async getCalender(
     accessToken: string,
     startDate: string,
@@ -15,6 +39,7 @@ class CalenderDataSource {
           "Authorization": `Bearer ${accessToken}`
         }
       });
+
       if (res.status === 200) {
         const r = await res.json();
         const data: CalenderEntity = r;
@@ -106,6 +131,8 @@ class CalenderDataSource {
           endDate,
         }),
       });
+      const r = await res.json();
+      console.log(r);
       if (res.status !== 200) return Promise.reject(res.status);
     } catch (error) {
       console.log(error);
@@ -144,6 +171,42 @@ class CalenderDataSource {
       });
       console.log(res);
       if(res.status !== 200) return Promise.reject(res.status);
+    } catch (error) {
+      return Promise.reject(500);
+    }
+  }
+  static async fixCalender(
+    accessToken: string,
+    id:number
+  ): Promise<void> {
+    try {
+      const res = await fetch(`${SERVER_URL}/job/fix/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
+        }
+      });
+      console.log(res);
+      if(res.status !== 200) return Promise.reject(res.status);
+    } catch (error) {
+      return Promise.reject(500);
+    }
+  }
+  static async setTimeTable(
+    accessToken: string,
+    data: EveryTimeResponseType
+  ): Promise<void> {
+    try {
+      const res =  await fetch(`${SERVER_URL}/everytime/save`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
+        },
+        body: JSON.stringify([data])
+      });
+      console.log(res);
     } catch (error) {
       return Promise.reject(500);
     }

@@ -131,6 +131,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
   box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -256,4 +257,8 @@
   width: 14px;
   height: 14px;
   border-radius: 100%;
+}
+
+.WeeklyFinishIcon {
+
 }

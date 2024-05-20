@@ -25,10 +25,11 @@ const MonthlyCalendar = ({
   setEndDate
 }: MonthCalenderProps) => {
   const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [calenderValue, setCalenderValue] = useState<Value>(new Date());
   const [month, setMonth] = useState<Date>(new Date(`${new Date().getFullYear()}-${new Date().getMonth() + 1}-1`));
   const [data, setData] = useState<CalenderEntity>();
+  const [isCompleteDialogOpen, setIsCompleteDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const getList = async () => {
     const e = new Date(`${new Date().getFullYear()}-${new Date().getMonth() + 2}-1`);
@@ -43,7 +44,6 @@ const MonthlyCalendar = ({
 
   const handleAddSchedule: MouseEventHandler<HTMLDivElement> = (e) => {
     setIsDialogOpen(true);
-    console.log(calenderValue);
   }
   const handleAddScheduleClose: MouseEventHandler<SVGAElement> = (e) => {
     setIsDialogOpen(false);
@@ -51,6 +51,13 @@ const MonthlyCalendar = ({
   const handleSaveNewTask = (): void => {
     setIsDialogOpen(false);
   }
+  const handleComplete: MouseEventHandler<HTMLDivElement> = (e) => {
+    setIsCompleteDialogOpen(true);
+  }
+  const handleCompleteClose: MouseEventHandler<SVGElement> = (e) => {
+    setIsCompleteDialogOpen(false);
+  }
+
   const handleCalenderValue = (value: Value, e: MouseEvent<HTMLButtonElement>) => {
     if(value === null) return;
     console.log(value);
@@ -171,6 +178,24 @@ const MonthlyCalendar = ({
           }
         />
       ) : (<></>)}
+      {(isCompleteDialogOpen)? (
+        <Dialog 
+          dialogChildren={
+            <div>
+              <div
+                className={style.DialogTitle}
+              >
+                자동 일정 확인하기
+                <D.DialogClose>
+                  <Cross1Icon 
+                    onClick={handleCompleteClose}
+                  />
+                </D.DialogClose>
+              </div>
+            </div>
+          }
+        />
+      ) : (<></>)}
       <Calendar
         locale="en"
         allowPartialRange={true}
@@ -205,8 +230,9 @@ const MonthlyCalendar = ({
                     </ContextMenu.Item>
                     <ContextMenu.Item
                       className={ct.ContextMenuItem}
+                      onClick={handleComplete}
                     >
-                      일정 삭제하기
+                      스케쥴링 확인하기
                       <div className={ct.RightSlot}>
                         <MinusIcon />
                       </div>
