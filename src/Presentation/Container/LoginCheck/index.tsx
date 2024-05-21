@@ -16,12 +16,10 @@ const LoginCheck = () => {
       if (userData) {
         router.push("/main");
       } else {
-        router.push("./getuserdata");
+        router.push("/add");
       }
     } else {
-      //router.push('./');
-      //임시로 일단 토큰 있는 척 하겠습니다
-      router.push("./getuserdata");
+      router.push('/');
     }
   });
 

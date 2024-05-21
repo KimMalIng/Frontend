@@ -1,3 +1,4 @@
+import { SERVER_URL } from "@/Const";
 import { MouseEventHandler } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/Presentation/Component";
@@ -6,6 +7,7 @@ import { Logo, Kakao, Naver } from "@/Presentation/Resource";
 
 import style from "@/Presentation/Style/Splash.module.css";
 
+const URL = `${SERVER_URL}/oauth2/authorization/kakao?redirect_url=http://localhost:3000/logincheck`
 const Splash = () => {
   const router = useRouter();
 
@@ -46,10 +48,14 @@ const Splash = () => {
           />
           <div className={style.CustomBtnBox}>
             <div className={style.CustomBtn}>
-              <Image src={Kakao} alt={"카카오 이미지"} width={200} />
+              <a href={URL}>
+                <Image src={Kakao} alt={"카카오 이미지"} width={200} />
+              </a>
             </div>
             <div className={style.CustomBtn}>
+
               <Image src={Naver} alt={"네이버 이미지"} width={200} />
+
             </div>
           </div>
         </div>
