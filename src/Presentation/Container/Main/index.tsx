@@ -170,7 +170,7 @@ const Main = () => {
               endTime: c.endTime,
               fixed: true,
               complete: c.complete,
-              completion: c.completion,
+              completion: -1,
               estimatedTime: c.estimatedTime
             }
             dateSaveList.push(saveDate);

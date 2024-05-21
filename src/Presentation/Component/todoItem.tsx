@@ -61,7 +61,10 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
 
 
     const setLabel = (l: number): string => {
-        if (completion === -1) return "#B7E6B6";
+        if (l === 1) return "#AFD5F7";
+        if (l === 2) return "#FBB4C1";
+        if (l === 3 || l === 0) return "#B7E6B6";
+
         return '#FFF';
     }
 
