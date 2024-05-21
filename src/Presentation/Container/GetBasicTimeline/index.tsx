@@ -1,7 +1,7 @@
-import { SERVER_URL, DATA_URL } from "@/Const";
+import { SERVER_URL } from "@/Const";
 import { useRouter } from "next/router";
-import { ChangeEventHandler, MouseEventHandler, useState } from "react";
-import { Header, Toast, Alert, Spinner } from '@/Presentation/Component';
+import { useState } from "react";
+import { Header } from '@/Presentation/Component';
 import cn from 'classnames';
 import { LocalStorageDataSource } from "@/Data/DataSource";
 
@@ -98,7 +98,7 @@ const BasicTimeline = () => {
                 body: JSON.stringify(body),
             });
             if (res.ok) {
-                const data = res.json;  // JSON 파싱 시도
+                const data = res.json; 
                 console.log(data);
                 router.push("/main");
             } else {
@@ -159,26 +159,6 @@ const BasicTimeline = () => {
             </div>
         </div>
     );
-
-    // const handleSubmit: MouseEventHandler<HTMLDivElement> = async (e) => {
-    //     // if(id === "" || password === ""){
-    //     //   setIsFailToast(true);
-    //     //   return;
-    //     // }
-    //     // try {
-    //     //   setIsSpinner(true);
-    //     //   const data = await getTimeTableUseCase.execute(id, password);
-    //     //   console.log(data);
-    //     //   await setTimeTableUseCase.execute(data);
-    //     setTimeout(() => {
-    //         router.push('/main');
-    //     }, 1000);
-    //     // } catch (error) {
-    //     //   console.log(error)
-    //     //   setIsSpinner(false);
-    //     //   setIsFailToast(true);
-    //     // }
-    // }
 
     return (
         <>

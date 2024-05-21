@@ -85,6 +85,7 @@ const Week = ({
               endTime: c.endTime,
               fixed: true,
               complete: c.complete,
+              completion: -1,
               estimatedTime: c.estimatedTime
             }
          
@@ -103,6 +104,7 @@ const Week = ({
               endTime: c.endTime,
               fixed: c.fixed,
               complete: c.complete,
+              completion: c.completion,
               estimatedTime: c.estimatedTime
             }
             dateSaveList.push(saveDate);
@@ -124,6 +126,7 @@ const Week = ({
               endTime: c.endTime,
               fixed: true,
               complete: c.complete,
+              completion: 100,
               estimatedTime: c.estimatedTime
             }
             dateSaveList.push(saveDate);

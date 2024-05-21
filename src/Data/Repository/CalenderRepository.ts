@@ -33,9 +33,9 @@ class CalenderRepositoryImpl implements CalenderRepository {
       return Promise.reject();
     }
   }
-  async completeCalender(accessToken: string, id: number): Promise<void> {
+  async completeCalender(accessToken: string, id: number, completion : number): Promise<void> {
     try {
-      await CalenderDataSource.completCalender(accessToken, id);
+      await CalenderDataSource.completCalender(accessToken, id, completion);
   } catch (error) {
     return Promise.reject();
   }

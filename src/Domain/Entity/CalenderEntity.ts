@@ -9,6 +9,7 @@ type EveryTimeType = {
   estimatedTime: string;
   dayOfTheWeek: number;
   fixed: boolean;
+  completion: number;
   complete: boolean;
 }
 
@@ -37,6 +38,7 @@ type FixedJobType = {
   deadline: string | null;
   shouldClear: boolean;
   fixed: boolean;
+  completion: number;
   complete: boolean;
 }
 

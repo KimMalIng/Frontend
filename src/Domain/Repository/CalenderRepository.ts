@@ -48,7 +48,7 @@ interface CalenderRepository {
     endDate: string,
   ): Promise<void>;
   deleteCalender(accessToken: string, id: number): Promise<void>;
-  completeCalender(accessToken: string, id: number): Promise<void>;
+  completeCalender(accessToken: string, id: number, completion : number): Promise<void>;
   fixCalender(accessToken: string, id: number): Promise<void>;
   getEverytime(id: string, password: string): Promise<EveryTimeResponseType>;
   setEverytime(accessToken: string, data: EveryTimeResponseType): Promise<void>;

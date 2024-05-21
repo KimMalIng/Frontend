@@ -10,11 +10,11 @@ class CompleteCalenderUseCase {
   }
 
   
-  async execute(id: number | null | undefined): Promise<void>{
+  async execute(id: number | null | undefined, completion : number ): Promise<void>{
     if(typeof id !== "number") return Promise.reject(404);
     try {
       const accessToken = await this.credentialRepository.getLocalStorage("accessToken");
-      await this.calenderReposiotry.completeCalender(accessToken, id);
+      await this.calenderReposiotry.completeCalender(accessToken, id, completion);
     } catch (error) {
       return Promise.reject(error);
     }

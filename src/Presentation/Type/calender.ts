@@ -31,7 +31,8 @@ type DateType = {
   endTime: string;
   estimatedTime: string;
   fixed: boolean;
-  complete: boolean;  
+  complete: boolean;
+  completion: number;
 }
 
 type DateListType = {

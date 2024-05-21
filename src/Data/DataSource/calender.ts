@@ -72,7 +72,7 @@ class CalenderDataSource {
           "startDate": startDate,
           "endDate": endDate,
           "estimatedTime": estimatedTime
-
+      
         }),
       });
       if(res.status !== 200) return Promise.reject(res.status);
@@ -134,7 +134,7 @@ class CalenderDataSource {
       const r = await res.json();
       console.log(r);
       if (res.status !== 200) return Promise.reject(res.status);
-    } catch (error) {
+    } catch (error) { 
       console.log(error);
       return Promise.reject(500);
     }
@@ -160,9 +160,10 @@ class CalenderDataSource {
   static async completCalender(
     accessToken: string,
     id: number,
+    completion : number
   ): Promise<void>{
     try {
-      const res = await fetch(`${SERVER_URL}/job/complete/${id}`, {
+      const res = await fetch(`${SERVER_URL}/job/complete/${id}?completion=${completion}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -170,7 +171,8 @@ class CalenderDataSource {
         }
       });
       console.log(res);
-      if(res.status !== 200) return Promise.reject(res.status);
+      if(res.status !== 200) {
+        return Promise.reject(res.status);}
     } catch (error) {
       return Promise.reject(500);
     }

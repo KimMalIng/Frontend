@@ -43,10 +43,6 @@ const Todo = ({
 
   return (
     <div className={style.TodoBox}>
-      <label className={style.TimeTable}>
-        <p>{startTime}</p>
-        <p>{endTime}</p>
-      </label>
       <div className={style.TodoContainer}>
         <div
           className={style.ColorLabel}
