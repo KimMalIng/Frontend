@@ -28,7 +28,7 @@ const BasicTimeline = () => {
     const router = useRouter();
 
     const [schedule, setSchedule] = useState<Schedule>({
-        sleep: { startHour: "23", startMinute: "00", endHour: "07", endMinute: "00" },
+        sleep: { startHour: "23", startMinute: "00", endHour: "08", endMinute: "00" },
         breakfast: { startHour: '08', startMinute: '00', endHour: '09', endMinute: '00' },
         lunch: { startHour: '12', startMinute: '00', endHour: '13', endMinute: '00' },
         dinner: { startHour: '18', startMinute: '00', endHour: '19', endMinute: '00' },
