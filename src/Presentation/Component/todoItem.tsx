@@ -1,11 +1,11 @@
 // components/ToDoItem.tsx
 import { SERVER_URL } from "@/Const";
-import React, { useState, useCallback } from 'react';
-import { CheckIcon } from '@radix-ui/react-icons';
+import React, { useState, useCallback ,useMemo } from 'react';
+import { CheckIcon } from "@radix-ui/react-icons";
 import { LocalStorageDataSource } from "@/Data/DataSource";
 
 interface ToDoItemProps {
-    id: any; //안되면 이거탓임
+    id: number | undefined; //안되면 이거탓임
     name: string;
     recordProgress: boolean;
     completion: number;
@@ -18,6 +18,8 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
     const [isDragging, setIsDragging] = useState<boolean>(false);
 
     const handleCompleteClick = async () => {
+        const callAPI = confirm(id + "의 완료도를 반영하시겠습니까?");
+        if (!callAPI) return;
         const accessToken = await LocalStorageDataSource.getLocalStorage("accessToken");
         console.log(accessToken);
         try {
@@ -35,6 +37,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
         } catch (error) {
             return Promise.reject(500);
         }
+        window.location.reload();
     }
 
     const handleMouseDown = () => {
@@ -46,6 +49,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
     const handleMouseUp = () => {
         if (recordProgress) {
             setIsDragging(false);
+            if(completion !== progress){ handleCompleteClick();}
         }
     };
 
@@ -64,7 +68,6 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
         if (l === 1) return "#AFD5F7";
         if (l === 2) return "#FBB4C1";
         if (l === 3 || l === 0) return "#B7E6B6";
-
         return '#FFF';
     }
 
@@ -89,7 +92,6 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
-                onClick={handleCompleteClick}
                 style={{
                     backgroundColor: "#FFF",
                     position: 'relative',
@@ -118,9 +120,12 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
                         zIndex: 0,
                     }} />
                 )}
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                    <h3>{name}</h3>
-                    {(progress !== -1) && recordProgress && <p>Progress: {progress}%</p>}
+                <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between'}}>
+                    <div>
+                        <h3>{name}</h3>
+                        {(progress !== -1) && recordProgress && <p>Progress: {progress}%</p>}
+                    </div>
+                    {(isComplete && progress === 100 )  && <CheckIcon height="26px" width="26px"></CheckIcon>}
                 </div>
             </div> : <div style={{
                 backgroundColor: `${setLabel(label)}`,
@@ -141,16 +146,8 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
                     {(progress !== -1) && recordProgress && <p>Progress: {progress}%</p>}
                 </div>
             </div>}
-            {(isComplete) ? (
-                <CheckIcon
-                    width={26}
-                    height={26}
-                />
-            ) : (
-                <></>
-            )}
         </>
     );
 };
 
-export default ToDoItem;
+export default React.memo(ToDoItem);

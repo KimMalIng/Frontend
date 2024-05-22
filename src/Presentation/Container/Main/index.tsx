@@ -207,7 +207,6 @@ const Main = () => {
       console.log(error);
     }
   }
-  
   const printCalender = (d: Date): ReactNode => {
     if (isDateListLoading) return <></>
     const end = (endDate === null) ? startDate : endDate;
@@ -234,6 +233,7 @@ const Main = () => {
           <div className={style.WeeklyListItemBox}>
             {
               dateList[dateKey].map((d, i) => {
+                console.log(d.id, d.fixed, d.completion, d.complete);
                 return (
                   <div className={cn(style.WeeklyListItem,)} key={i} >
                     <p className={style.WeeklyStartTime}>{d.startTime}</p>
