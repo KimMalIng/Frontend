@@ -229,6 +229,7 @@ const Main = () => {
           <div className={style.WeeklyListItemBox}>
             {
               dateList[dateKey].map((d, i) => {
+                console.log("index, 고정여부, 완료도, 완료여부");
                 console.log(d.id, d.fixed, d.completion, d.complete);
                 return (
                   <div className={cn(style.WeeklyListItem,)} key={i} >

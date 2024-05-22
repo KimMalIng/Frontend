@@ -125,7 +125,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
                         <h3>{name}</h3>
                         {(progress !== -1) && recordProgress && <p>Progress: {progress}%</p>}
                     </div>
-                    {(isComplete && progress === 100 )  && <CheckIcon height="26px" width="26px"></CheckIcon>}
+                    {(isComplete || progress === 100 )  && <CheckIcon height="26px" width="26px"></CheckIcon>}
                 </div>
             </div> : <div style={{
                 backgroundColor: `${setLabel(label)}`,
@@ -141,10 +141,11 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
                 borderRadius: '5px',
                 userSelect: 'none'
             }}>
-                <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between'}}>
                     <h3>{name}</h3>
                     {(progress !== -1) && recordProgress && <p>Progress: {progress}%</p>}
                 </div>
+                {(isComplete || progress === 100 )  && <CheckIcon height="26px" width="26px"></CheckIcon>}
             </div>}
         </>
     );
