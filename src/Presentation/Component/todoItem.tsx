@@ -18,7 +18,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
     const [isDragging, setIsDragging] = useState<boolean>(false);
 
     const handleCompleteClick = async () => {
-        const callAPI = confirm(id + "의 완료도를 반영하시겠습니까?");
+        const callAPI = confirm(`'${name}'의 완료도를 반영하시겠습니까? (${id})`);
         if (!callAPI) return;
         const accessToken = await LocalStorageDataSource.getLocalStorage("accessToken");
         console.log(accessToken);
