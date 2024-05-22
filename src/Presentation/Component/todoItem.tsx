@@ -1,6 +1,6 @@
 // components/ToDoItem.tsx
 import { SERVER_URL } from "@/Const";
-import React, { useState, useCallback ,useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import { CheckIcon } from "@radix-ui/react-icons";
 import { LocalStorageDataSource } from "@/Data/DataSource";
 
@@ -150,4 +150,4 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ id, name, recordProgress, completio
     );
 };
 
-export default React.memo(ToDoItem);
+export default ToDoItem;

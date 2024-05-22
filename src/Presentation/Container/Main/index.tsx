@@ -1,13 +1,11 @@
 import {
   useState,
-  useRef,
   useEffect,
   MouseEventHandler,
-  ReactNode,
-  useCallback
+  ReactNode
 } from "react";
 import {
-  Alert, Header, Dialog, Toast, ToDoItem
+  Alert, Header, Toast, ToDoItem
 } from "@/Presentation/Component";
 import { GetCalenderUseCase, DeleteCalenderUseCase, CompleteCalenderUseCase, FixCalenderUseCase } from '@/Domain/UseCase';
 import { CalenderRepositoryImpl, CredentialRepositoryImpl } from "@/Data/Repository";
@@ -16,9 +14,8 @@ import { DateListType, DateType } from '@/Presentation/Type';
 import MontlyCalendar from './customCalendar';
 import Skeleton from 'react-loading-skeleton'
 import * as ContextMenu from '@radix-ui/react-context-menu';
-import * as Progress from '@radix-ui/react-progress';
 import cn from 'classnames';
-import { PlusIcon, MinusIcon, CheckIcon, ChevronLeftIcon, ChevronRightIcon, DrawingPinFilledIcon } from '@radix-ui/react-icons';
+import { PlusIcon, MinusIcon, ChevronLeftIcon, ChevronRightIcon, DrawingPinFilledIcon } from '@radix-ui/react-icons';
 import Week from "./Week";
 import { useRouter } from "next/router";
 
@@ -27,7 +24,6 @@ import "react-calendar/dist/Calendar.css";
 import 'react-loading-skeleton/dist/skeleton.css';
 import '@fontsource/inter';
 import ct from '@/Presentation/Style/ContextMenu.module.css';
-import pg from '@/Presentation/Style/Progress.module.css';
 
 const Main = () => {
   const getCalenderUseCase = new GetCalenderUseCase(new CalenderRepositoryImpl(), new CredentialRepositoryImpl());
